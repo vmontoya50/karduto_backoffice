@@ -1,0 +1,207 @@
+<h2 mat-dialog-title>{{dialogTitulo}} Nº {{ dialogData?.id }}</h2>
+<mat-dialog-content class="px-2 border-vertical">
+
+    <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+        <mat-form-field appearance="outline" class="w-10-p mat-caption m-2">
+            <mat-label>Codigo</mat-label>
+            <input matInput [value]="dialogData?.codigo" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-15-p mat-caption m-2">
+            <mat-label>Rut</mat-label>
+            <input matInput [value]="dialogData?.rut" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-30-p mat-caption m-2">
+            <mat-label>Nombre</mat-label>
+            <input matInput [value]="dialogData?.nombres" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Apellido paterno</mat-label>
+            <input matInput [value]="dialogData?.apellido_paterno" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Apellido materno</mat-label>
+            <input matInput [value]="dialogData?.apellido_materno" [disabled]="true">
+        </mat-form-field>
+
+    </div>
+    <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Pasaporte</mat-label>
+            <input matInput [value]="dialogData?.pasaporte" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Nacionalidad</mat-label>
+            <input matInput [value]="dialogData?.nacionalidad" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-35-p mat-caption m-2">
+            <mat-label>Email</mat-label>
+            <input matInput [value]="dialogData?.email" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Celular</mat-label>
+            <input matInput [value]="dialogData?.celular" [disabled]="true">
+        </mat-form-field>
+
+    </div>
+    <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+        <mat-form-field appearance="outline" class="w-25-p mat-caption m-2">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [value]="dialogData?.fecha_nacimiento" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Estado civil</mat-label>
+            <input matInput [value]="dialogData?.estado_civil" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Banco</mat-label>
+            <input matInput [value]="dialogData?.banco" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-30-p mat-caption m-2">
+            <mat-label>Nº cuenta bancaria</mat-label>
+            <input matInput [value]="dialogData?.n_cuenta" [disabled]="true">
+        </mat-form-field>
+
+    </div>
+    <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Region</mat-label>
+            <input matInput [value]="dialogData?.region" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-15-p mat-caption m-2">
+            <mat-label>Ciudad</mat-label>
+            <input matInput [value]="dialogData?.ciudad" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Comuna</mat-label>
+            <input matInput [value]="dialogData?.comuna" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Calle o avenida</mat-label>
+            <input matInput [value]="dialogData?.calle" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Numero</mat-label>
+            <input matInput [value]="dialogData?.numero_direccion" [disabled]="true">
+        </mat-form-field>
+
+    </div>
+    <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+        <mat-form-field appearance="outline" class="w-30-p mat-caption m-2">
+            <mat-label>Afp</mat-label>
+            <input matInput [value]="dialogData?.afp" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-25-p mat-caption m-2">
+            <mat-label>Salud</mat-label>
+            <input matInput [value]="dialogData?.salud" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Numero de contacto</mat-label>
+            <input matInput [value]="dialogData?.contacto" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>Teléfono de contacto</mat-label>
+            <input matInput [value]="dialogData?.telefono" [disabled]="true">
+        </mat-form-field>
+
+    </div>
+    <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+        <mat-form-field appearance="outline" class="w-25-p mat-caption m-2">
+            <mat-label>T. polera</mat-label>
+            <input matInput [value]="dialogData?.talla_polera" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+            <mat-label>T. pantalon</mat-label>
+            <input matInput [value]="dialogData?.talla_pantalon" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-25-p mat-caption m-2">
+            <mat-label>T. zapato</mat-label>
+            <input matInput [value]="dialogData?.talla_zapato" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-25-p mat-caption m-2">
+            <mat-label>T. polar</mat-label>
+            <input matInput [value]="dialogData?.talla_polar" [disabled]="true">
+        </mat-form-field>
+
+    </div>
+    <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+        <mat-form-field appearance="outline" class="w-35-p mat-caption m-2">
+            <mat-label>Disponibilidad</mat-label>
+            <input matInput [value]="dialogData?.disponibilidad_turno" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-30-p mat-caption m-2">
+            <mat-label>Turno</mat-label>
+            <input matInput [value]="dialogData?.disponibilidad" [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-30-p mat-caption m-2">
+            <mat-label>Whatsapp</mat-label>
+            <input matInput [value]="dialogData?.whatsapp" [disabled]="true">
+        </mat-form-field>
+
+    </div>
+
+    <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+        <mat-form-field appearance="outline" class="w-95-p mat-caption m-2">
+            <mat-label>Experiencia</mat-label>
+            <input matInput [value]="dialogData?.experiencia" [disabled]="true">
+        </mat-form-field>
+
+    </div>
+
+    <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+        <mat-form-field appearance="outline" class="w-95-p mat-caption m-2">
+            <mat-label>Observaciones</mat-label>
+            <input matInput [value]="dialogData?.observaciones" [disabled]="true">
+        </mat-form-field>
+
+    </div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center" style="margin-top: 2px;">
+    <button mat-button postulante-edit-dialog (click)="matDialogRef.close()" [data]="{data: dialogData, titulo: dialogTitulo}">
+        <mat-icon>edit</mat-icon>
+        Editar
+    </button>
+    <button mat-button *ngIf=" dialogTitulo == 'Postulante' " (click)="_setCopy()">
+        <mat-icon http-event-show>assignment_turned_in</mat-icon>
+        Aprobar
+    </button>
+
+    <button mat-button (click)="_generateFicha()" [disabled]="api.cargando">
+        <mat-icon http-event-show>save</mat-icon>
+        Generar ficha
+    </button>
+
+    <button mat-button (click)="goToLink(dialogData)" *ngIf="dialogData?.ficha">
+        <mat-icon http-event-show>print</mat-icon>
+    </button>
+</div>

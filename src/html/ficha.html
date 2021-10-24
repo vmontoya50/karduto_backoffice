@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Ficha de postulante</title>
+</head>
+<style>
+    body {
+        width: 100%;
+        color: #1e2129 !important;
+        font-size: 12px;
+    }
+    .w-100-p {
+        max-width: 100%;
+    }
+    .w-30-p {
+        max-width: 30%;
+    }
+    .w-40 {
+        width: 40%;
+    }
+    .w-48 {
+        width: 48%;
+    }
+    .w-50 {
+        width: 50%;
+    }
+    .w-55 {
+        width: 55%;
+    }
+    .w-100 {
+        width: 100%;
+    }
+    .w-30 {
+        width: 30%;
+    }
+    .w-33 {
+        width: 33%;
+    }
+    .container-static {
+        font-size: 11px;
+    }
+    .content {
+        padding: 8px;
+    }
+    .logo {
+    }
+    .text-center {
+        text-align: center;
+    }
+    .text-right {
+        text-align: right;
+    }
+    .bold {
+        font-weight: bold;
+    }
+    .border {
+        border: 1px solid;
+    }
+    .border-bottom {
+        border-bottom: 1px solid;
+    }
+    .border-primary {
+        border-color: #9ea1a9;
+    }
+    .border-warning {
+        border-color: orange;
+    }
+    .float-left {
+        float: left;
+    }
+    .clearfix {
+        overflow: hidden;
+    }
+    .m-1 {
+        margin: 1px;
+    }
+    .m-2 {
+        margin: 2px;
+    }
+    .m-4 {
+        margin: 4px;
+    }
+    .m-6 {
+        margin: 6px;
+    }
+    .m-8 {
+        margin: 8px;
+    }
+    .mt-1 {
+        margin-top: 1px;
+    }
+    .mt-2 {
+        margin-top: 2px;
+    }
+    .mt-4 {
+        margin-top: 4px;
+    }
+    .mt-6 {
+        margin-top: 6px;
+    }
+    .mt-8 {
+        margin-top: 8px;
+    }
+    .mb-1 {
+        margin-bottom: 1px;
+    }
+    .mb-2 {
+        margin-bottom: 2px;
+    }
+    .mb-4 {
+        margin-bottom: 4px;
+    }
+    .mb-6 {
+        margin-bottom: 6px;
+    }
+    .mb-8 {
+        margin-bottom: 8px;
+    }
+    .p-1 {
+        padding: 1px;
+    }
+    .p-2 {
+        padding: 2px;
+    }
+    .p-4 {
+        padding: 4px;
+    }
+    .p-6 {
+        padding: 6px;
+    }
+    .p-8 {
+        padding: 8px;
+    }
+    .lineBox {
+        broder: 1px red solid;
+    }
+</style>
+<body>
+<div class="container-static">
+    <div class="header w-100 mb-8 p-2">
+        <div class="cabecera">
+            <table width="100%" style="font-size: 12px; margin-bottom: 24px;">
+                <tr>
+                    <td width="32%" align="left">
+                        <p>REGISTRO Nº</p>
+                        <p><b> {id} </b></p>
+                        <p>FECHA DE EMISIÓN</p>
+                        <p>{dia}/{mes}/{year}</p>
+                    </td>
+                    <td width="32%" align="center">
+                        <img
+                                src="https://admin.gruponewen.cl/assets/images/logos/logo.png"
+                                alt=""
+                                style="width: 120px;"
+                        />
+                    </td>
+                    <td width="32%" align="right">
+                        <p>REVISIÓN: 01</p>
+                        <p>01/11/2020</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="titulo w-100 text-center blod bold">
+            FICHA DE POSTULANTES
+        </div>
+    </div>
+    <div class="content w-100 p-2 mb-8">
+        <div class="w-100 mt-6 mb-6 clearfix">
+            <div class="titleBox w-100 border-bottom border-primary p-4">
+                DATOS PERSONALES
+            </div>
+            <table width="100%">
+                <tr>
+                    <td width="44%">
+                        NOMBRES
+                    </td>
+                    <td width="44%">
+                        {nombres}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        APELLIDO PATERNO
+                    </td>
+                    <td width="44%">
+                        {apellido_paterno}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        APELLIDOS MATERNO
+                    </td>
+                    <td width="44%">
+                        {apellido_materno}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        RUT
+                    </td>
+                    <td width="44%">
+                        {rut}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        NACIONALIDAD
+                    </td>
+                    <td width="44%">
+                        {nacionalidad}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        CELULAR
+                    </td>
+                    <td width="44%">
+                        {celular}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        FECHA DE NACIMIENTO
+                    </td>
+                    <td width="44%">
+                        {fecha_nacimiento}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        ESTADO CIVIL
+                    </td>
+                    <td width="44%">
+                        {estado_civil}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        Nº DE CUENTA
+                    </td>
+                    <td width="44%">
+                        {n_cuenta}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        BANCO
+                    </td>
+                    <td width="44%">
+                        {banco}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="w-100 mt-6 mb-6 clearfix">
+            <div class="titleBox w-100 border-bottom border-primary p-4 pt-6">
+                DIRECCIÓN
+            </div>
+
+            <table width="100%">
+                <tr>
+                    <td width="44%">
+                        CALLE O AVENIDA
+                    </td>
+                    <td width="44%">
+                        {calle}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        NUMERO
+                    </td>
+                    <td width="44%">
+                        {numero_direccion}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        COMUNA
+                    </td>
+                    <td width="44%">
+                        {comuna}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        CIUDAD
+                    </td>
+                    <td width="44%">
+                        {ciudad}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        REGIÓN
+                    </td>
+                    <td width="44%">
+                        {region}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="w-100 mt-6 mb-6">
+            <div class="titleBox w-100 border-bottom border-primary p-4">
+                ANTECEDENTES LABORALES
+            </div>
+            <table width="100%">
+                <tr>
+                    <td width="44%">
+                        AFP
+                    </td>
+                    <td width="44%">
+                        {afp}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        SALUD
+                    </td>
+                    <td width="44%">
+                        {salud}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        OBSERVACIONES
+                    </td>
+                    <td width="44%">
+                        {observaciones}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        EXPERIENCIA
+                    </td>
+                    <td width="44%">
+                        {experiencia}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        EMAIL
+                    </td>
+                    <td width="44%">
+                        {email}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="w-100 mt-6 mb-6 clearfix">
+            <div class="titleBox w-100 border-bottom border-primary p-4">
+                IMPLEMENTOS Y EQUIPOS
+            </div>
+            <table width="100%">
+                <tr>
+                    <td width="44%">
+                        POLERA
+                    </td>
+                    <td width="44%">
+                        {talla_polera}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        PANTALON
+                    </td>
+                    <td width="44%">
+                        {talla_pantalon}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        ZAPATOS
+                    </td>
+                    <td width="44%">
+                        {talla_zapato}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="44%">
+                        POLAR
+                    </td>
+                    <td width="44%">
+                        {talla_polar}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="footer w-100" style="margin-top: 20px; text-align: center;">
+        <div class="w-100 mt-8 mb-8" style="text-transform: uppercase;">
+            FECHA DE POSTULACIÓN {fecha_postulacion_des}
+        </div>
+        <div class="w-100" style="margin-top: 40px; text-align: center;">
+            <p>___________________________________________</p>
+            <p>{nombres} {apellido_paterno} {apellido_materno}</p>
+            <p>{identidad}</p>
+            <p>{celular}</p>
+            <p>{email}</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

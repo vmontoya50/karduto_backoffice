@@ -1,0 +1,32 @@
+<p>Filtro</p>
+<div mat-dialog-content class="p-24 pb-0 m-0"  fxLayout="row" fxLayoutAlign="start center">
+
+<form [formGroup]="dialogForm" fxFlex="100" fxFlexLayout="column">
+
+    <div fxLayout="row" fxLayoutAlign="start start" class="w-90-p">
+        <mat-form-field appearance="outline" class="w-100-p mat-caption m-2">
+            <mat-label>Filtro</mat-label>
+            <mat-select class="w-100-p" name="filtro" formControlName="filtro">
+                <mat-option *ngFor="let food of filter" [value]="food.value">
+                    {{ food.viewValue }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start"  class="w-90-p">
+        <mat-form-field appearance="outline" class="w-100-p mat-caption m-2">
+            <mat-label>Buscar</mat-label>
+            <input matInput name="buscar" formControlName="buscar">
+        </mat-form-field>
+    </div>
+
+</form>
+
+</div>
+<div fxLayout="row" fxLayoutAlign="end center" style="margin-top: 2px;">
+    <button mat-button (click)="_setDialog()">
+        <mat-icon http-event-show>search</mat-icon>
+        Buscar
+    </button>
+</div>

@@ -1,0 +1,44 @@
+.relative {
+    position: relative;
+}
+
+.f7{
+    font-size: .75rem;
+}
+
+.pa2 {
+    padding: .75rem;
+}
+
+.w-50 {
+    width: 50%
+}
+.flex {
+    display: flex;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+mat-form-field {
+    box-sizing: border-box;
+}
+
+
+.botton-button-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #bababa;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.hint-firma{
+    padding: 5px;
+    font-size: 10px;
+    color: #8a2be2;
+    position: absolute;
+    bottom: -4px;
+    right: 5px;
+    z-index: 10;
+}

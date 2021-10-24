@@ -1,0 +1,95 @@
+<div id="contacts" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
+         fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16"
+                          [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">description
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Contrato
+                </span>
+            </div>
+
+        </div>
+        <!-- / APP TITLE -->
+        <div class="p-4 text-white btn cursor-pointer" contrato-turno-dialog fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="m-0 secondary-text">library_add</mat-icon>
+            <div class="mat-caption pl-2">Agregar turno</div>
+        </div>
+
+        <div class="p-4 text-white btn cursor-pointer" contrato-turno-list-dialog [width]="650" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="m-0 secondary-text">alarm_on</mat-icon>
+            <div class="mat-caption pl-2">Turnos</div>
+        </div>
+
+        <div class="p-4 text-white btn cursor-pointer" contrato-grupo [width]="800" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="m-0 secondary-text">folder_open</mat-icon>
+            <div class="mat-caption pl-2">Archivos</div>
+        </div>
+
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content w-100-p">
+
+        <!-- CENTER -->
+        <div class="center w-100-p p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="content" *ngIf="dataEmpleado" >
+                <mat-toolbar >
+                    <mat-toolbar-row class="bg-white" >
+                        <mat-icon contrato-new-dialog [data]="{CLA: 'conttrato', filter: displayFilter}" (afterClosed)="_setSearch($event)" [width]="400">note_add</mat-icon>
+                        <mat-icon filter-dialog [data]="{CLA: 'conttrato', filter: displayFilter}" (afterClosed)="_setSearch($event)" [width]="450">search</mat-icon>
+                        <mat-icon (click)="dataTable()">autorenew</mat-icon>
+                        <span class="example-spacer"></span>
+                        <mat-paginator
+                                [length]="dataSource?.total"
+                                [pageSize]="dataSource?.per_page" [pageIndex]="0" (page)="next($event)">
+                        </mat-paginator>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+
+                    <table mat-table [dataSource]="dataEmpleado" class="content w-100-p mat-elevation-z8">
+
+
+                        <!--- Note that these columns can be defined in any order.
+                              The actual rendered columns are set as a property on the row definition" -->
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef> No. </th>
+                            <td mat-cell class=""  *matCellDef="let element"> {{element?.id}} </td>
+                        </ng-container>
+
+                        <!-- Nombre Column -->
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                            <td mat-cell class="" *matCellDef="let element"> {{element?.name}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row (click)="go(row)"  *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT-->
+
+</div>
+

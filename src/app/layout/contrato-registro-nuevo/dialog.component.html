@@ -1,0 +1,139 @@
+<h2 mat-dialog-title>Nuevo contrato</h2>
+<mat-dialog-content class="px-2 border-vertical">
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <form [formGroup]="dialogForm">
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <input type="text"
+                   placeholder="Empleado"
+                   aria-label="Number"
+                   matInput
+                   formControlName="empleado_id"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of options" [value]="option.id" (click)="copyText(option.id)" (onSelectionChange)="this.dataTurno(option)"
+                            [disabled]="option.afp === '0'" [ngClass]="option.afp === '0' ? 'bg-warning' : 'bg-success'">
+                    {{option.nombres}} {{ option.rut !== '0' ? option.rut : option.pasaporte}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="dataContrato" appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
+            <mat-label>Contrato</mat-label>
+            <mat-select name="id" formControlName="id">
+                <mat-option *ngFor="let food of dataContrato" [value]="food.id">
+                    {{ food.nombre }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="dataTurnos" appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
+            <mat-label>Turnos</mat-label>
+            <mat-select name="turno" formControlName="turno">
+                <mat-option *ngFor="let food of api.displayTurnoW" [value]="food.viewValue">
+                    {{ food.value }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="dataTurnos" appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
+             <mat-label>Cargo</mat-label>
+             <mat-select name="cargo" formControlName="cargo">
+                 <mat-option *ngFor="let food of dataTurnos" [value]="food.cargo">
+                        {{ food.cargo }}
+                 </mat-option>
+              </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
+            <input type="text"
+                   placeholder="Cliente"
+                   aria-label="Number"
+                   matInput
+                   formControlName="cliente"
+                   [matAutocomplete]="autoCliente" onchange="insertClienteId(option.codigo)">
+            <mat-autocomplete #autoCliente="matAutocomplete">
+                <mat-option *ngFor="let option of clientes" [value]="option.descripcion">
+                    {{option.codigo}} {{option.descripcion}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <mat-label>Fecha de inicio</mat-label>
+            <input matInput [matDatepicker]="dp" name="fecha_inicio" formControlName="fecha_inicio"  required>
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <mat-label>Fecha de finalizacion</mat-label>
+            <input matInput [matDatepicker]="dpp" name="fecha_fin" formControlName="fecha_fin"  required>
+            <mat-datepicker-toggle matSuffix [for]="dpp"></mat-datepicker-toggle>
+            <mat-datepicker #dpp></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-80-p mat-caption m-2">
+            <mat-label>Jornada en horas: </mat-label>
+            <input *ngIf="!jlock" matInput class="mat-caption"  [disabled]="true" value="7.5">
+            <input *ngIf="jlock" matInput class="mat-caption"  [disabled]="true" name="jornada" formControlName="jornada" value="7.5">
+        </mat-form-field>
+        <mat-icon (click)="jlock=true" class="cursor-pointer">lock_open</mat-icon>
+
+        <mat-form-field appearance="outline" class="w-80-p mat-caption m-2">
+            <mat-label>Jornada en horas por semana: </mat-label>
+            <input *ngIf="!jlocks" matInput class="mat-caption"  [disabled]="true" value="45">
+            <input *ngIf="jlocks" matInput class="mat-caption"  [disabled]="true" name="jornada_semana" formControlName="jornada_semana" value="45">
+        </mat-form-field>
+        <mat-icon (click)="jlocks=true" class="cursor-pointer">lock_open</mat-icon>
+
+        <section appearance="outline" class="w-90-p mat-caption m-2">
+            <span class="w-90-p">
+                <mat-checkbox matInput name="faja_lumbar" formControlName="faja_lumbar">Faja soporte lumbar</mat-checkbox>
+            </span>
+        </section>
+        <section appearance="outline" class="w-90-p mat-caption m-2">
+            <span class="w-90-p">
+                <mat-checkbox matInput name="guantes" formControlName="guantes">Guantes</mat-checkbox>
+            </span>
+        </section>
+        <section appearance="outline" class="w-90-p mat-caption m-2">
+            <span class="w-90-p">
+                <mat-checkbox matInput name="gafas" formControlName="gafas">Gafas de seguridad</mat-checkbox>
+            </span>
+        </section>
+        <section appearance="outline" class="w-90-p mat-caption m-2">
+            <span class="w-90-p">
+                <mat-checkbox matInput name="gorro_explorador" formControlName="gorro_explorador">Gorro explorador</mat-checkbox>
+            </span>
+        </section>
+        <section appearance="outline" class="w-90-p mat-caption m-2">
+            <span class="w-90-p">
+                <mat-checkbox matInput name="chaleco_reflectante" formControlName="chaleco_reflectante">Chaleco reflectante</mat-checkbox>
+            </span>
+        </section>
+        <section appearance="outline" class="w-90-p mat-caption m-2">
+            <span class="w-90-p">
+                <mat-checkbox matInput name="cuerda_carros" formControlName="cuerda_carros">Cuerda tirar carros</mat-checkbox>
+            </span>
+        </section>
+        <section appearance="outline" class="w-90-p mat-caption m-2">
+            <span class="w-90-p">
+                <mat-checkbox matInput name="bloqueador_solar" formControlName="bloqueador_solar">Bloqueador solar</mat-checkbox>
+            </span>
+        </section>
+        <section appearance="outline" class="w-90-p mat-caption m-2">
+            <span class="w-90-p"><mat-checkbox matInput name="primera_vez" [disabled]="plock" formControlName="primera_vez">Primer contrato</mat-checkbox></span>
+            <span><mat-icon (click)="plock=false" class="cursor-pointer">lock_open</mat-icon></span>
+        </section>
+
+        </form>
+    </div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()" *ngIf="!loading">
+        Generar contrato
+    </button>
+    <button mat-button [disabled]="true" *ngIf="loading">
+        Generar contrato
+    </button>
+</div>

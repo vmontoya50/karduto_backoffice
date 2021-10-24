@@ -1,0 +1,20 @@
+RewriteEngine on
+
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^vtr\.(.*)
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Transfiero cualquier llamado a https si comienza con vtr.(andes|gsa).wis.cl
+
+
+#ANGULAR RULE
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+
+RewriteRule ^(.*) /index.html [NC,L]
+
+#PHP VALUE
+php_value memory_limit 2048M
+php_value upload_max_filesize 50M
+php_value post_max_size 50M

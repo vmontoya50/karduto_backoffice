@@ -1,0 +1,30 @@
+*{
+    box-sizing: border-box;
+}
+.w-100 {
+    width: 100%;
+}
+.flex {
+    display: flex;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.bg-white {
+    background-color: white;
+}
+.border-bottom {
+    border-bottom: 1px solid #bababa;
+}
+.pa2 {
+    padding: .8rem;
+}
+
+.justify-between {
+    justify-content: space-between;
+}

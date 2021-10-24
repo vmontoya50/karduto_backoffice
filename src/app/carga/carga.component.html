@@ -1,0 +1,153 @@
+<div id="contacts" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
+         fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-icon-button class="sidebar-toggle mr-12" fxHide.gt-sm
+                    (click)="toggleSidebar('contacts-main-sidebar')">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <button mat-icon-button class="autorenew mr-12" fxHide.gt-sm
+                    (click)="dataTable()">
+                <mat-icon>autorenew</mat-icon>
+            </button>
+
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16"
+                          [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">backup
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    carga
+                </span>
+            </div>
+            <button mat-icon-button class="sidebar-toggle mr-12" fxHide.gt-sm
+                    matTooltip="Seleccionar archivo" (click)="filecvs.click()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <button mat-icon-button http-event-disabled mat-table-search color="accent" matTooltip="Seleccionar archivo" (click)="filecvs.click()">
+               <mat-icon>backup</mat-icon>
+            </button>
+
+            <label form="filecvs" mat-raised-button color="accent" class="labelInput">
+            <input hidden type="file" name="filecvs" #filecvs accept=".xlsx" (change)="_csv2Array($event)">
+            </label>
+
+        </div>
+        <!-- / APP TITLE -->
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content w-100-p">
+
+        <!-- CENTER -->
+        <div class="center w-100-p p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="content" *ngIf="datacarga" >
+                <mat-toolbar >
+                    <mat-toolbar-row class="bg-white" >
+                        <mat-icon  (click)="filecvs.click()">cloud_upload</mat-icon>
+                        <span class="example-spacer"></span>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+
+                <mat-card class="example-card" style="width: 80%; float: left;">
+                    <mat-card-header>
+                      <mat-card-title>Registros cargados {{cargadas}} Vacantes disponibles: {{cantVacantes}} Vacantes asignadas: 0</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-actions>
+                      <button mat-button (click)="newcarga();" *ngIf="!this.isLoading">Procesar</button>
+                      <button mat-button *ngIf="this.isLoading">Cargando</button>
+                      <button mat-button>Cancelar</button>
+                      <button mat-button (click)="this.procesar=false;">Contratos pendientes</button>
+                    </mat-card-actions>
+                    <mat-card-content></mat-card-content>
+                    <div *ngIf="cargadas&&procesar">
+                        <div *ngFor='let in of dataCargada.NEWEN;' style=" overflow: hidden ; padding-left: 4px; font-size: 10px; margin-bottom: 2px; border-radius: 4px; border: 1px gray solid">
+                           <div style="width: 80px;   float: left;">  {{in.Numero}} </div>
+                           <div style="width: 60px;   float: left;">  {{in["Tipo de Servicio "]}} </div>
+                           <div style="width: 70px;   float: left;">  {{in["Tipo de Jornada "]}} </div> 
+                           <div style="width: 110px;  float: left;"> {{in["Comuna"]}} </div>     
+                           <div style="width: 180px;  float: left;"> {{in["Dirección"]}} </div>     
+                           <div style="width: 170px;  float: left;"> {{in["Nombre de Local"]}} </div>     
+                           <div style="width: 30px;   float: left;">  {{in["N° Local"]}} </div>     
+                           <div style="width: 160px;  float: left;"> {{in["Zona"]}} </div>     
+                           <div style="width: 160px;  float: left;"> {{in["En nombre de"]}} </div>     
+                        </div>
+                    </div>
+                    <div *ngIf="!procesar">
+                        <div style="padding: 5px;">
+                            <span style="margin-right: 5px;"><mat-icon matTooltip="Generar contrato">print</mat-icon> Generar contrato</span>
+                            <span style="margin-right: 5px;"><mat-icon>add_circle</mat-icon> Agregar empleado a vacante</span>
+                            <span style="margin-right: 5px;"><mat-icon style="color: green;">check_circle_outline</mat-icon>Generar lista de empleados</span>
+                            <div style="margin-top: 5px; margin-bottom: 5px;"> <input style="border-color: gray; border:1px solid gray; border-radius: 12px;" type="text"   placeholder="Buscar.."
+                                [(ngModel)]="filterpost"
+                                name="filterpost"></div>
+                        </div>
+                        <div style="overflow: hidden ; padding-left: 4px; font-size: 10px; margin-bottom: 2px; border-radius: 4px;">   
+                            <mat-card class="example-card"  *ngFor='let in of  this.dataDispo.data | filter: filterpost;' style="width:185px; height: 135px; margin: 2px; float: left; font-size: 12px!important;"
+                            matBadge="1" matBadgeSize="large">
+                                <mat-card-header>
+                                </mat-card-header>
+                                <mat-card-content style="font-size: 12px;" >
+                                    <div style="font-size: 10px; float: right; margin-bottom: 2px; width: 100%; text-transform: uppercase;">
+                                       <strong>{{in['numero']}} </strong> 
+                                       <span style="width: 120px; border-radius: 12px; padding: 2px;" [className]="colorSema(in)"> {{cantidad(in)}}  / {{in['externos']}}</span>
+                                    </div>
+                                    <div style="font-size: 8px; float: right; margin-bottom: 2px; width: 100%; text-transform: uppercase;">
+                                        {{in['inicio']}} - {{in["termino"]}}
+                                    </div>
+                                    <div style="font-size: 10px;">
+                                        {{in["local_nombre"]}} / {{in["tipo"]}}
+                                    </div>
+                                    <div style=" width: 100%; ">{{in["Nombre de Local"]}} {{in["local_numero"]}}</div>
+                                    <div>{{in["jornada"]}} / {{in["formato"]}}</div>
+                                    <mat-card-actions>
+                                      <mat-icon  (click)="sendRegistro(in['id'])"  matTooltip="Generar contrato">print</mat-icon>
+                                      <mat-icon  VacanteDialog [data]="{dispo: in}"  matTooltip="Agregar empleado a vacante" (afterClosed)="dataGet()" [width]="650">add_circle</mat-icon>
+                                      <mat-icon *ngIf="cantidad(in) == in['externos']"  matTooltip="Generar lista de empleados" (click)="sendAnexo(in['id'])" style="color: green;">check_circle_outline</mat-icon>
+                                      <mat-icon *ngIf="in['archivo'] != null"  matTooltip="Generar lista de empleados" (click)=" goToLink(in['archivo'])" style="color: green;">view_list</mat-icon>
+                                      <!--button mat-button VacanteDialog [data]="{dispo: in}" (afterClosed)="dataGet()" [width]="650">Asignar</button-->
+                                    </mat-card-actions>
+                                </mat-card-content>
+                              </mat-card>
+                        </div>
+                    </div>
+                </mat-card>
+                <mat-card class="example-card" style="width: 20%; float: left;" *ngIf="cargadas">
+                    
+                    <mat-card-header>
+                        <mat-card-title>Vacantes por local</mat-card-title>
+                      </mat-card-header>
+                    <div>
+                        <div *ngFor='let local of dataLocales' style=" overflow: hidden ; padding-left: 4px; font-size: 12px; margin-bottom: 2px; border-radius: 4px; border: 1px gray solid">
+                           <div style="width: 80%;  float: left;"> {{local.nombre}} ( {{local.cantidad}}) </div>   
+                        </div >
+                    </div>
+                    <mat-card-content></mat-card-content>
+                </mat-card>
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT-->
+
+</div>
+
+<!-- ADD CONTACT BUTTON -->
+<button mat-fab class="accent" id="add-contact-button" [data]="{titulo:'carga'}" postulante-new-dialog aria-label="Nuevo carga"
+        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <mat-icon>person_add</mat-icon>
+</button>
+<!-- / ADD CONTACT BUTTON -->
+

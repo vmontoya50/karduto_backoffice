@@ -1,0 +1,22 @@
+<lib-header-firmas></lib-header-firmas>
+<div style="margin-top: 400px">
+    <div style="width:250px; margin: 0 auto; position: relative">
+        <lib-view-firma></lib-view-firma>
+        <p style="border-top: 1px solid; text-align: center; padding-top: 10px;">Firma del trabajador</p>
+        <b style="text-align: center; width: 100%; display: block;">Nelson Bonilla</b>
+        <div style="text-align: center; padding-top: 10px;" class="firmas-service-box">
+            <div class="firmas-service-box__item" *ngIf="firmasService.employData.tipo">
+                <span>Tipo de documento: <b>{{firmasService.employData.tipo}}</b></span>
+            </div>
+            <div class="firmas-service-box__item" *ngIf="firmasService.employData.rut && firmasService.employData.tipo === 'RUT'">
+                <span>RUT: <b>{{firmasService.employData.rut}}</b></span>
+            </div>
+            <div class="firmas-service-box__item" *ngIf="firmasService.employData.pasaporte && firmasService.employData.tipo === 'Pasaporte'">
+                <span>Pasaporte: <b>{{firmasService.employData.pasaporte}}</b></span>
+            </div>
+            <div class="firmas-service-box__item" *ngIf="firmasService.employData.numero_de_documento && firmasService.employData.tipo === 'RUT'">
+                <span>N° de documento: <b>{{firmasService.employData.numero_de_documento}}</b></span>
+            </div>            
+        </div>
+    </div>
+</div>

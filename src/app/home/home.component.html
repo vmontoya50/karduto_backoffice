@@ -1,0 +1,115 @@
+<div id="contacts" class="page-layout simple left-sidebar inner-sidebar inner-scroll" fusePerfectScrollbar>
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
+         fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16">
+                    home
+                </mat-icon>
+                <span class="logo-text h1">
+                    Resumen
+                </span>
+            </div>
+
+        </div>
+        <!-- / APP TITLE -->
+
+    </div>
+    <!-- / HEADER -->
+    <!-- CONTENT -->
+    <div class="content">
+
+            <div class="widget-group p-12" fxLayout="row wrap" fxFlex="100">
+                <!-- WIDGET 1 -->
+                <fuse-widget class="widget" fxLayout="column"
+                             fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25" *ngIf="widgets">
+
+                    <!-- Front -->
+                    <div class="fuse-widget-front">
+
+                        <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                            <div class="light-blue-fg font-size-72 line-height-72">
+                                {{this.widgets?.user}}
+                            </div>
+                            <div class="h3 secondary-text font-weight-500">
+
+                            </div>
+                        </div>
+
+                        <div class="p-16 border-top" fxLayout="row" fxLayoutAlign="start center">
+                            <span class="h4 secondary-text text-truncate">
+                               <mat-icon>account_circle</mat-icon>
+                            </span>
+                            <span class="h4 ml-8">
+                               Usuarios
+                            </span>
+                        </div>
+                    </div>
+                    <!-- / Front -->
+                </fuse-widget>
+                <!-- / WIDGET 1 -->
+
+                <!-- WIDGET 2 -->
+                <fuse-widget class="widget" fxLayout="column"
+                             fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+
+                    <!-- Front -->
+                    <div class="fuse-widget-front">
+
+                        <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                            <div class="light-blue-fg font-size-72 line-height-72">
+                                {{this.widgets?.postulante}}
+                            </div>
+                            <div class="h3 secondary-text font-weight-500">
+
+                            </div>
+                        </div>
+
+                        <div class="p-16 border-top" fxLayout="row" fxLayoutAlign="start center">
+                            <span class="h4 secondary-text text-truncate">
+                               <mat-icon>account_box</mat-icon>
+                            </span>
+                            <span class="h4 ml-8">
+                               Postulantes
+                            </span>
+                        </div>
+                    </div>
+                    <!-- / Front -->
+                </fuse-widget>
+                <!-- / WIDGET 2 -->
+
+                <!-- WIDGET 3 -->
+                <fuse-widget class="widget" fxLayout="column"
+                             fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+
+                    <!-- Front -->
+                    <div class="fuse-widget-front">
+
+                        <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                            <div class="light-blue-fg font-size-72 line-height-72">
+                                {{this.widgets?.empleado}}
+                            </div>
+                            <div class="h3 secondary-text font-weight-500">
+
+                            </div>
+                        </div>
+
+                        <div class="p-16 border-top" fxLayout="row" fxLayoutAlign="start center">
+                            <span class="h4 secondary-text text-truncate">
+                               <mat-icon>account_box</mat-icon>
+                            </span>
+                            <span class="h4 ml-8">
+                               Empleados
+                            </span>
+                        </div>
+                    </div>
+                    <!-- / Front -->
+                </fuse-widget>
+                <!-- / WIDGET 3 -->
+    </div>
+</div>
+</div>

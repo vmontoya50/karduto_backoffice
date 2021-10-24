@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Nuevo turno</h2>
+<mat-dialog-content class="px-2 border-vertical">
+<div mat-dialog-content class="p-24 pb-0 m-0">
+<form [formGroup]="dialogForm">
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-45-p mat-caption m-2 distance">
+            <mat-label>Cargo</mat-label>
+            <input matInput class="mat-caption" name="cargo" formControlName="cargo">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-45-p mat-caption m-2 distance">
+            <mat-label>Afp</mat-label>
+                <mat-select name="afp" formControlName="afp">
+                    <mat-option *ngFor="let food of displayAfp" [value]="food.value">
+                        {{ food.viewValue }}
+                    </mat-option>
+                </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-45-p mat-caption m-2 distance">
+            <mat-label>Turno</mat-label>
+            <mat-select name="turno" formControlName="turno">
+                <mat-option *ngFor="let food of api.displayTurno" [value]="food.value">
+                    {{ food.viewValue }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-45-p mat-caption m-2 distance">
+            <mat-label>Sueldo base</mat-label>
+            <input matInput class="mat-caption" name="base" formControlName="base">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-45-p mat-caption m-2 distance">
+            <mat-label>Colación</mat-label>
+            <input matInput class="mat-caption" name="colacion" formControlName="colacion">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-45-p mat-caption m-2 distance">
+            <mat-label>Movilización</mat-label>
+            <input matInput class="mat-caption" name="movilizacion" formControlName="movilizacion">
+        </mat-form-field>
+    </div>
+</form>
+</div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()">
+        Crear turno
+    </button>
+</div>

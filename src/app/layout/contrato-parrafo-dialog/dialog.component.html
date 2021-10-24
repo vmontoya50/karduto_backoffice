@@ -1,0 +1,63 @@
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<h2 mat-dialog-title>Parrafos</h2>
+<mat-dialog-content class="px-2 border-vertical">
+    <mat-tab-group class="w-100-p">
+        <mat-tab label="Nuevo">
+            <form name="dialogForm" [formGroup]="dialogForm" (ngSubmit)="_setDialog()">
+                <div class="px-4 py-2"  fxLayoutAlign="start center">
+                    <mat-form-field appearance="outline" class="w-100-p mat-caption m-2">
+                        <mat-label>Titulo</mat-label>
+                        <input matInput [value]="" name="name" formControlName="name" [disabled]="false">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100-p mat-caption m-2">
+                        <mat-label>Posicion</mat-label>
+                        <input matInput [value]="" name="position" formControlName="position" [disabled]="false">
+                    </mat-form-field>
+
+                    <editor matInput  name="contenido" formControlName="contenido" class="p-4" [init]="{
+                         height: 300,
+                         menubar: false,
+                         plugins: [
+                           'advlist autolink lists link image charmap print preview anchor code',
+                           'searchreplace visualblocks code fullscreen',
+                           'insertdatetime media table paste code help wordcount'
+                         ],
+                         toolbar:
+                           'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code | help'
+                       }"></editor>
+                </div>
+            </form>
+            <div fxLayout="row" fxLayoutAlign="end center" style="margin-top: 2px;">
+                <button mat-button (click)="_setDialog()">
+                    <mat-icon http-event-show>save</mat-icon>
+                    Registrar
+                </button>
+            </div>
+        </mat-tab>
+        <mat-tab label="Guardados">
+            <div class="w-90-p border border-success m-4 academy-courses" *ngFor="let parr of dataSource.data">
+
+                <div class="course-content p-4" fxLayout="column" fxFlex="1 1 auto"> <!-- COLUMNA -->
+
+                    <div class="header border-bottom border-primary" fxLayout="column" fxLayoutAlign="center center">
+                        <div class="w-80-p" fxFlex="80">
+                            {{parr.name}}
+                        </div>
+                    </div>
+                    <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
+                        <div class="" [innerHTML]="parr.contenido"></div>
+                    </div>
+                    <div class="footer border-top border-primary clearfix" fxLayout="row" fxLayoutAlign="center center">
+
+                        <div div fxLayout="row" fxLayoutAlign="space-around center">
+                            <button mat-button (click)="_setPxContrato(parr)">
+                                Agregar parrafo
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</mat-dialog-content>

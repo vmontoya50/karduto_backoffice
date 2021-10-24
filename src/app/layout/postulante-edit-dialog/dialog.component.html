@@ -1,0 +1,258 @@
+<h2 mat-dialog-title>{{dialogTitulo}} Nº {{ dialogData?.id }}</h2>
+<mat-dialog-content class="px-2 border-vertical">
+    <form name="dialogForm" *ngIf="dialogData"  [formGroup]="dialogForm" (ngSubmit)="_setDialog()">
+
+        <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+            <mat-form-field appearance="outline" class="w-10-p mat-caption m-2" [ngClass]="{'b-red' : this.dialogForm.get('codigo').hasError('required')}">
+                <mat-label>Codigo</mat-label>
+                <input matInput [value]="dialogData?.codigo" name="codigo" formControlName="codigo" >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>Rut</mat-label>
+                <input matInput [value]="dialogData?.rut" name="rut" formControlName="rut">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-25-p mat-caption m-2" [ngClass]="{'b-red' : this.dialogForm.get('nombres').hasError('required')}">
+                <mat-label>Nombres</mat-label>
+                <input matInput [value]="dialogData?.nombres" name="nombres" formControlName="nombres" oninput="this.value = this.value.toUpperCase()" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>Apellido paterno</mat-label>
+                <input matInput [value]="dialogData?.apellido_paterno" name="apellido_paterno" formControlName="apellido_paterno" oninput="this.value = this.value.toUpperCase()" required
+                       [ngClass]="{'b-red' : this.dialogForm.get('apellido_paterno').hasError('required')}">
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>Apellido materno</mat-label>
+                <input matInput [value]="dialogData?.apellido_materno" name="apellido_materno" formControlName="apellido_materno" oninput="this.value = this.value.toUpperCase()" required
+                       [ngClass]="{'b-red' : this.dialogForm.get('apellido_materno').hasError('required')}">
+            </mat-form-field>
+
+        </div>
+        <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+            <mat-form-field appearance="outline" class="w-35-p mat-caption m-2">
+                <mat-label>Email</mat-label>
+                <input matInput [value]="dialogData?.email" name="email" formControlName="email" oninput="this.value = this.value.toUpperCase()" required
+                       [ngClass]="{'b-red' : this.dialogForm.get('email').hasError('required')}">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>Pasaporte</mat-label>
+                <input matInput [value]="dialogData?.pasaporte" name="pasaporte" formControlName="pasaporte" oninput="this.value = this.value.toUpperCase()">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2 distance">
+                <mat-label>Nacionalidad</mat-label>
+                <mat-select name="nacionalidad" formControlName="nacionalidad"
+                            [ngClass]="{'b-red' : this.dialogForm.get('nacionalidad').hasError('required')}">
+                    <mat-option *ngFor="let nac of api.displayNacionalidad" [value]="nac.nacionalidad">
+                        {{ nac.nacionalidad }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>Celular</mat-label>
+                <input matInput [value]="dialogData?.celular" name="celular" formControlName="celular" required
+                       [ngClass]="{'b-red' : this.dialogForm.get('celular').hasError('required')}">
+            </mat-form-field>
+
+        </div>
+        <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input type="text" matInput name="fecha_nacimiento" placeholder="DD/MM/YYYY" required formControlName="fecha_nacimiento"
+                       pattern="(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$"
+                       title="Ingrese la fehca con el formato DD/MM/YYYY"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>Estado civil</mat-label>
+                <input matInput [value]="dialogData?.estado_civil" name="estado_civil" formControlName="estado_civil" oninput="this.value = this.value.toUpperCase()" required
+                       [ngClass]="{'b-red' : this.dialogForm.get('estado_civil').hasError('required')}">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-30-p mat-caption m-2">
+                <mat-label>Nº cuenta bancaria</mat-label>
+                <input matInput [value]="dialogData?.n_cuenta" name="n_cuenta" formControlName="n_cuenta" oninput="this.value = this.value.toUpperCase()"
+                       [ngClass]="{'b-red' : this.dialogForm.get('n_cuenta').hasError('required')}">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2 distance">
+                <mat-label>Banco</mat-label>
+                <mat-select name="banco" formControlName="banco" [value]="dialogData?.banco"
+                            [ngClass]="{'b-red' : this.dialogForm.get('banco').hasError('required')}">
+                    <mat-option *ngFor="let ban of api.displayBanco" (click)="setBanco(ban)" [value]="ban.banco">
+                        {{ ban.banco }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+        <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2 distance">
+                <mat-label>Region</mat-label>
+                <mat-select [(ngModel)]="selectedReg" [value]="dialogData?.region" (selectionChange)="setComuna(selectedReg)" name="region" formControlName="region"
+                            [ngClass]="{'b-red' : this.dialogForm.get('region').hasError('required')}">
+                    <mat-option *ngFor="let reg of api.displayRegion" [value]="reg.region">
+                        {{ reg.region }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>Ciudad</mat-label>
+                <input matInput [value]="dialogData?.ciudad" name="ciudad" formControlName="ciudad" oninput="this.value = this.value.toUpperCase()">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2 distance">
+                <mat-label>Comuna {{selectedReg}}</mat-label>
+                <mat-select name="comuna" formControlName="comuna" [value]="dialogData?.comuna"
+                            [ngClass]="{'b-red' : this.dialogForm.get('comuna').hasError('required')}">
+                    <mat-option *ngFor="let reg of this.localComuna" [value]="reg.comuna" >
+                        {{ reg.comuna }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>Calle o avenida</mat-label>
+                <input matInput [value]="dialogData?.calle" name="calle" formControlName="calle" oninput="this.value = this.value.toUpperCase()" required
+                       [ngClass]="{'b-red' : this.dialogForm.get('calle').hasError('required')}">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-15-p mat-caption m-2">
+                <mat-label>Numero</mat-label>
+                <input matInput [value]="dialogData?.numero_direccion" name="numero_direccion" formControlName="numero_direccion" oninput="this.value = this.value.toUpperCase()" required
+                       [ngClass]="{'b-red' : this.dialogForm.get('numero_direccion').hasError('required')}">
+            </mat-form-field>
+
+        </div>
+        <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+            <mat-form-field appearance="outline" class="w-30-p mat-caption m-2 distance">
+                <mat-label>Salud</mat-label>
+                <mat-select name="salud" formControlName="salud" [value]="dialogData?.salud"
+                            [ngClass]="{'b-red' : this.dialogForm.get('salud').hasError('required')}">
+                    <mat-option *ngFor="let food of api.displaySalud" [value]="food.value">
+                        {{ food.viewValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-25-p mat-caption m-2 distance">
+                <mat-label>Afp</mat-label>
+                <mat-select name="afp" formControlName="afp"  [value]="dialogData?.afp"
+                            [ngClass]="{'b-red' : this.dialogForm.get('afp').hasError('required')}">
+                    <mat-option *ngFor="let food of api.displayAfp" [value]="food.value">
+                        {{ food.viewValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>Persona de contacto</mat-label>
+                <input matInput [value]="dialogData?.contacto" name="contacto" formControlName="contacto" oninput="this.value = this.value.toUpperCase()" >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>Teléfono de contacto</mat-label>
+                <input matInput [value]="dialogData?.telefono" name="telefono" formControlName="telefono" >
+            </mat-form-field>
+
+
+        </div>
+        <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+            <mat-form-field appearance="outline" class="w-25-p mat-caption m-2">
+                <mat-label>T. polera</mat-label>
+                <input matInput [value]="dialogData?.talla_polera" name="talla_polera" formControlName="talla_polera" oninput="this.value = this.value.toUpperCase()"
+                       [ngClass]="{'b-red' : this.dialogForm.get('talla_polera').hasError('required')}">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-25-p mat-caption m-2">
+                <mat-label>T. pantalon</mat-label>
+                <input matInput [value]="dialogData?.talla_pantalon" name="talla_pantalon" formControlName="talla_pantalon" oninput="this.value = this.value.toUpperCase()"
+                       [ngClass]="{'b-red' : this.dialogForm.get('talla_pantalon').hasError('required')}">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
+                <mat-label>T. zapato</mat-label>
+                <input matInput [value]="dialogData?.talla_zapato" name="talla_zapato" formControlName="talla_zapato" oninput="this.value = this.value.toUpperCase()"
+                       [ngClass]="{'b-red' : this.dialogForm.get('talla_zapato').hasError('required')}">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-25-p mat-caption m-2">
+                <mat-label>T. polar</mat-label>
+                <input matInput [value]="dialogData?.talla_polar" name="talla_polar" formControlName="talla_polar" oninput="this.value = this.value.toUpperCase()"
+                       [ngClass]="{'b-red' : this.dialogForm.get('talla_polar').hasError('required')}">
+            </mat-form-field>
+
+        </div>
+        <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+            <mat-form-field appearance="outline" class="w-35-p mat-caption m-2 distance">
+                <mat-label>Disponibilidad</mat-label>
+                <mat-select name="disponibilidad_turno" formControlName="disponibilidad_turno" required>
+                    <mat-option *ngFor="let food of api.displayDispo" [value]="food.value">
+                        {{ food.viewValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-30-p mat-caption m-2 distance">
+                <mat-label>Turno</mat-label>
+                <mat-select name="disponibilidad" formControlName="disponibilidad" required>
+                    <mat-option *ngFor="let food of api.displayTurno" [value]="food.value">
+                        {{ food.viewValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-30-p mat-caption m-2">
+                <mat-label>Whatsapp</mat-label>
+                <input matInput [value]="dialogData?.whatsapp" name="whatsapp" formControlName="whatsapp" oninput="this.value = this.value.toUpperCase()">
+            </mat-form-field>
+
+        </div>
+        <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+            <mat-form-field appearance="outline" class="w-95-p mat-caption m-2">
+                <mat-label>Experiencia</mat-label>
+                <input matInput [value]="dialogData?.experiencia" name="experiencia" formControlName="experiencia" oninput="this.value = this.value.toUpperCase()">
+            </mat-form-field>
+
+        </div>
+        <div class="px-4 py-2"  fxLayoutAlign="start center">
+
+            <mat-form-field appearance="outline" class="w-95-p mat-caption m-2">
+                <mat-label>Observaciones</mat-label>
+                <input matInput [value]="dialogData?.observaciones" name="observaciones" formControlName="observaciones" oninput="this.value = this.value.toUpperCase()">
+            </mat-form-field>
+
+        </div>
+    </form>
+
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center" style="margin-top: 2px;">
+    <button mat-button (click)="_setDialog()">
+        <mat-icon http-event-show>save</mat-icon>
+        Guardar
+    </button>
+
+    <button mat-button (click)="_generateFicha()" [disabled]="api.cargando">
+        <mat-icon http-event-show>save</mat-icon>
+        Generar ficha
+    </button>
+
+    <button mat-button (click)="goToLink(dialogData)" *ngIf="dialogData?.ficha">
+        <mat-icon http-event-show>print</mat-icon>
+    </button>
+</div>

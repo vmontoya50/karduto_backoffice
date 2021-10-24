@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>
+    Archivo
+    <span class="w-60-p" >
+    <input matInput class="mat-caption" placeholder="Nuevo archivo" name="nuevo" [(ngModel)]="nuevo">
+    <mat-icon mat-list-icon class="cursor-pointer pl-2 b-green" style="color: #2E7D32" (click)="_nuevo()">add_circle</mat-icon>
+    </span>
+</h2>
+<mat-dialog-content class="px-2 border-vertical p-8" *ngIf="dataSource">
+    <mat-accordion class="addresses">
+        <mat-expansion-panel *ngFor="let archivo of dataSource" class="mt-2">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="pt-2">
+                    {{archivo.nombre}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div fxFlex="90" fxLayout="column" fxLayoutAlign="end none" class="w-90-p">
+                    <mat-icon mat-list-icon class="cursor-pointer pl-2 b-green" style="color: #2E7D32" (click)="_add(archivo.id)">add_circle</mat-icon>
+                    Agregar contrato
+                    <mat-icon mat-list-icon class="cursor-pointer b-red" (click)="_deleteArchivo(archivo.id)">delete</mat-icon>
+                    Eliminar Archivo
+            </div>
+            <div fxLayout="column" fxLayoutAlign="end none" class="w-90-p" *ngIf="agregar == archivo.id" >
+
+                <mat-form-field *ngIf="dataContrato" appearance="outline" class="mat-caption">
+                    <mat-label>Contrato</mat-label>
+                    <mat-select name="id" [(ngModel)]="contrato">
+                        <mat-option *ngFor="let food of dataContrato.data" [value]="food.id">
+                            {{ food.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-icon mat-list-icon class="cursor-pointer" (click)="_setContrato(archivo.id)">save</mat-icon>
+
+            </div>
+            <div fxFlex="90" fxLayout="column" fxLayoutAlign="end none" class="w-90-p">
+                <mat-list>
+                    <mat-list-item *ngFor="let contrato of archivo.contrato">
+                        <mat-icon mat-list-icon class="cursor-pointer" (click)="_delete(contrato.id_grupo)">delete</mat-icon>
+                        <div mat-line>{{contrato.name}}</div>
+                        <div mat-line class="p-3">
+                            <input matInput class="mat-caption" placeholder="Copias primera vez" name="copias_uno_{{contrato.id}}" [(ngModel)]="contrato.copias_uno" (ngModelChange)="_setArchivo($event, contrato, 1)">
+                        </div>
+                        <div mat-line class="p-3">
+                            <input matInput class="mat-caption" placeholder="Copias segunda vez" name="copias_dos_{{contrato.id}}" [(ngModel)]="contrato.copias_dos" (ngModelChange)="_setArchivo($event, contrato, 2)">
+                        </div>
+                        <div mat-line class="p-3">
+                                <mat-checkbox matInput name="cabecera_{{contrato.id}}" [(ngModel)]="contrato.header" (ngModelChange)="_setCabecera($event, contrato)">Agregar cabecera</mat-checkbox>
+                        </div>
+                        <!-- mat-divider></mat-divider -->
+                    </mat-list-item>
+                </mat-list>
+
+            </div>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-dialog-content>

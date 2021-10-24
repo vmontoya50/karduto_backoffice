@@ -1,0 +1,113 @@
+<div id="contacts" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
+         fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-icon-button class="sidebar-toggle mr-12" fxHide.gt-sm
+                    (click)="toggleSidebar('contacts-main-sidebar')">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <button mat-icon-button class="autorenew mr-12" fxHide.gt-sm
+                    (click)="dataTable()">
+                <mat-icon>autorenew</mat-icon>
+            </button>
+
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16"
+                          [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_box
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Firmas
+                </span>
+            </div>
+
+        </div>
+        <!-- / APP TITLE -->
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content w-100-p">
+
+        <!-- CENTER -->
+        <div class="center w-100-p p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="content" *ngIf="dataFirmas" >
+                <mat-toolbar >
+                    <mat-toolbar-row class="bg-white" >
+                        <!-- mat-icon firmas-new-dialog [disableClose]="true" >person_add</mat-icon-->
+                        <mat-icon filter-dialog [data]="{CLA: 'firma', filter: displayFilter}" (afterClosed)="_setSearch($event)" [width]="450">search</mat-icon>
+                        <mat-icon (click)="dataTable()">autorenew</mat-icon>
+                        <span class="example-spacer"></span>
+                        <mat-paginator
+                                [length]="dataSource?.total"
+                                [pageSize]="dataSource?.per_page" [pageIndex]="0" (page)="next($event)">
+                        </mat-paginator>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+
+                    <table mat-table [dataSource]="dataFirmas" class="content w-100-p mat-elevation-z8">
+
+                        <!--- Note that these columns can be defined in any order.
+                              The actual rendered columns are set as a property on the row definition" -->
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="created_at">
+                            <th mat-header-cell *matHeaderCellDef> Fecha</th>
+                            <td mat-cell class=""  *matCellDef="let element"> {{element?.created_at  | date:'dd/MM/yyyy' }} </td>
+                        </ng-container>
+
+                        <!-- Nombre Column -->
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                            <td mat-cell class="" *matCellDef="let element"> {{element?.nombre}}  {{element?.apellido}} </td>
+                        </ng-container>
+
+                        <!-- Nombre Column -->
+                        <ng-container matColumnDef="mail_salida">
+                            <th mat-header-cell *matHeaderCellDef> E-mail solicitud </th>
+                            <td mat-cell class="" *matCellDef="let element"> {{element?.mail_salida}} </td>
+                        </ng-container>
+
+
+                        <!-- Nombre Column -->
+                        <ng-container matColumnDef="accion">
+                            <th mat-header-cell *matHeaderCellDef>  </th>
+                            <td mat-cell class="" *matCellDef="let element">
+                                <mat-icon *ngIf="element.archivo_firma_url!=null" (click)="goToLink(element)"   class="cpointer" matTooltip="Contrato">library_books</mat-icon>
+                                <mat-icon style="margin-right: 2px;" [style.color]="estadoColor(element.archivo_firma)" (click)="copyText(api.basefirma + 'firmar/' + element.id_)"> {{estadoIcon(element.archivo_firma)}}</mat-icon>
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row  *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT-->
+
+</div>
+
+<!-- ADD CONTACT BUTTON -->
+<button mat-fab class="accent" id="add-contact-button" [data]="{titulo:'firmas'}" postulante-new-dialog aria-label="Nuevo firmas"
+        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <mat-icon>person_add</mat-icon>
+</button>
+<!-- / ADD CONTACT BUTTON -->
+

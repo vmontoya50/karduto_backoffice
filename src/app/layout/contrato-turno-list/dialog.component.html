@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Turnos</h2>
+<mat-dialog-content class="px-2 border-vertical">
+
+    <mat-list>
+        <div mat-subheader>Lista</div>
+        <mat-list-item *ngFor="let folder of dataTurno">
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <div mat-line>{{folder.cargo}}</div>
+            <div mat-line> {{folder.turno }} {{folder.afp }} </div>
+            <div mat-line> Sueldo: {{folder.base }}, Movilización: {{folder.movilizacion }}, Colación: {{folder.colacion }} </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+
+    <!-- div class="has-handle border-bottom border-primary " *ngFor="let turno of dataTurno"  fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="info" fxFlex="100" fxFlexLayout="column">
+                <div fxFlex="100" fxLayout="row" fxLayoutAlign="start center">
+                    <span class="w-80-p" style="border:1px red solid; width: 80%;">
+                        {{turno.cargo}} {{turno.turno}} {{turno.afp}}
+                    </span>
+                    <span class="w-20-p">
+                        <button class="text-right " mat-icon-button
+                                aria-label="Toggle important">
+                        </button>
+                    </span>
+
+                    <button class="text-right" mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More">
+                        <mat-icon class="secondary-text">more_vert</mat-icon>
+                    </button>
+
+                    <mat-menu #moreMenu="matMenu">
+                        <button mat-menu-item aria-label="toggle done" (click)="_delete(turno)">
+                            <ng-container>
+                                <mat-icon>delete</mat-icon>
+                                <span>Eliminar</span>
+                            </ng-container>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+
+    </div -->
+</mat-dialog-content>
