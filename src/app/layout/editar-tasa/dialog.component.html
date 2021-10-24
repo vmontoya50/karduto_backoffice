@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Editar tasa</h2>
+<mat-dialog-content class="px-4 border-vertical">
+<div mat-dialog-content class="p-24 pb-0 m-0">
+<form [formGroup]="dialogForm">
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <mat-label>Tasa</mat-label>
+            <input matInput class="mat-caption" name="monto" formControlName="monto">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Fecha Agenda" [(ngModel)]="dates" [ngModelOptions]="{standalone: true}"  [disabled]="disabled">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker [(ngModel)]="dates" [ngModelOptions]="{standalone: true}" #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds" [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond">
+        </ngx-mat-datetime-picker>
+    </mat-form-field>
+
+</form>
+</div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()">
+        Actualizar
+    </button>
+</div>

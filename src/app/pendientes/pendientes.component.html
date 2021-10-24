@@ -1,0 +1,132 @@
+<div id="contacts" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
+         fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16"
+                          [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">chrome_reader_mode
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Operaciones Pendientes
+                </span>
+            </div>
+
+        </div>
+        <!-- / APP TITLE -->
+
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content w-100-p">
+
+        <!-- CENTER -->
+        <div class="center w-100-p p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="content" *ngIf="dataEmpleado">
+                <mat-toolbar >
+                    <mat-toolbar-row class="bg-white" >
+                        <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" filter-dialog [data]="{CLA: 'regcontrato', filter: displayFilter}" (afterClosed)="_setSearch($event)" [width]="250">search</mat-icon>
+                        <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" (click)="dataTable()">autorenew</mat-icon>
+                        <span class="example-spacer"></span>
+                        <mat-paginator
+                                [length]="dataSource?.total"
+                                [pageSize]="dataSource?.per_page" [pageIndex]="1" (page)="next($event)">
+                        </mat-paginator>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+
+                <table mat-table [dataSource]="dataEmpleado"  class="content w-100-p mat-elevation-z8 mat-caption">
+
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="tipo_identificacion_emisor">
+                        <th mat-header-cell *matHeaderCellDef> Identificacion </th>
+                        <td mat-cell class="mat-caption" style="font-size: 10px"  *matCellDef="let element"> {{element?.tipo_identificacion_emisor}}  {{element?.identificacion_emisor}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="emisor_name">
+                        <th mat-header-cell *matHeaderCellDef> Cliente </th>
+                        <td mat-cell class="mat-caption" style="font-size: 10px" *matCellDef="let element"> {{element?.emisor_name}}  {{element?.emisor_lastName}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="asignado_name">
+                        <th mat-header-cell *matHeaderCellDef> Operador Venezuela </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{element?.asignado_name}}  {{element?.asignado_lastName}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="cuenta_saliente">
+                        <th mat-header-cell *matHeaderCellDef> Banco operador Venezuela </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{element?.cuenta_saliente}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="cuenta_entrante">
+                        <th mat-header-cell *matHeaderCellDef> Banco / cuenta </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{element?.cuenta_entrante}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="tasa">
+                        <th mat-header-cell *matHeaderCellDef> Tasa sugerida </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{element?.tasa | currency: ''}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="monto_entrante">
+                        <th mat-header-cell *matHeaderCellDef> Monto </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{element?.monto_entrante | currency}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="calculado">
+                        <th mat-header-cell *matHeaderCellDef> Calculado </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{(element?.monto_entrante * element?.tasa) | currency}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="accion">
+                        <th mat-header-cell *matHeaderCellDef> Accion </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element">
+                            <button mat-icon-button matTooltip="Attach a file" (click)="aprobar(element)">
+                                <mat-icon style=" color: #9ccc65">check_circle_outline</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="Attach a file" (click)="cancelar(element)">
+                                <mat-icon style=" color: #EF5350">cancel</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row (click)="go(row)"  *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT-->
+
+</div>
+
+<!-- ADD CONTACT BUTTON -->
+<button mat-fab class="accent" id="add-contact-button" [data]="{titulo:'empleado'}" postulante-new-dialog aria-label="Nuevo empleado"
+        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <mat-icon>person_add</mat-icon>
+</button>
+<!-- / ADD CONTACT BUTTON -->
+

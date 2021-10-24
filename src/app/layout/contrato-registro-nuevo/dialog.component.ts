@@ -74,14 +74,13 @@ export class ContratoRegistroNuevoDialogComponent implements OnInit {
   public plock = true;
   myControl = new FormControl();
   options: string[] = [];
-  public cliente_id;
 
   
   constructor(
       @Inject(MAT_DIALOG_DATA) private data: any,
       public dialog: MatDialog,
       public matDialogRef: MatDialogRef<ContratoRegistroNuevoDialogComponent>,
-      private api: ApiService,
+      public api: ApiService,
       private _adapter: DateAdapter<any>
   ) {
     console.log('DATA::', data);
@@ -108,17 +107,9 @@ export class ContratoRegistroNuevoDialogComponent implements OnInit {
       turno: new FormControl('', [Validators.required]),
       cargo: new FormControl('', [Validators.required]),
       cliente: new FormControl('', [Validators.required]),
-      jornada: new FormControl('7.5', [Validators.required]),
+      jornada: new FormControl('8', [Validators.required]),
       primera_vez: new FormControl(false, [Validators.required]),
       jornada_semana: new FormControl('45', [Validators.required]),
-      faja_lumbar: new FormControl(false, [Validators.required]),
-      guantes: new FormControl(false, [Validators.required]),
-      gafas: new FormControl(false, [Validators.required]),
-      gorro_explorador: new FormControl(false, [Validators.required]),
-      chaleco_reflectante: new FormControl(false, [Validators.required]),
-      cuerda_carros: new FormControl(false, [Validators.required]),
-      bloqueador_solar: new FormControl(false, [Validators.required]),
-      cliente_id: new FormControl(false, [Validators.required])
     });
 
   }
@@ -140,7 +131,6 @@ export class ContratoRegistroNuevoDialogComponent implements OnInit {
     // form.fecha_inicio_des = this.pipe.transform('EEEE', 'fullDate');
     form.fecha_inicio = this.convertDateFormat(form.fecha_inicio);
     form.fecha_fin = this.convertDateFormat(form.fecha_fin);
-    form.cliente_id = this.cliente_id;
     this.loading = true;
     this.api.post('regcontrato', form)
         .pipe( catchError(val => of( this.api.toast('open', val.error.message, 3000, 'warning'))))
@@ -200,14 +190,9 @@ export class ContratoRegistroNuevoDialogComponent implements OnInit {
         });
   }
 
-  // Buscar contratos
-  insertClienteId(option): void{
-    console.log("CLIENTE_ID::", option);
-    this.cliente_id = option;
-  }
-
   // Buscar Clientes
   dataCliente(): void{
+
     this.api.get('cliente')
         .subscribe( data => {
 
@@ -284,7 +269,6 @@ export class ContratoRegistroNuevoDialogComponent implements OnInit {
             // console.log('SEH', cc + ' ' + cc.search(base));
             if ( cc.toUpperCase().search(base) >= 0) {
               this.clientes.push(comu);
-              this.cliente_id = comu.id;
             }
           }
 
@@ -293,7 +277,6 @@ export class ContratoRegistroNuevoDialogComponent implements OnInit {
           }
 
           console.log('CLIENTEPUSH:', this.clientes);
-         
 
     });
 

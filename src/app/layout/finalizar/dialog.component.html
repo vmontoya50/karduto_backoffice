@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Cambio de estado</h2>
+<mat-dialog-content class="px-4 border-vertical">
+<div mat-dialog-content class="p-24 pb-0 m-0">
+<form [formGroup]="dialogForm">
+    <mat-form-field *ngIf="dataOperador"  class="w-90-p mat-caption m-2" appearance="outline" fxFlex>
+        <mat-label>Motivo</mat-label>
+        <mat-select name="rech_tipo" formControlName="rech_tipo" required>
+            <mat-option style="font-size: 12px;" *ngFor="let food of tipo" [value]="food.value" (onSelectionChange)="this._setMotivo(food.viewValue)">
+                {{ food.viewValue }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <mat-label>Mensaje</mat-label>
+            <input matInput class="mat-caption" name="rech_info" formControlName="rech_info" maxlength="140">
+        </mat-form-field>
+    </div>
+</form>
+</div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()" [disabled]="this.dialogForm.invalid||isLoad" >
+        Finalizar
+    </button>
+</div>

@@ -33,7 +33,8 @@ export class AppComponent implements OnInit, OnDestroy
 {
     fuseConfig: any;
     navigation: any;
-    datos: any;
+    user: any;
+    luser: any;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -60,53 +61,45 @@ export class AppComponent implements OnInit, OnDestroy
         private _fuseTranslationLoaderService: FuseTranslationLoaderService,
         private _translateService: TranslateService,
         private _platform: Platform,
-        private api: ApiService,
+        public api: ApiService,
         private router: Router,
         private _snackBar: MatSnackBar
     )
     {
-        this.api.onTokenChanged.subscribe(token  => {
-            console.log('Token', token + 'count -> ' + token.length);
 
-            if (!token || token.length < 1){
+        let louser = JSON.parse(localStorage.getItem('user' ));
+        console.log('localStorage.getItem(user )', louser);
+        console.log('this.luser.profile', louser);
+        if ( louser ){
+            // Get default navigation
+            this.navigation = api.navegacion( louser.profile );
 
-                const _user  = localStorage.getItem('user' );
-                const _token = localStorage.getItem('token' );
+            // Register the navigation to the service
+            this._fuseNavigationService.register('main', this.navigation);
 
-                this.datos = _user;
+            // Set the main navigation as our current navigation
+            this._fuseNavigationService.setCurrentNavigation('main');
 
-                if (_user){
-                    this.api.onUserChanged.next( JSON.parse(_user) );
-                }
+            // Add languages
+            this._translateService.addLangs(['en', 'tr']);
 
-                if (_token){
-                    this.api.onTokenChanged.next( _token );
-                }else{
-                    this.router.navigate(['/salir']);
-                }
+            // Set the default language
+            this._translateService.setDefaultLang('en');
 
-            }
-        });
-        // Get default navigation
-        this.navigation = api.navegacion('registrador');
+            // Set the navigation translations
+            this._fuseTranslationLoaderService.loadTranslations(navigationEnglish, navigationTurkish);
 
-        // Register the navigation to the service
-        this._fuseNavigationService.register('main', this.navigation);
+            // Use a language
+            this._translateService.use('en');
+            console.log('1');
 
-        // Set the main navigation as our current navigation
-        this._fuseNavigationService.setCurrentNavigation('main');
+        }else{
 
-        // Add languages
-        this._translateService.addLangs(['en', 'tr']);
+            console.log('2');
+            this.router.navigate(['login']);
 
-        // Set the default language
-        this._translateService.setDefaultLang('en');
 
-        // Set the navigation translations
-        this._fuseTranslationLoaderService.loadTranslations(navigationEnglish, navigationTurkish);
-
-        // Use a language
-        this._translateService.use('en');
+        }
 
         /**
          * ----------------------------------------------------------------------------------------------------
@@ -160,9 +153,6 @@ export class AppComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        if (!this.datos){
-            this.router.navigate(['/login']);
-        }
         // Subscribe to config changes
         this._fuseConfigService.config
             .pipe(takeUntil(this._unsubscribeAll))
@@ -194,7 +184,26 @@ export class AppComponent implements OnInit, OnDestroy
                 this.document.body.classList.add(this.fuseConfig.colorTheme);
             });
 
-            this.api.getLocation();
+        this.api.onTokenChanged.subscribe(token  => {
+            console.log('Token', token + 'count -> ' + token.length);
+
+            if (!token || token.length < 1){
+
+                let _user  = localStorage.getItem('user' );
+                let _token = localStorage.getItem('token' );
+
+                if (_user){
+                    this.api.onUserChanged.next( JSON.parse(_user) );
+                }
+
+                if (_token){
+                    this.api.onTokenChanged.next( _token );
+                }else{
+                    this.router.navigate(['/salir']);
+                }
+
+            }
+        });
     }
 
     /**

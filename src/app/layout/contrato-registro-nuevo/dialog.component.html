@@ -50,7 +50,7 @@
                    aria-label="Number"
                    matInput
                    formControlName="cliente"
-                   [matAutocomplete]="autoCliente" onchange="insertClienteId(option.codigo)">
+                   [matAutocomplete]="autoCliente">
             <mat-autocomplete #autoCliente="matAutocomplete">
                 <mat-option *ngFor="let option of clientes" [value]="option.descripcion">
                     {{option.codigo}} {{option.descripcion}}
@@ -74,8 +74,8 @@
 
         <mat-form-field appearance="outline" class="w-80-p mat-caption m-2">
             <mat-label>Jornada en horas: </mat-label>
-            <input *ngIf="!jlock" matInput class="mat-caption"  [disabled]="true" value="7.5">
-            <input *ngIf="jlock" matInput class="mat-caption"  [disabled]="true" name="jornada" formControlName="jornada" value="7.5">
+            <input *ngIf="!jlock" matInput class="mat-caption"  [disabled]="true" value="8">
+            <input *ngIf="jlock" matInput class="mat-caption"  [disabled]="true" name="jornada" formControlName="jornada" value="8">
         </mat-form-field>
         <mat-icon (click)="jlock=true" class="cursor-pointer">lock_open</mat-icon>
 
@@ -86,41 +86,6 @@
         </mat-form-field>
         <mat-icon (click)="jlocks=true" class="cursor-pointer">lock_open</mat-icon>
 
-        <section appearance="outline" class="w-90-p mat-caption m-2">
-            <span class="w-90-p">
-                <mat-checkbox matInput name="faja_lumbar" formControlName="faja_lumbar">Faja soporte lumbar</mat-checkbox>
-            </span>
-        </section>
-        <section appearance="outline" class="w-90-p mat-caption m-2">
-            <span class="w-90-p">
-                <mat-checkbox matInput name="guantes" formControlName="guantes">Guantes</mat-checkbox>
-            </span>
-        </section>
-        <section appearance="outline" class="w-90-p mat-caption m-2">
-            <span class="w-90-p">
-                <mat-checkbox matInput name="gafas" formControlName="gafas">Gafas de seguridad</mat-checkbox>
-            </span>
-        </section>
-        <section appearance="outline" class="w-90-p mat-caption m-2">
-            <span class="w-90-p">
-                <mat-checkbox matInput name="gorro_explorador" formControlName="gorro_explorador">Gorro explorador</mat-checkbox>
-            </span>
-        </section>
-        <section appearance="outline" class="w-90-p mat-caption m-2">
-            <span class="w-90-p">
-                <mat-checkbox matInput name="chaleco_reflectante" formControlName="chaleco_reflectante">Chaleco reflectante</mat-checkbox>
-            </span>
-        </section>
-        <section appearance="outline" class="w-90-p mat-caption m-2">
-            <span class="w-90-p">
-                <mat-checkbox matInput name="cuerda_carros" formControlName="cuerda_carros">Cuerda tirar carros</mat-checkbox>
-            </span>
-        </section>
-        <section appearance="outline" class="w-90-p mat-caption m-2">
-            <span class="w-90-p">
-                <mat-checkbox matInput name="bloqueador_solar" formControlName="bloqueador_solar">Bloqueador solar</mat-checkbox>
-            </span>
-        </section>
         <section appearance="outline" class="w-90-p mat-caption m-2">
             <span class="w-90-p"><mat-checkbox matInput name="primera_vez" [disabled]="plock" formControlName="primera_vez">Primer contrato</mat-checkbox></span>
             <span><mat-icon (click)="plock=false" class="cursor-pointer">lock_open</mat-icon></span>

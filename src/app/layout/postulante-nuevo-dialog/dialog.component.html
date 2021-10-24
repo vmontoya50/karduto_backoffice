@@ -74,8 +74,8 @@
             <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
                 <mat-label>Fecha de nacimiento</mat-label>
                 <input type="text" matInput name="fecha_nacimiento" placeholder="DD-MM-YYYY" required formControlName="fecha_nacimiento"
-                       pattern="^(((0[1-9]|[12]\d|3[01])-(0[13578]|1[02])-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)-(0[13456789]|1[012])-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])-02-((19|[2-9]\d)\d{2}))|(29-02-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$"
-                       title="Ingrese la fehca con el formato DD-MM-YYYY"/>
+                       pattern="(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$"
+                       title="Enter a date in this format YYYY-MM-DD"/>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="w-20-p mat-caption m-2">
@@ -90,7 +90,7 @@
                        [ngClass]="{'b-red' : this.dialogForm.get('n_cuenta').hasError('required')}">
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-20-p mat-caption m-2 distance">
+            <!-- mat-form-field appearance="outline" class="w-20-p mat-caption m-2 distance">
                 <mat-label>Banco</mat-label>
                 <mat-select name="banco" formControlName="banco"
                             [ngClass]="{'b-red' : this.dialogForm.get('banco').hasError('required')}">
@@ -98,14 +98,14 @@
                         {{ ban.banco }}
                     </mat-option>
                 </mat-select>
-            </mat-form-field>
+            </!-- mat-form-field -->
 
         </div>
         <div class="px-4 py-2"  fxLayoutAlign="start center">
 
             <mat-form-field appearance="outline" class="w-20-p mat-caption m-2 distance">
                 <mat-label>Region</mat-label>
-                <mat-select [(ngModel)]="selectedReg" (selectionChange)="setComuna(selectedReg)" name="region" formControlName="region" required
+                <mat-select [(ngModel)]="selectedReg" (selectionChange)="setComuna(selectedReg)" name="region" formControlName="region"
                             [ngClass]="{'b-red' : this.dialogForm.get('region').hasError('required')}">
                     <mat-option *ngFor="let reg of api.displayRegion" [value]="reg.region">
                         {{ reg.region }}
@@ -122,7 +122,7 @@
             <mat-form-field appearance="outline" class="w-20-p mat-caption m-2 distance">
                 <mat-label>Comuna {{selectedReg}}</mat-label>
                 <mat-select name="comuna" formControlName="comuna"
-                            [ngClass]="{'b-red' : this.dialogForm.get('comuna').hasError('required')}" required>
+                            [ngClass]="{'b-red' : this.dialogForm.get('comuna').hasError('required')}">
                     <mat-option *ngFor="let reg of this.localComuna" [value]="reg.comuna" >
                         {{ reg.comuna }}
                     </mat-option>
@@ -248,14 +248,10 @@
     </form>
 
 </mat-dialog-content>
-<div fxLayout="row" fxLayoutAlign="end center" style="margin-top: 2px; padding-top: 5px;">
+<div fxLayout="row" fxLayoutAlign="end center" style="margin-top: 2px;">
     <button mat-button [disabled]="!dialogForm.valid" (click)="_setDialog()">
         <mat-icon http-event-show>save</mat-icon>
         Registrar
-    </button>
-    <button mat-button (click)="close()">
-        <mat-icon http-event-show>cancel</mat-icon>
-        Cerrar
     </button>
 
     <button mat-button (click)="goToLink(dialogData)" *ngIf="dialogData?.ficha">

@@ -56,7 +56,7 @@ const routes: Routes = [
 
         FuseSharedModule,
         FuseConfirmDialogModule,
-        FuseSidebarModule
+        FuseSidebarModule,
     ],
     providers      : [
         UsuariosService

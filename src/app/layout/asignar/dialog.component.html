@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Asignar operador</h2>
+<mat-dialog-content class="px-4 border-vertical">
+<div mat-dialog-content class="p-24 pb-0 m-0">
+<form [formGroup]="dialogForm">
+
+
+    <mat-chip-list *ngIf="valiRef" aria-label="Fish selection"  class="m-2">
+        <mat-chip *ngFor="let trans of valiRef" class="red secondary-text" (click)="goToLink(api.ur +'transacciones/ver/' + trans?.id)">
+            <mat-icon matSuffix class=" p-02">announcement</mat-icon>  {{trans?.id}} {{trans?.created_at | date: 'short'}}
+        </mat-chip>
+    </mat-chip-list>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <mat-label>Referencia</mat-label>
+            <input matInput class="mat-caption" name="referencia" formControlName="referencia" (ngModelChange)="_validaReferencia($event)">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field *ngIf="dataOperador"  class="w-90-p mat-caption m-2" appearance="outline" fxFlex>
+        <mat-label>Operador</mat-label>
+        <mat-select name="asignado" formControlName="asignado" >
+            <mat-option *ngFor="let food of dataOperador" [value]="food" [disabled]="food.estado_u !== 'ON'" >
+                {{ food.name }} {{ food.lastName }} - {{ food.nombre }} #{{ food.numero }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
+</div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()" *ngIf="!loading">
+        Asignar
+    </button>
+    <img *ngIf="loading" src="assets/images/backgrounds/spinner.webp" width="65" height="90" alt="">
+</div>

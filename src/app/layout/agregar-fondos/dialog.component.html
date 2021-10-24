@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Gestionar Fondos</h2>
+<mat-dialog-content class="px-4 border-vertical">
+<div mat-dialog-content class="p-24 p-2 m-0">
+<form [formGroup]="dialogForm">
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <mat-label>Monto</mat-label>
+            <input matInput class="mat-caption" name="monto" formControlName="monto">
+        </mat-form-field>
+        <mat-radio-group class="w-90-p mat-caption m-2" name="tipo" formControlName="tipo">
+            <mat-radio-button  class="mat-caption p-2 w-30-p" value="ingreso">Ingreso</mat-radio-button>
+            <mat-radio-button  class="mat-caption p-2 w-30-p" value="egreso">Egreso</mat-radio-button>
+        </mat-radio-group>
+    </div>
+</form>
+</div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()">
+        Efectuar
+    </button>
+</div>

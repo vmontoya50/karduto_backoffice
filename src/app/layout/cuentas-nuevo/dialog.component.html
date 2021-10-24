@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Nueva cuenta</h2>
+<mat-dialog-content class="px-4 border-vertical">
+<div mat-dialog-content class="p-24 pb-0 m-0">
+<form [formGroup]="dialogForm">
+
+    <mat-form-field appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
+        <mat-label>Pais</mat-label>
+        <mat-select name="pais" formControlName="pais">
+            <mat-option *ngFor="let food of this.api.displayPais" [value]="food.value"  (onSelectionChange)="_dataMonedaPais(food.value)">
+                {{ food.viewValue }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="dataMoneda" appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
+        <mat-label>Moneda</mat-label>
+        <mat-select name="moneda" formControlName="moneda">
+            <mat-option *ngFor="let food of dataMoneda" [value]="food.id" (onSelectionChange)="this._dataBanco(food.id)">
+                {{ food.nombre }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="dataBancos" appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
+        <mat-label>Banco</mat-label>
+        <mat-select name="banco" formControlName="banco">
+            <mat-option *ngFor="let food of dataBancos" [value]="food.id">
+                {{ food.nombre }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="dataBancos" appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
+        <mat-label>Tipo de Cuenta</mat-label>
+        <mat-select name="tipo" formControlName="tipo">
+            <mat-option *ngFor="let food of this.api.displayTipoCuenta" [value]="food.value">
+                {{ food.viewValue }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <mat-label>Numero de cuenta</mat-label>
+            <input matInput class="mat-caption" name="numero" formControlName="numero">
+        </mat-form-field>
+    </div>
+
+</form>
+</div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()">
+        Agregar cuenta
+    </button>
+</div>

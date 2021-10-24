@@ -35,23 +35,3 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Compilación
 
 `node --max_old_space_size=25240 ./node_modules/@angular/cli/bin/ng build --prod --aot --extract-css --build-optimizer --optimization`
-
-
-
-## Variables de traducción
-
-{coti_mes_hasta}  `Mes del termino de pago de las cotizaciones`.
-
-{coti_year_hasta} `Año del termino de pago de las cotizaciones`.
-
-{nombres} `Nombre del empleado`.
-
-{apellido_paterno} `Apellido parterno del empleado`.
-
-{apellido_materno} `Apellido marterno del empleado`.
-
-{pago_feriados} `Monto del pago en el finiquito de los dias feriados`.
-
-{pago_volutario} `Monto del pago voluntario por parte del empleador en el finiquito`.
-
-{total_finiquito} `Monto del total del pago en el finiquito`.

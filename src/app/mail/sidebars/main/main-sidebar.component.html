@@ -1,0 +1,36 @@
+<!-- SIDEBAR HEADER -->
+<div fxLayout="column" fxLayoutAlign="space-between start"
+     class="header accent p-24 pb-4">
+
+    <div class="logo" fxFlex fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon class="logo-icon s-32" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">list
+        </mat-icon>
+        <span class="logo-text" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Transacciones</span>
+    </div>
+
+</div>
+<!-- / SIDEBAR HEADER -->
+
+<!-- SIDEBAR CONTENT -->
+<div class="content" fusePerfectScrollbar [@animate]="{value:'*',params:{y:'50px'}}">
+
+    <div class="px-24 pt-32 pb-12">
+        <button mat-raised-button
+                class="mat-accent compose-dialog-button w-100-p"
+                (click)="go()"
+                aria-label="Compose">
+           Nueva
+        </button>
+    </div>
+
+    <div class="px-24 pt-32 pb-12">
+        <button mat-raised-button
+                class="mat-accent compose-dialog-button w-100-p"
+                (click)="estadoPro(this.estado)" [style.background-color]="estadoColor(this.estado)"
+                aria-label="Compose">
+           {{ (this.estadoView) ? this.estadoView : 'Conectarme' }}
+        </button>
+    </div>
+
+</div>
+<!-- / SIDEBAR CONTENT -->

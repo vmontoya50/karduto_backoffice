@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Agregar tasa</h2>
+<mat-dialog-content class="px-4 border-vertical">
+<div mat-dialog-content class="p-24 pb-0 m-0">
+<form [formGroup]="dialogForm">
+
+    <mat-form-field *ngIf="dataMoneda" appearance="outline" class="w-90-p mat-caption m-2">
+        <mat-label>Moneda de recepción</mat-label>
+        <mat-select name="moneda_id" formControlName="moneda_id" >
+            <mat-option *ngFor="let food of dataMoneda" [value]="food.id">
+                {{ food.nombre }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="dataMoneda" appearance="outline" class="w-90-p mat-caption m-2">
+        <mat-label>Moneda de cambio</mat-label>
+        <mat-select name="moneda_cambio_id" formControlName="moneda_cambio_id" >
+            <mat-option *ngFor="let food of dataMoneda" [value]="food.id">
+                {{ food.nombre }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <mat-label>Tasa</mat-label>
+            <input matInput class="mat-caption" name="monto" formControlName="monto">
+        </mat-form-field>
+    </div>
+    <!-- mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+        <mat-label>Aplicar desde</mat-label>
+        <input matInput [matDatepicker]="dpp" name="fecha" formControlName="fecha"  required>
+        <mat-datepicker-toggle matSuffix [for]="dpp"></mat-datepicker-toggle>
+        <mat-datepicker #dpp></mat-datepicker>
+    </mat-form-field -->
+    <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Fecha Agenda" [(ngModel)]="dates" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeDate()"  [disabled]="disabled">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker [(ngModel)]="dates" [ngModelOptions]="{standalone: true}" #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds" [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond">
+        </ngx-mat-datetime-picker>
+    </mat-form-field>
+</form>
+</div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()">
+        Agregar tasa
+    </button>
+</div>

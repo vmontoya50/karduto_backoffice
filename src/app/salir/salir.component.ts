@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 export class SalirComponent implements OnInit {
 
   constructor(
-      private api: ApiService,
+      public api: ApiService,
       private router: Router
   ) {
 

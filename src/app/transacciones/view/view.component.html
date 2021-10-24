@@ -1,0 +1,170 @@
+<div class="page-layout simple right-sidebar inner-sidebar">
+
+    <!-- HEADER -->
+    <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
+                (click)="toggleSidebar('view-component')">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <div>
+            <h2>#{{this.dataCuenta?.id}} - {{this.dataCuenta?.estado}}</h2>
+            <h2>{{this.dataCuenta?.cuenta_entrante}}</h2>
+            <small>{{this.dataCuenta?.pais}}</small>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content ">
+
+        <!-- CENTER -->
+        <div class="center p-24" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="content p-24">
+                <mat-icon *ngIf="dataCuenta?.estado == 'PEND'" style="cursor: pointer; margin-right: 2px;" class="cpointer" asignar-dialog [data]="{CLA: 'transacciones', id:idCuenta, monto:this.dataCuenta.monto_entrante}" (afterClosed)="this.dataComponent(idCuenta);" [width]="600">how_to_reg</mat-icon>
+                <mat-icon *ngIf="dataCuenta?.estado == 'PEND'" style="cursor: pointer; margin-right: 2px;" class="cpointer" finalizar-dialog [data]="{CLA: 'transacciones', id:idCuenta, tipo:'operaEx'}" (afterClosed)="this.dataComponent(idCuenta);" [width]="600">offline_pin</mat-icon>
+
+                <div class="">
+                        
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="font-size: medium;" class="details" fxLayout="row" fxLayoutAlign="space-around center">Datos de la transaccion:</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Identificacion del emisor:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.tipo_identificacion_emisor}} - {{dataCuenta?.identificacion_emisor}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Nombre operador origen:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.asignador_name}} {{dataCuenta?.asignador_lastName}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Nombre operador destino:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.asignado_name}} {{dataCuenta?.asignado_lastName}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Emisor:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.emisor_name}} {{dataCuenta?.emisor_lastName}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Banco receptor:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.cuenta_entrante}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Referencia:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.referencia_entrante}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Tasa:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.tasa}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Monto recibido:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.monto_entrante| currency: dataCuenta?.iden_moneda_entrante + ' '}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Monto de cambio:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{(dataCuenta?.monto_saliente) | currency: dataCuenta?.iden_moneda_saliente + ' '}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div  style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">
+                                <img *ngIf="this.dataCuenta?.archivo_entrante&& this.extension != 'pdf'" src="{{api.base + 'adjuntos/' + this.dataCuenta?.archivo_entrante}}" (click)="goToLink(api.base + 'adjuntos/' + this.dataCuenta?.archivo_entrante)" width="220px" alt="adjunto">
+                                <mat-icon *ngIf="this.extension == 'pdf'" (click)="goToLink(api.base + 'adjuntos/' + this.dataCuenta?.archivo_entrante)">insert_drive_file</mat-icon>
+
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="border-bottom" style="color: black; background-color: black;"></div>
+                <div class="">
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="font-size: medium;" class="details" fxLayout="row" fxLayoutAlign="space-around center">Datos del receptor:</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Identificacion del receptor:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.tipo_identificacion_receptor}} - {{dataCuenta?.receptors_identificacion}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Nombre:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.receptors_nombre}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Apellido(s):</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.receptors_apellido}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Banco:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.receptors_cuenta_banco}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Tipo:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.receptors_cuenta_tipo}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Referencia:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.tipo_pagomovil}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center" *ngIf="dataCuenta?.correo_cuenta">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Tipo de pago movil:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.tipo_pagomovil}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Numero:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.receptors_cuenta_numero}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center" *ngIf="dataCuenta?.correo_cuenta">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Correo del pago:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.correo_cuenta}}.</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center" *ngIf="dataCuenta?.zelle">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Zelle:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.zelle}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center" *ngIf="dataCuenta?.pago_movil">
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">Pago movil:</div>
+                        <div style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">{{dataCuenta?.pago_movil}}</div>
+                    </div>
+
+                    <div class="p-4 btn border-bottom" fxLayout="row" fxLayoutAlign="start center" *ngIf="dataCuenta?.archivo_saliente"> 
+                        <div  style="width: 50%" class="details" fxLayout="row" fxLayoutAlign="space-around center">
+                                <img *ngIf="this.dataCuenta?.archivo_saliente&& this.extension != 'pdf'" src="{{api.base + 'adjuntos/' + this.dataCuenta?.archivo_saliente}}" (click)="goToLink(api.base + 'adjuntos/' + this.dataCuenta?.archivo_saliente)" width="220px" alt="adjunto">
+                                <mat-icon *ngIf="this.extension == 'pdf'" (click)="goToLink(api.base + 'adjuntos/' + this.dataCuenta?.archivo_saliente)">insert_drive_file</mat-icon>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT -->
+
+
+</div>

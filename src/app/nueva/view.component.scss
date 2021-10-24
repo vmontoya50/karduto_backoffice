@@ -1,0 +1,80 @@
+@mixin profile-about-theme($theme) {
+
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $primary: map-get($theme, primary);
+
+  profile-about {
+
+    #about {
+
+      .about-content {
+
+        .work {
+
+          .job {
+
+            .date {
+              color: map-get($foreground, secondary-text);
+            }
+          }
+        }
+      }
+
+      .about-sidebar {
+
+        .groups {
+
+          .content {
+
+            .group {
+
+              .logo {
+                background-color: map-get($primary, default);
+                color: map-get($primary, default-contrast);
+              }
+
+              .category,
+              .members {
+                color: map-get($foreground, secondary-text);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .profile-box {
+
+      .content {
+        background-color: map-get($background, card);
+      }
+
+      footer {
+        border-top-color: map-get($foreground, divider);
+        background-color: rgba(0, 0, 0, 0.06);
+      }
+    }
+  }
+}
+
+
+.skeleton {
+  background-repeat: no-repeat;
+  background-image:
+          radial-gradient(circle 16px, white 99%, transparent 0),
+          linear-gradient(white 20px, transparent 0),
+
+          linear-gradient(lightgray 100%, transparent 0);
+  width: 250px;
+  height:250px;
+  background-size:
+          32px 32px,  /* avatar */
+          200px 40px, /* title */
+          100% 100%;  /* card bg */
+
+  background-position:
+          24px 24px,  /* avatar */
+          24px 200px, /* title */
+          0 0;        /* card bg */
+}

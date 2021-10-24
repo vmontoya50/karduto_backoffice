@@ -8,8 +8,7 @@
         </mat-toolbar-row>
 
         <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
-            <img [src]="contact.avatar" class="avatar contact-avatar huge m-0"
-                 [alt]="contact.name"/>
+            <img [src]="contact.avatar" class="avatar contact-avatar huge m-0" [alt]="contact.name" />
             <div class="contact-name mt-8">{{contact.name}} {{contact.lastName}}</div>
         </mat-toolbar-row>
     </mat-toolbar>
@@ -17,6 +16,40 @@
     <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
 
         <form [formGroup]="contactForm">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Tipo identificación</mat-label>
+                    <mat-icon matSuffix class="secondary-text">supervised_user_circle</mat-icon>
+                    <!-- input name="profile" formControlName="profile" matInput -->
+                    <mat-select name="tipo_identificacion" formControlName="tipo_identificacion">
+                        <mat-option *ngFor="let food of api.displayDtipo" [value]="food.value">
+                            {{food.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Numero de identificación</mat-label>
+                    <mat-icon matSuffix class="secondary-text">rate_review</mat-icon>
+                    <input name="identificacion" formControlName="identificacion" matInput required>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Rol</mat-label>
+                    <mat-icon matSuffix class="secondary-text">work</mat-icon>
+                    <!-- input name="profile" formControlName="profile" matInput -->
+                    <mat-select name="profile" formControlName="profile">
+                        <mat-option *ngFor="let food of perfil" [value]="food.value">
+                            {{food.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
@@ -63,14 +96,30 @@
 
             <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Perfil</mat-label>
-                    <mat-icon matSuffix class="secondary-text">work</mat-icon>
+                    <mat-label>Telefono</mat-label>
+                    <mat-icon matSuffix class="secondary-text">call</mat-icon>
+                    <input name="telefono" formControlName="telefono" matInput type="telefono" required>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Pais</mat-label>
+                    <mat-icon matSuffix class="secondary-text">language</mat-icon>
                     <!-- input name="profile" formControlName="profile" matInput -->
-                    <mat-select name="profile" formControlName="profile">
-                        <mat-option *ngFor="let food of perfil" [value]="food.value">
+                    <mat-select name="pais" formControlName="pais">
+                        <mat-option *ngFor="let food of api.displayPais" [value]="food.value">
                             {{food.viewValue}}
                         </mat-option>
                     </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Direccion</mat-label>
+                    <mat-icon matSuffix class="secondary-text">location_on</mat-icon>
+                    <input name="direccion" formControlName="direccion" matInput type="direccion" required>
                 </mat-form-field>
             </div>
 
@@ -80,30 +129,15 @@
 
     <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
 
-        <button *ngIf="action === 'edit'"
-                mat-button
-                class="mr-8"
-                (click)="matDialogRef.close(['delete',contactForm])"
-                aria-label="Delete"
-                matTooltip="Delete">
+        <button *ngIf="action === 'edit'" mat-button class="mr-8" (click)="matDialogRef.close(['delete',contactForm])" aria-label="Delete" matTooltip="Delete">
             DELETE
         </button>
 
-        <button *ngIf="action !== 'edit'"
-                mat-button
-                class="save-button"
-                (click)="matDialogRef.close(contactForm)"
-                [disabled]="contactForm.invalid"
-                aria-label="SAVE">
+        <button *ngIf="action !== 'edit'" mat-button class="save-button" (click)="matDialogRef.close(contactForm)" [disabled]="contactForm.invalid" aria-label="SAVE">
             Guardar
         </button>
 
-        <button *ngIf="action === 'edit'"
-                mat-button
-                class="save-button"
-                (click)="matDialogRef.close(['save',contactForm])"
-                [disabled]="contactForm.invalid"
-                aria-label="SAVE">
+        <button *ngIf="action === 'edit'" mat-button class="save-button" (click)="matDialogRef.close(['save',contactForm])" [disabled]="contactForm.invalid" aria-label="SAVE">
             Guardar
         </button>
 

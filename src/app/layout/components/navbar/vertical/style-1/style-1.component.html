@@ -2,7 +2,7 @@
 
     <div class="logo">
         <img class="logo-icon" src="assets/images/logos/fuse.svg">
-        <span class="logo-text secondary-text">GRUPO NEWEN</span>
+        <span class="logo-text secondary-text">SUPER ENVIOS</span>
     </div>
 
     <div class="buttons">
@@ -23,15 +23,15 @@
 
 
 <div class="navbar-scroll-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground"
-     fusePerfectScrollbar [fusePerfectScrollbarOptions]="{suppressScrollX: true}" >
+     fusePerfectScrollbar [fusePerfectScrollbarOptions]="{suppressScrollX: true}">
 
     <div class="user" fxLayout="column" [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
 
-        <div class="h3 username">{{ this.usuarioData.name + ' ' + this.usuarioData.lastName }}</div>
-        <div class="h5 email hint-text mt-8">{{ this.usuarioData.email }}</div>
-        <div class="avatar-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground">
-            <img class="avatar" src="assets/images/logos/logo.png">
-        </div>
+        <div class="h3 username">{{ (this.usuarioData?.name != null) ? this.usuarioData?.name: ''  + ' ' + this.usuarioData?.lastName }}</div>
+        <div class="h5 email hint-text mt-8">{{ this.usuarioData?.email }}</div>
+        <!-- div class="avatar-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground">
+            <img class="avatar" src="{{this.usuarioData.avatar}}">
+        </div -->
 
     </div>
 

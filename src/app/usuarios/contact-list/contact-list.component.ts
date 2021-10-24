@@ -26,7 +26,7 @@ export class ContactsContactListComponent implements OnInit, OnDestroy
     contacts: any;
     user: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['checkbox', 'avatar', 'name', 'email', 'phone', 'jobTitle', 'buttons'];
+    displayedColumns = [ 'avatar', 'name', 'email', 'phone', 'jobTitle', 'buttons'];
     selectedContacts: any[];
     checkboxes: {};
     dialogRef: any;
@@ -168,11 +168,12 @@ export class ContactsContactListComponent implements OnInit, OnDestroy
             disableClose: false
         });
 
-        this.confirmDialogRef.componentInstance.confirmMessage = 'Estas seguro de eliminar este usuario?';
+        this.confirmDialogRef.componentInstance.confirmMessage = 'Estas seguro que quieres eliminar este usuario?';
 
         this.confirmDialogRef.afterClosed().subscribe(result => {
             if ( result )
             {
+                console.log('Contacto::', contact);
                 this._contactsService.deleteContact(contact);
             }
             this.confirmDialogRef = null;

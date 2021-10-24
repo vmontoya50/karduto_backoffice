@@ -69,7 +69,7 @@ export class ContratoTurnoListDialogComponent implements OnInit {
       @Inject(MAT_DIALOG_DATA) private data: any,
       public dialog: MatDialog,
       public matDialogRef: MatDialogRef<ContratoTurnoListDialogComponent>,
-      private api: ApiService,
+      public api: ApiService,
       private _fuseSidebarService: FuseSidebarService,
       private _fuseProgressBarService: FuseProgressBarService,
       private _fuseConfigService: FuseConfigService,

@@ -40,27 +40,18 @@ export class ApiService {
     onTokenChanged: BehaviorSubject<any>;
     onUserChanged: BehaviorSubject<any>;
     onPostulanteChanged: BehaviorSubject<any>;
+    onEstadoChanged: BehaviorSubject<any>;
 
     // Variables
     token: any;
     user: any;
     cargando: any;
-    //PROD
-    //url = 'https://api.gruponewen.cl/api/';
-    //basepdf = 'https://api.gruponewen.cl/';
-    //base = 'https://api.gruponewen.cl/';
-    //STAGING
-    //url = 'https://apistaging.gruponewen.cl/api/';
-    //basepdf = 'https://apistaging.gruponewen.cl/';
-   // base = 'https://apistaging.gruponewen.cl/';
-    //DESARROLLO
-    url = 'http://127.0.0.1:8000/api/';
-    basepdf = 'http://apistaging.gruponewen.cl/';
-    base = 'http://127.0.0.1:8000/';
-    //FIRMAS
-    basefirma = 'http://firma.gruponewen.cl/';
+    dataSource: any;
 
-    
+    url = 'https://api.superenviostoday.com/api/';
+    basepdf = 'https://admin.superenviostoday.com/pdf/';
+    base = 'https://api.superenviostoday.com/';
+    ur = 'https://admin.superenviostoday.com/';
 
     displaySalud: Food[] = [
         {value: 'FONASA', viewValue: 'FONASA'},
@@ -95,6 +86,23 @@ export class ApiService {
         {value: 'DIA Y NOCHE', viewValue: 'DIA Y NOCHE'}
     ];
 
+
+    displayTipoCuenta: Food[] = [
+        {value: 'corriente', viewValue: 'Corriente'},
+        {value: 'ahorro', viewValue: 'Ahorro'},
+        {value: 'Rut', viewValue: 'Rut'},
+        {value: 'vista', viewValue: 'Vista'},
+        {value: 'chequera electronica', viewValue: 'Chequera Electronica'},
+    ];
+
+    displayDtipo: Food[] = [
+        {value: 'CI', viewValue: 'CI'},
+        {value: 'DNI', viewValue: 'DNI'},
+        {value: 'RUT', viewValue: 'RUT'},
+        {value: 'PASSPORT', viewValue: 'PASSPORT'},
+        {value: 'RIF', viewValue: 'RIF'},
+    ];
+
     displayTurnoW: Food[] = [
         {value: 'DIA', viewValue: 'DIA'},
         {value: 'NOCHE', viewValue: 'NOCHE'}
@@ -105,6 +113,15 @@ export class ApiService {
         {value: 'PART TIME', viewValue: 'PART TIME'}
     ];
 
+   displayPais: Food[] = [];
+    /*displayPais: Food[] = [
+        {value: 'venezuela', viewValue: 'Venezuela'},
+        {value: 'chile', viewValue: 'Chile'},
+        {value: 'usa', viewValue: 'USA'},
+        {value: 'peru', viewValue: 'Peru'},
+        {value: 'argentina', viewValue: 'Argentina'}
+    ];*/
+    
     displayNacionalidad: Nacionalidad[] = [
         { nacionalidad: 'CHILENA', codigo: 'CL' },
         { nacionalidad: 'VENEZOLANA', codigo: 'VE' },
@@ -149,38 +166,7 @@ export class ApiService {
         { nacionalidad: 'UCRANIANA', codigo: 'UA' },
         { nacionalidad: 'URUGUAYA', codigo: 'UY' }
     ];
-
-    displayBanco: Banco[] = [
-        {banco: 'BANCO ESTADO', codigo: 12},
-        {banco: 'BANCO SANTANDER', codigo: 37},
-        {banco: 'BCI (BANCO DE CREDITO E INVERIONES)', codigo: 16},
-        {banco: 'BANCO DE CHILE', codigo: 1},
-        {banco: 'BANCO FALABELLA', codigo: 51},
-        {banco: 'BANCO ITAU', codigo: 39},
-        {banco: 'BANCO BICE', codigo: 28},
-        {banco: 'BANCO RIPLEY', codigo: 53},
-        {banco: 'BANCO PARIS', codigo: 57},
-        {banco: 'CONSORCIO', codigo: 55},
-        {banco: 'CORPBANCA', codigo: 27},
-        {banco: 'BBVA', codigo: 504},
-        {banco: 'CITIBANK, N.A.', codigo: 33},
-        {banco: 'CONOSUR', codigo: 734},
-        {banco: 'DE LA NACION ARGENTINA', codigo: 43},
-        {banco: 'DESARROLLO', codigo: 507},
-        {banco: 'DEUTSCHE BANK', codigo: 52},
-        {banco: 'DO BRASIL', codigo: 17},
-        {banco: 'EDWARDS', codigo: 29},
-        {banco: 'ABN AMRO', codigo: 46},
-        {banco: 'HNS', codigo: 54},
-        {banco: 'HSBC BANK CHILE', codigo: 31},
-        {banco: 'INTERNACIONAL', codigo: 9},
-        {banco: 'JP MORGAN CHASE BANK', codigo: 41},
-        {banco: 'PENTA', codigo: 56},
-        {banco: 'SCOTIABANK SUD AMERICANO', codigo: 14},
-        {banco: 'SECURITY', codigo: 49},
-        {banco: 'THE BANK OF TOKYO-MITSUBISHI UFJ, LTD.', codigo: 45}
-    ];
-
+    
     displayRegion: Region[] = [
         { region:  'Región Metropolitana' },
         { region:  'Región Arica y Parinacota' },
@@ -196,6 +182,7 @@ export class ApiService {
         { region:  'Región del Bío Bío' },
         { region:  'Región del Maule' }
     ];
+    
 
     displayComuna: Comuna[] = [
         {region:  'Región Arica y Parinacota', comuna:  'Arica'},
@@ -253,7 +240,6 @@ export class ApiService {
         {region:  'Región del Bío Bío', comuna:  'Chillán'},
         {region:  'Región del Bío Bío', comuna:  'Concepción'},
         {region:  'Región del Bío Bío', comuna:  'Lebu'},
-        {region:  'Región del Bío Bío', comuna:  'Los Angeles'},
         {region:  'Región del Bío Bío', comuna:  'Mulchen'},
         {region:  'Región del Bío Bío', comuna:  'Parral'},
         {region:  'Región del Bío Bío', comuna:  'Penco'},
@@ -277,7 +263,6 @@ export class ApiService {
         {region:  'Región Metropolitana', comuna:  'Huechuraba'},
         {region:  'Región Metropolitana', comuna:  'Independencia'},
         {region:  'Región Metropolitana', comuna:  'Isla de Maipo'},
-        {region:  'Región Metropolitana', comuna:  'La Cisterna'},
         {region:  'Región Metropolitana', comuna:  'La Florida'},
         {region:  'Región Metropolitana', comuna:  'La Granja'},
         {region:  'Región Metropolitana', comuna:  'La Pintana'},
@@ -313,7 +298,6 @@ export class ApiService {
         {region:  'Región Metropolitana', comuna:  'Talagante'},
         {region:  'Región Metropolitana', comuna:  'Vitacura'}
     ];
-
     
 
     constructor(
@@ -326,86 +310,32 @@ export class ApiService {
       this.onUserChanged = new BehaviorSubject([]);
       this.onTokenChanged = new BehaviorSubject([]);
       this.onPostulanteChanged = new BehaviorSubject([]);
+      this.onEstadoChanged = new BehaviorSubject([]);
   }
 
-    // Funciones
-    headers(): any{
-        const _token = localStorage.getItem('token' );
-        let headers = new HttpHeaders();
-        headers = headers.set( 'Authorization', 'Bearer ' + _token );
-        return headers;
-    }
+  // Funciones
+  headers(): any{
+      const _token = localStorage.getItem('token' );
+      let headers = new HttpHeaders();
+      headers = headers.set( 'Authorization', 'Bearer ' + _token );
+      return headers;
+  }
 
   get(u): any{
-    return this.http.get( this.url + u, {headers: this.headers()});
+      return this.http.get( this.url + u, {headers: this.headers()});
   }
 
   post(u, post): any{
-    return this.http.post(this.url + u, post, {headers: this.headers()});
-  }
-
-  file(u, post, option): any{
-    return this.http.post(this.url + u, post, option);
+      return this.http.post(this.url + u, post, {headers: this.headers()});
   }
 
   put(u, post): any{
     return this.http.put(this.url + u, post, {headers: this.headers()});
   }
 
-  delete(u, option?): any{
+  delete(u): any{
      return this.http.delete(this.url + u, {headers: this.headers()});
   }
-
-  downloadFile(route: string, filename: string = null): void{
-    this.show();
-    const baseUrl = this.url;
-    const headers =this.headers();
-    this.http.get(baseUrl + route,{headers, responseType: 'blob' as 'json'}).subscribe(
-        (response: any) =>{
-            let dataType = response.type;
-            let binaryData = [];
-            binaryData.push(response);
-            let downloadLink = document.createElement('a');
-            downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
-            if (filename)
-                downloadLink.setAttribute('download', filename);
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            this.hide();
-        },
-        error => {
-          this._fuseProgressBarService.hide();
-          console.log(error);
-          if(error.status == 404){
-            alert('no hay resultados');
-            this.hide();
-          }
-          
-        }
-    )
-}
-
-
-downloadFileZip(route: string, filename: string = null): void{
-
-    const baseUrl = this.url;
-    const headers =this.headers();
-    this.show();
-    this.http.get(baseUrl + route,{headers, responseType: 'blob' as 'json'}).subscribe(
-        (response: any) =>{
-            let dataType = response.type;
-            let binaryData = [];
-            binaryData.push(response);
-            let downloadLink = document.createElement('a');
-            downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
-            if (filename)
-                downloadLink.setAttribute('download', filename);
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            this.hide();
-        }
-    )
-}
 
 
   ini(){
@@ -450,32 +380,6 @@ downloadFileZip(route: string, filename: string = null): void{
             const fecha = str.split('/');
             if (fecha){
                 return fecha[2] + '/' + fecha[1] + '/' + fecha[0];
-
-            }else{
-                return str;
-            }
-
-        }
-
-  }
-  convertDatefullFormatValidate(str): any{
-        if (str){
-            console.log("base", str);
-            const fecha = str.trim().split('/');
-
-            if(parseInt(fecha[2])<1999)
-                fecha[2] = parseInt(fecha[2])+2000;
-
-            if(parseInt(fecha[0])<10)
-                fecha[0] = '0'+ fecha[0];
-
-            if(parseInt(fecha[1])<10)
-                fecha[1] = '0'+ fecha[1];
-
-                console.log("result", fecha[2] + '/' + fecha[0] + '/' + fecha[1]);
-
-            if (fecha){
-                return fecha[2] + '/' + fecha[0] + '/' + fecha[1];
 
             }else{
                 return str;
@@ -540,6 +444,44 @@ downloadFileZip(route: string, filename: string = null): void{
         return dataSource;
   }
 
+  dataPais(): any{
+
+        let dataSource;
+
+        this._fuseProgressBarService.show();
+        this.get('pais')
+            .subscribe( data => {
+
+                console.log('PAIS::', data);
+                this.displayPais = [];
+                data.data.forEach((val) => {
+                    console.log('ROWPAIS::', val);
+                    this.displayPais.push({value: val.nombre, viewValue: val.nombre });
+                });
+                console.log('PAISDisplay::',  this.displayPais);
+                this._fuseProgressBarService.hide();
+                dataSource = data;
+
+            });
+
+        return dataSource;
+  }
+
+  next(url, $event): void {
+      if ($event.pageIndex != null) {
+
+          this._fuseProgressBarService.show();
+          const page = $event.pageIndex + 1;
+          this.get(url + page)
+              .subscribe(data => {
+                  console.log('NEXRCONSULTA::', data);
+                  this.dataSource = data;
+                  this._fuseProgressBarService.hide();
+
+              });
+      }
+  }
+
   checkRut(rut): any{
         // Despejar Puntos
         let valor = rut.replace('.','');
@@ -547,7 +489,7 @@ downloadFileZip(route: string, filename: string = null): void{
         valor = valor.replace('-','');
 
         // Aislar Cuerpo y Dígito Verificador
-        let cuerpo = valor.slice(0, -1);
+        const cuerpo = valor.slice(0, -1);
         let dv = valor.slice(-1).toUpperCase();
 
         // Formatear RUN
@@ -591,35 +533,14 @@ downloadFileZip(route: string, filename: string = null): void{
         // Si todo sale bien, eliminar errores (decretar que es válido)
 
     }
-
-
-getPosition(): Promise<any> {
-    return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resp => {
-                resolve({lng: resp.coords.longitude, lat: resp.coords.latitude});
-            },
-            err => {
-                reject(err);
-            });
-    });
-}
-
-getLocation() {
-    this.getPosition().then(pos => {
-        let latitude = pos.lat;
-        let longitude = pos.lng;
-
-        console.log('latitude::',latitude);
-        console.log('longitude::',longitude);
-    });
-}
-
-  navegacion(_perfil = 'admin'){
+  // tslint:disable-next-line:typedef
+  navegacion(_perfil){
 
       let perfil = [];
-        switch (_perfil) {
+      switch (_perfil) {
 
             case 'admin': {
+
                 perfil = [{
                     id       : 'menu',
                     title    : 'Menu',
@@ -650,6 +571,95 @@ getLocation() {
                                     type     : 'item',
                                     icon     : 'account_circle',
                                     url      : '/usuarios'
+                                }
+                            ]
+                        },
+                        {
+                            id       : 'cuentas',
+                            title    : 'Cuentas',
+                            translate: 'Cuentas',
+                            type     : 'item',
+                            icon     : 'account_balance_wallet',
+                            url      : '/cuentas',
+                            badge    : {}
+                        },
+                        {
+                            id       : 'transacciones',
+                            title    : 'Transacciones',
+                            translate: 'Transacciones',
+                            type     : 'item',
+                            icon     : 'list',
+                            url      : '/mail',
+                            badge    : {}
+                        },
+                        {
+                            id       : 'mistransacciones',
+                            title    : 'Mis transacciones',
+                            translate: 'Mis transacciones',
+                            type     : 'item',
+                            icon     : 'list',
+                            url      : '/transacciones',
+                            badge    : {}
+                        },
+                        {
+                            id       : 'pendientes',
+                            title    : 'Operaciones Pendientes',
+                            translate: 'Operaciones Pendientes',
+                            type     : 'item',
+                            icon     : 'playlist_add_check',
+                            url      : '/pendientes',
+                            badge    : {}
+                        },
+                        {
+                            id       : 'tasa',
+                            title    : 'Definir tasa',
+                            translate: 'Definir tasa',
+                            type     : 'item',
+                            icon     : 'read_more',
+                            url      : '/tasa' +
+                                '',
+                            badge    : {}
+                        },
+                        {
+                            id       : 'movimientos',
+                            title    : 'Movimientos',
+                            translate: 'Movimientos',
+                            type     : 'item',
+                            icon     : 'swap_vertical_circle',
+                            url      : '/movimientos' +
+                                '',
+                            badge    : {}
+                        },
+                        {
+                            id       : 'configuracion',
+                            title    : 'Configuracion',
+                            translate: 'Configuracion',
+                            type     : 'collapsable',
+                            icon     : 'group_work',
+                            children : [
+                                {
+                                    id       : 'agregar-moneda',
+                                    title    : 'Agregar moneda',
+                                    translate: 'Agregar moneda',
+                                    type     : 'item',
+                                    icon     : 'monetization_on',
+                                    url      : '/agregar_moneda'
+                                },
+                                {
+                                    id       : 'agregar-banco',
+                                    title    : 'Agregar banco',
+                                    translate: 'Agregar banco',
+                                    type     : 'item',
+                                    icon     : 'account_balance',
+                                    url      : '/agregar_banco'
+                                },
+                                {
+                                    id       : 'agregar-pais',
+                                    title    : 'Agregar pais',
+                                    translate: 'Agregar pais',
+                                    type     : 'item',
+                                    icon     : 'language',
+                                    url      : '/agregar_pais'
                                 }
                             ]
                         },
@@ -659,15 +669,17 @@ getLocation() {
                             translate: 'Salir',
                             type     : 'item',
                             icon     : 'power_settings_new',
-                            url      : '/salir'
+                            url      : '/salir',
+                            badge    : {}
                         }
                     ]
 
                 }];
+
                 break;
             }
 
-            case 'registrador': {
+            case 'operaextra': {
 
                 perfil = [{
                     id       : 'menu',
@@ -699,72 +711,78 @@ getLocation() {
                                     type     : 'item',
                                     icon     : 'account_circle',
                                     url      : '/usuarios'
-                                },
-                                {
-                                    id       : 'postulante',
-                                    title    : 'Postulante',
-                                    translate: 'Postulante',
-                                    type     : 'item',
-                                    icon     : 'assignment_ind',
-                                    url      : '/postulante'
-                                },
-                                {
-                                    id       : 'empleado',
-                                    title    : 'Empleado',
-                                    translate: 'Empleado',
-                                    type     : 'item',
-                                    icon     : 'assignment_ind',
-                                    url      : '/empleado'
-                                },
-                                {
-                                    id       : 'contrato',
-                                    title    : 'Contrato',
-                                    translate: 'Contrato',
-                                    type     : 'item',
-                                    icon     : 'description',
-                                    url      : '/contrato'
-                                },
-                                {
-                                    id       : 'finiquito',
-                                    title    : 'Finiquito',
-                                    translate: 'Finiquito',
-                                    type     : 'item',
-                                    icon     : 'description',
-                                    url      : '/finiquito'
-                                },
-                                {
-                                    id       : 'registroContrato',
-                                    title    : 'Registro de contrato',
-                                    translate: 'Registro de contrato',
-                                    type     : 'item',
-                                    icon     : 'chrome_reader_mode',
-                                    url      : '/registro-contrato' 
-                                },
-                                {
-                                    id       : 'clientes',
-                                    title    : 'Clientes',
-                                    translate: 'Clientes',
-                                    type     : 'item',
-                                    icon     : 'supervised_user_circle',
-                                    url      : '/clientes'
-                                },
-                                {
-                                    id       : 'carga',
-                                    title    : 'Carga masiva',
-                                    translate: 'Carga masiva',
-                                    type     : 'item',
-                                    icon     : 'backup',
-                                    url      : '/carga'
-                                },
-                                {
-                                    id       : 'firmas',
-                                    title    : 'Firmas generadas',
-                                    translate: 'Firmas generadas',
-                                    type     : 'item',
-                                    icon     : 'gesture',
-                                    url      : '/firmas'
                                 }
                             ]
+                        },
+                        {
+                            id       : 'transacciones',
+                            title    : 'Transacciones',
+                            translate: 'Transacciones',
+                            type     : 'item',
+                            icon     : 'list',
+                            url      : '/mail',
+                            badge    : {}
+                        },
+                        {
+                            id       : 'mistransacciones',
+                            title    : 'Mis transacciones',
+                            translate: 'Mis transacciones',
+                            type     : 'item',
+                            icon     : 'list',
+                            url      : '/transacciones',
+                            badge    : {}
+                        },
+                        {
+                            id       : 'salir',
+                            title    : 'Salir',
+                            translate: 'Salir',
+                            type     : 'item',
+                            icon     : 'power_settings_new',
+                            url      : '/salir',
+                            badge    : {}
+                        }
+                    ]
+
+                }];
+
+                break;
+            }
+
+            case 'operavene': {
+
+                perfil = [{
+                    id       : 'menu',
+                    title    : 'Menu',
+                    translate: 'Menu',
+                    type     : 'group',
+                    children : [
+
+                        {
+                            id       : 'home',
+                            title    : 'Home',
+                            translate: 'Home',
+                            type     : 'item',
+                            icon     : 'home',
+                            url      : '/home',
+                            badge    : {}
+                        },
+                        {
+                            id       : 'transacciones',
+                            title    : 'Transacciones',
+                            translate: 'Transacciones',
+                            type     : 'item',
+                            icon     : 'list',
+                            url      : '/mail',
+                            badge    : {}
+                        },
+                        {
+                            id       : 'mistransacciones',
+                            title    : 'Mis transacciones',
+                            translate: 'Mis transacciones',
+                            type     : 'item',
+                            icon     : 'list',
+                            url      : '/transacciones',
+                            badge    : {}
                         },
                         {
                             id       : 'salir',

@@ -1,0 +1,110 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Transaccion</span>
+            <button mat-icon-button aria-label="Agregar receptor" asociar-operador>
+                <mat-icon>account_box</mat-icon> Agregar Receptor
+            </button>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+        <form name="composeForm" [formGroup]="composeForm" class="compose-form" fxLayout="column" fxFlex>
+
+            <div class="show-hide-extra-fields" (click)="toggleExtraToFields()">
+                <span [fxShow]="!showExtraToFields">Show CC & BCC</span>
+                <span [fxShow]="showExtraToFields">Hide CC & BCC</span>
+            </div>
+
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Tipo identificación</mat-label>
+                <mat-icon matSuffix class="secondary-text">supervised_user_circle</mat-icon>
+                <!-- input name="profile" formControlName="profile" matInput -->
+                <mat-select name="tipo_identificacion" formControlName="tipo_identificacion">
+                    <mat-option *ngFor="let food of api.displayDtipo" [value]="food.value">
+                        {{food.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Numero de identificacion</mat-label>
+                <input matInput name="to" formControlName="to" type="email" required>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="dataMoneda" appearance="outline" fxFlex>
+                <mat-label>Moneda</mat-label>
+                <mat-select name="moneda" formControlName="moneda" >
+                    <mat-option *ngFor="let food of dataMoneda" [value]="food.id" (onSelectionChange)="this._dataCuentas(food.id)">
+                        {{ food.nombre }} {{ food.id }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="dataMoneda" appearance="outline" fxFlex>
+                <mat-label>Seleccione cuenta donde se recibio el dinero:</mat-label>
+                <mat-select name="moneda" formControlName="moneda">
+                    <mat-option *ngFor="let food of cuentas" [value]="food.id">
+                        {{ food.banco }} -  {{ food.numero }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="show-hide-extra-fields">
+                <span [fxShow]="!showExtraToFields">{{ (monto * 327) | currency: 'Bs ' }}</span>
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>Ingrese monto</mat-label>
+                <input matInput name="subject" [(ngModel)]="monto" formControlName="subject">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Ingrese numero de referencia</mat-label>
+                <input matInput name="subject" formControlName="subject">
+            </mat-form-field>
+
+            <label form="filecvs" mat-raised-button color="accent" class="labelInput">
+                <input hidden type="file" formControlName="archivo" name="archivo" #filecvs accept=".png,.jpg,.jprg">
+            </label>
+
+            <div class="attachment-list">
+
+                <div *ngIf="composeForm.value.archivo" class="attachment" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div>
+                        <span class="filename">{{composeForm.value.archivo}}</span>
+                    </div>
+                    <button mat-icon-button aria-label="Delete attachment">
+                        <mat-icon class="s-16">close</mat-icon>
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+            <button mat-raised-button
+                    color="accent"
+                    (click)="_setDialog()"
+                    class="save-button"
+                    [disabled]="composeForm.invalid"
+                    aria-label="SAVE">
+                Enviar
+            </button>
+
+            <button mat-icon-button matTooltip="Attach a file" (click)="filecvs.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+        </div>
+
+        <button mat-icon-button (click)="matDialogRef.close(['delete',composeForm])"
+                aria-label="Delete"
+                matTooltip="Delete">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</div>

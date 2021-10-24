@@ -1,0 +1,172 @@
+<div *ngIf="!mail?.estado" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+    <mat-icon class="s-128 mb-16 select-message-icon hint-text"
+              [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}">
+        list
+    </mat-icon>
+    <span class="select-message-text hint-text" [@animate]="{value:'*',params:{delay:'400ms'}}">
+        <span>Selecciona una transaccion</span>
+    </span>
+</div>
+
+<div *ngIf="mail?.estado">
+
+    <div class="mail-header" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-toolbar>
+            <span>Detalles del receptor</span>
+            <button mat-icon-button matTooltip="Adjuntar" (click)="filecvs.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+
+            <label form="filecvs" mat-raised-button color="accent" class="labelInput">
+                <input hidden type="file" #filecvs accept=".png,.jpg,.jprg" (change)="_setFile($event)">
+            </label>
+        </mat-toolbar>
+    </div>
+    <div class="mail-content">
+        <div class="info" fxLayout="row" fxLayoutAlign="space-between start">
+            <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <div>
+                        <mat-icon matSuffix style="margin-right: 4px;">article</mat-icon>
+                    </div>
+                </div>
+
+                <div class="details" fxLayout="row" fxLayoutAlign="start start">
+
+                    <div fxLayout="column">
+                        <span class="title">Identificacion:</span>
+                        <span class="title">Nombre:</span>
+                        <span class="title">Apellido(s):</span>
+                        <span class="title">Banco:</span>
+                        <span class="title">Tipo:</span>
+                        <span class="title">Numero:</span>
+                        <span class="title">Monto:</span>
+                        <span class="title">Pago movil:</span>
+                        <span class="title">Zelle:</span>
+                        <span class="title">Referencia:</span>
+                    </div>
+
+                    <div fxLayout="column">
+                        <span class="detail">{{mail.tipo_identificacion_receptor}} - {{mail.receptors_identificacion}}.</span>
+                        <span class="detail">{{mail.receptorsNombre}}.</span>
+                        <span class="detail">{{mail.receptors_apellido}}.</span>
+                        <span class="detail">{{mail.receptors_cuenta_banco}}.</span>
+                        <span class="detail">{{mail.receptors_cuenta_tipo}}.</span>
+                        <span class="detail">{{mail.receptors_cuenta_numero}}.</span>
+                        <span class="detail">{{(mail.tasa * mail.monto) | currency: 'Bs '}}.</span>
+                        <span class="detail">{{mail.pago_movil}}.</span>
+                        <span class="detail">{{mail.zelle}} {{mail.correo_cuenta}}.</span>
+                        <span class="detail"*ngIf="mail.id_asignado === user.id">
+                            <input matInput class="mat-caption" style="border: 1px black solid;" [(ngModel)]="referenciaSalida" name="referencia" >
+                        </span>
+                        <span class="detail"*ngIf="mail.id_asignado !== user.id">
+                            {{mail.referencia_saliente}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="attachment" *ngIf="this.mail.archivo_saliente">
+            <img  src="{{api.base + 'adjuntos/' + this.mail.archivo_saliente}}" alt="adjunto">
+            <mat-icon matSuffix style="color: #EF5350; margin-top: 10px; right: 22px; cursor: pointer; position: absolute;" (click)="deleteArchivo()">delete</mat-icon>
+        </div>
+
+    </div>
+
+    <div class="mail-header" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="mail.id_asignador === user.id">
+        <mat-toolbar>
+            <div class="to-text pr-2" style="margin-right: 4px;"><b finalizar-dialog [width]="600">#{{mail.id}}</b> </div>
+            <span>Detalles de la transacción inicial</span>
+        </mat-toolbar>
+
+    </div>
+    <div class="mail-content" *ngIf="mail.id_asignador === user.id">
+        <div class="info" fxLayout="row" fxLayoutAlign="space-between start">
+            <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <div>
+                        <!-- img *ngIf="mail.archivo_entrante" alt="{{mail.archivo_entrante}}"
+                             src="{{api.base + 'adjuntos/'+ mail.archivo_entrante}}" class="avatar"/ --->
+                        <mat-icon matSuffix style="color: #2E7D32; margin-right: 4px;">play_circle_filled</mat-icon>
+                    </div>
+
+                    <div fxLayout="column" fxLayoutAlign="start start">
+                        <div class="name">
+                            {{mail.tipoIdentificacionEmisor}} {{mail.identificacionEmisor}}
+                        </div>
+
+                        <div class="to" fxLayout="row" fxLayoutAlign="start center">
+                            <div class="to-text">Nombre del cliente</div>
+                            <div>{{mail.emisorName}}{{mail.emisorLastName}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details" fxLayout="row" fxLayoutAlign="start start">
+
+                    <div fxLayout="column">
+                        <span class="title">Monto:</span>
+                        <span class="title">Referencia:</span>
+                        <span class="title">Numero:</span>
+                        <span class="title">Mail:</span>
+                    </div>
+
+                    <div fxLayout="column">
+                        <span class="detail">{{mail.monto | currency: 'CLP '}}</span>
+                        <span class="detail">{{mail.referencia_entrante}}</span>
+                        <span class="detail">{{mail.emisor_telefono}}</span>
+                        <span class="detail">{{mail.emisor_email}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mail-content">
+
+        <div class="info" fxLayout="row" fxLayoutAlign="space-around center">
+            <div *ngIf="mail.id_asignado === user.id && mail?.estado == 'PEND'">
+                <button mat-raised-button
+                        class="mat-accent compose-dialog-button w-100-p"
+                        style="color: #FFFFFF"
+                        (click)="confirmar()"
+                        aria-label="Compose">
+                    Confirmar
+                </button>
+            </div>
+            <div *ngIf="mail?.id_asignador === user.id&&mail?.estado != 'PEND'" >
+                <button mat-raised-button
+                        class="mat-accent compose-dialog-button w-100-p"
+                        style="color: #FFFFFF"
+                        (click)="finalizar('PEND')"
+                        aria-label="Compose">
+                    Aprobar
+                </button>
+            </div>
+            <!-- mat-icon *ngIf="dataCuenta?.estado == 'PEND'" style="cursor: pointer; margin-right: 2px;" class="cpointer" finalizar-dialog [data]="{CLA: 'transacciones', id:idCuenta, filter: displayFilter}" (afterClosed)="this.dataComponent(idCuenta);" [width]="600">offline_pin</mat-icon-->
+                 
+            <div *ngIf="mail.id_asignador === user.id">
+                <button mat-raised-button
+                        class="red-bg compose-dialog-button w-100-p wfont"
+                        style="color: #FFFFFF"
+                        (click)="finalizar('ANUL')"
+                        aria-label="Compose">
+                    Anular
+                </button>
+            </div>
+            
+            <div *ngIf="mail.id_asignado === user.id && mail?.estado == 'PEND'"
+            finalizar-dialog
+                 (afterClosed)="this.mail = null;"
+                 [width]="600"
+                 [data]="{CLA: 'transacciones', id:mail.id, tipo:'operaVzl'}" >
+                <button mat-raised-button
+                        class="amber compose-dialog-button w-100-p"
+                        style="color: #FFFFFF"
+                        aria-label="Compose">
+                    Rechazar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

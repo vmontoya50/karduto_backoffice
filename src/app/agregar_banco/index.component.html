@@ -1,0 +1,93 @@
+<div id="contacts" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
+         fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16"
+                          [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_balance
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Agregar Banco
+                </span>
+            </div>
+
+        </div>
+        <!-- / APP TITLE -->
+
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content w-100-p">
+
+        <!-- CENTER -->
+        <div class="center w-100-p p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="content" *ngIf="dataMonedas">
+                <mat-toolbar >
+                    <mat-toolbar-row class="bg-white" >
+                        <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" agregar-banco [data]="{CLA: 'monedas', filter: displayFilter}"
+                                  (afterClosed)="dataTable()"
+                                  [width]="400">add_circle</mat-icon>
+                        <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" filter-dialog [data]="{CLA: 'monedas', filter: displayFilter}"
+                                  (afterClosed)="_setSearch($event)"
+                                  [width]="250">search</mat-icon>
+                        <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" (click)="dataTable()">autorenew</mat-icon>
+                        <span class="example-spacer"></span>
+                        <mat-paginator
+                                [length]="dataSource?.total"
+                                [pageSize]="dataSource?.per_page" [pageIndex]="1" (page)="next($event)">
+                        </mat-paginator>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+
+                <table mat-table [dataSource]="dataMonedas" class="content w-100-p mat-elevation-z8">
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                        <td mat-cell class=""  *matCellDef="let element"> {{element?.nombre}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="moneda">
+                        <th mat-header-cell *matHeaderCellDef> Moneda </th>
+                        <td mat-cell class="" *matCellDef="let element"> {{element?.nombre_moneda}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="pais">
+                        <th mat-header-cell *matHeaderCellDef> País </th>
+                        <td mat-cell class="" *matCellDef="let element"> {{element?.pais}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="accion">
+                        <th mat-header-cell *matHeaderCellDef>  </th>
+                        <td mat-cell class="" *matCellDef="let element">  <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" (click)="delete( element.id )">delete</mat-icon> </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT-->
+
+</div>
+

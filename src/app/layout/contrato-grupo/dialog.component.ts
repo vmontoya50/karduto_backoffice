@@ -46,7 +46,7 @@ export class ContratoGrupoDialogComponent implements OnInit {
       @Inject(MAT_DIALOG_DATA) private data: any,
       public dialog: MatDialog,
       public matDialogRef: MatDialogRef<ContratoGrupoDialogComponent>,
-      private api: ApiService,
+      public api: ApiService,
   ) {
     console.log('DATA::', data);
     // Guardo datos en variable local

@@ -1,0 +1,170 @@
+<div class="page-layout simple right-sidebar inner-sidebar">
+
+    <!-- HEADER -->
+    <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
+                (click)="toggleSidebar('view-component')">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <div>
+            <h2>#{{this.dataCuenta?.numero}}</h2>
+            <h2>{{this.dataCuenta?.nom_banco}}</h2>
+            <small>{{this.dataCuenta?.pais}}</small>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content ">
+
+        <!-- CENTER -->
+        <div class="center p-24" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="content p-24">
+                <div class="" *ngIf="!dataCuenta?.lastName">
+                    <div class="p-4 text-white btn cursor-pointer" asociar-operador [data]="dataCuenta" (afterClosed)="dataComponent(idCuenta);" [width]="800" fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="m-0 secondary-text">circle_add</mat-icon>
+                        <div class="mat-caption pl-2">Asociar operador</div>
+                    </div>
+                </div>
+                <div class="" *ngIf="dataCuenta?.lastName">
+                    <p>Operador asociado</p>
+                    {{dataCuenta?.name}} {{dataCuenta?.lastName}} <mat-icon class="m-0 secondary-text warn-500-fg" style="float: right;"(click)="delete()">backspace</mat-icon>
+                </div>
+            </div>
+            <!-- / CONTENT -->
+
+            <!-- CONTENT -->
+            <div class="content mt-8" *ngIf="daMovimiento">
+                <!--mat-toolbar >
+                    <mat-toolbar-row class="bg-white" >
+                        <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" filter-dialog [data]="{CLA: 'regcontrato', filter: displayFilter}" (afterClosed)="_setSearch($event)" [width]="250">search</mat-icon>
+                        <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" (click)="dataMovimiento()">autorenew</mat-icon>
+                        <span class="example-spacer"></span>
+                        <mat-paginator
+                                [length]="dataSource?.total"
+                                [pageSize]="dataSource?.per_page" [pageIndex]="1" (page)="next($event)">
+                        </mat-paginator>
+                    </mat-toolbar-row>
+                </mat-toolbar -->
+
+                <table mat-table [dataSource]="daMovimiento"  class="content w-100-p mat-elevation-z8 mat-caption">
+
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="banco">
+                        <th mat-header-cell *matHeaderCellDef> Banco </th>
+                        <td mat-cell class="mat-caption" style="font-size: 10px"  *matCellDef="let element"> {{element?.banco}} </td>
+                    </ng-container>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="numero">
+                        <th mat-header-cell *matHeaderCellDef> Cuenta </th>
+                        <td mat-cell class="mat-caption" style="font-size: 10px"  *matCellDef="let element"> {{element?.numero}} </td>
+                    </ng-container>
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="tipo">
+                        <th mat-header-cell *matHeaderCellDef> Tipo </th>
+                        <td mat-cell class="mat-caption" style="font-size: 10px"  *matCellDef="let element"> {{element?.tipo}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="monto">
+                        <th mat-header-cell *matHeaderCellDef> Monto </th>
+                        <td mat-cell class="mat-caption" style="font-size: 10px" *matCellDef="let element"> {{element?.monto}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="usuario_nombre">
+                        <th mat-header-cell *matHeaderCellDef> Usuario </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{element?.usuario_nombre}}  {{element?.usuario_apellido}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="created_at">
+                        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{element?.created_at | date:'d/M/y h:mm a'}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row  *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+        <!-- SIDEBAR -->
+        <fuse-sidebar class="sidebar" name="project-dashboard-right-sidebar-1" position="right" lockedOpen="gt-md">
+
+            <!-- SIDEBAR CONTENT -->
+            <div class="content">
+
+                <!-- WIDGET GROUP -->
+                <div class="widget-group" fxLayout="column" fxFlex="100" [@animateStagger]="{value:'50'}">
+
+                    <!-- NOW WIDGET -->
+                    <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="pb-0">
+
+                        <!-- Front -->
+                        <div class="fuse-widget-front">
+
+                            <div class="pl-16 pr-8 py-16" fxLayout="row" fxLayoutAlign="space-between center">
+
+                                <div class="h3">Saldo</div>
+
+                                <div>
+                                    <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="more">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+
+                                    <mat-menu #moreMenu="matMenu">
+                                        <button mat-menu-item aria-label="Flip widget" agregar-fondos [width]="450" [data]="dataCuenta" (afterClosed)="dataComponent(idCuenta);
+                                            this.dataMovimiento(idCuenta);">
+                                            Movimiento de ajuste
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
+
+                            <div class="p-16 pb-24" fxLayout="column" fxLayoutAlign="center center">
+                                <div class="h1 secondary-text">
+                                    <span>Disponible</span>
+                                </div>
+
+                                <div class="font-size-34 line-height-88 secondary-text font-weight-400">
+                                    {{this.dataCuenta?.saldo}}
+                                </div>
+
+                                <div class="h1 secondary-text">
+                                    <span>{{this.dataCuenta?.tipo}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- / Front -->
+
+                    </fuse-widget>
+                    <!-- / NOW WIDGET -->
+
+                </div>
+                <!-- / WIDGET GROUP -->
+
+            </div>
+            <!-- / SIDEBAR CONTENT -->
+
+        </fuse-sidebar>
+        <!-- / SIDEBAR -->
+
+    </div>
+    <!-- / CONTENT -->
+
+
+</div>

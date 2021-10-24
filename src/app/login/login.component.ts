@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
-        private api: ApiService,
+        public api: ApiService,
         private router: Router
     )
     {
@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit
 
         this.api.onTokenChanged.subscribe(token  => {
             console.log('Token', token);
-            if (token.length > 0){
+            if (token){
                 this.router.navigate(['home']);
             }
         });

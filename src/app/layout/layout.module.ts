@@ -18,7 +18,20 @@ import {
     ContratoTurnoListDialogComponentDirective,
     ContratoRegistroNuevoDialogComponentDirective,
     FiniquitoNuevoDialogComponentDirective,
-    ContratoGrupoDialogComponentDirective, ClienteNuevoDialogComponentDirective, ClienteEditarDialogComponentDirective, VacanteDialogComponentDirective
+    ContratoGrupoDialogComponentDirective,
+    CuentasNuevoDialogComponentDirective,
+    AgregarMonedaDialogComponentDirective,
+    AgregarBancoDialogComponentDirective,
+    AsociarOperadorDialogComponentDirective,
+    AgregarFondosDialogComponentDirective,
+    AgregarReceptorDialogComponentDirective,
+    AgregarCuentaReceptorDialogComponentDirective,
+    ContactsClientesComponentDirective,
+    AgregarTasaDialogComponentDirective,
+    EditarTasaDialogComponentDirective,
+    AgregarPaisDialogComponentDirective,
+    AsignarDialogComponentDirective,
+    FinalizarDialogComponentDirective
 } from './directive';
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogPostulanteComponent } from './postulante-dialog/dialog.component';
@@ -28,7 +41,7 @@ import {
     MatFormFieldModule,
     MatSelectModule,
     MatExpansionModule,
-    MatAutocompleteModule, MatLineModule, MatListModule, MatSlideToggleModule
+    MatAutocompleteModule, MatLineModule, MatListModule, MatRadioModule
 } from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -52,10 +65,29 @@ import {ContratoRegistroNuevoDialogComponent} from './contrato-registro-nuevo/di
 import {Ng2Rut} from 'ng2-rut';
 import {FiniquitoNuevoDialogComponent} from './finiquito-nuevo/dialog.component';
 import {ContratoGrupoDialogComponent} from './contrato-grupo/dialog.component';
-import {MatRadioModule} from '@angular/material/radio';
-import {ClienteNuevoDialogComponent} from './cliente-nuevo/dialog.component';
-import {ClienteEditarDialogComponent} from './cliente-editar/dialog.component';
-import { VacanteDialogComponent } from './vacantes/dialog.component';
+import { CuentasNuevoDialogComponent } from './cuentas-nuevo/dialog.component';
+import {AgregarMonedaDialogComponent} from './agregar-moneda/dialog.component';
+import {AgregarBancoDialogComponent} from './agregar-banco/dialog.component';
+import {AsociarOperadorDialogComponent} from './asociar-operador/dialog.component';
+import {AgregarFondosDialogComponent} from './agregar-fondos/dialog.component';
+import {AgregarReceptorDialogComponent} from './agregar-receptor/dialog.component';
+import {AgregarCuentaReceptorDialogComponent} from './agregar-cuenta-receptor/dialog.component';
+import {ContactsClientesDialogComponent} from './clientes/clientes.component';
+import {AgregarTasaDialogComponent} from './agregar-tasa/dialog.component';
+import {EditarTasaDialogComponent} from './editar-tasa/dialog.component';
+import {AgregarPaisDialogComponent} from './agregar-pais/dialog.component';
+import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule} from 'ngx-mat-datetime-picker';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {MatNativeDateModule} from '@angular/material';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+
+import {MatNativeTimeModule, MatTimeSelectModule} from 'ngx-material-time-select';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { AsignarDialogComponent } from './asignar/dialog.component';
+import { FinalizarDialogComponent } from './finalizar/dialog.component';
 
 
 @NgModule({
@@ -88,7 +120,17 @@ import { VacanteDialogComponent } from './vacantes/dialog.component';
         MatListModule,
         FormsModule,
         MatRadioModule,
-        MatSlideToggleModule,
+        NgxMatDatetimePickerModule,
+        HttpClientModule,
+        NgxMatTimepickerModule,
+        MatNativeDateModule, MatMomentDateModule,
+
+        // time picker
+
+        MatTimeSelectModule,
+        MatNativeTimeModule,
+        NgxMaterialTimepickerModule,
+        NgxMatNativeDateModule
     ],
     exports: [
         VerticalLayout1Module,
@@ -108,9 +150,19 @@ import { VacanteDialogComponent } from './vacantes/dialog.component';
         ContratoRegistroNuevoDialogComponent,
         FiniquitoNuevoDialogComponent,
         ContratoGrupoDialogComponent,
-        ClienteNuevoDialogComponent,
-        ClienteEditarDialogComponent,
-        VacanteDialogComponent,
+        CuentasNuevoDialogComponent,
+        AgregarMonedaDialogComponent,
+        AgregarBancoDialogComponent,
+        AsociarOperadorDialogComponent,
+        AgregarFondosDialogComponent,
+        AgregarReceptorDialogComponent,
+        AgregarCuentaReceptorDialogComponent,
+        ContactsClientesDialogComponent,
+        AgregarTasaDialogComponent,
+        EditarTasaDialogComponent,
+        AgregarPaisDialogComponent,
+        AsignarDialogComponent,
+        FinalizarDialogComponent,
         // Directivas
         FilterDialogDirective,
         ViewPostualanteDialogDirective,
@@ -123,9 +175,19 @@ import { VacanteDialogComponent } from './vacantes/dialog.component';
         ContratoRegistroNuevoDialogComponentDirective,
         FiniquitoNuevoDialogComponentDirective,
         ContratoGrupoDialogComponentDirective,
-        ClienteNuevoDialogComponentDirective,
-        ClienteEditarDialogComponentDirective,
-        VacanteDialogComponentDirective,
+        CuentasNuevoDialogComponentDirective,
+        AgregarMonedaDialogComponentDirective,
+        AgregarBancoDialogComponentDirective,
+        AsociarOperadorDialogComponentDirective,
+        AgregarFondosDialogComponentDirective,
+        AgregarReceptorDialogComponentDirective,
+        AgregarCuentaReceptorDialogComponentDirective,
+        ContactsClientesComponentDirective,
+        AgregarTasaDialogComponentDirective,
+        EditarTasaDialogComponentDirective,
+        AgregarPaisDialogComponentDirective,
+        AsignarDialogComponentDirective,
+        FinalizarDialogComponentDirective,
     ],
     declarations: [
         ToastComponent,
@@ -141,9 +203,19 @@ import { VacanteDialogComponent } from './vacantes/dialog.component';
         ContratoRegistroNuevoDialogComponentDirective,
         FiniquitoNuevoDialogComponentDirective,
         ContratoGrupoDialogComponentDirective,
-        ClienteNuevoDialogComponentDirective,
-        ClienteEditarDialogComponentDirective,
-        VacanteDialogComponentDirective,
+        CuentasNuevoDialogComponentDirective,
+        AgregarMonedaDialogComponentDirective,
+        AgregarBancoDialogComponentDirective,
+        AsociarOperadorDialogComponentDirective,
+        AgregarFondosDialogComponentDirective,
+        AgregarReceptorDialogComponentDirective,
+        AgregarCuentaReceptorDialogComponentDirective,
+        ContactsClientesComponentDirective,
+        AgregarTasaDialogComponentDirective,
+        EditarTasaDialogComponentDirective,
+        AgregarPaisDialogComponentDirective,
+        AsignarDialogComponentDirective,
+        FinalizarDialogComponentDirective,
         // Componentee
         DialogPostulanteComponent,
         DialogComponent,
@@ -156,9 +228,19 @@ import { VacanteDialogComponent } from './vacantes/dialog.component';
         ContratoRegistroNuevoDialogComponent,
         FiniquitoNuevoDialogComponent,
         ContratoGrupoDialogComponent,
-        ClienteNuevoDialogComponent,
-        ClienteEditarDialogComponent,
-        VacanteDialogComponent,
+        CuentasNuevoDialogComponent,
+        AgregarMonedaDialogComponent,
+        AgregarBancoDialogComponent,
+        AsociarOperadorDialogComponent,
+        AgregarFondosDialogComponent,
+        AgregarReceptorDialogComponent,
+        AgregarCuentaReceptorDialogComponent,
+        ContactsClientesDialogComponent,
+        AgregarTasaDialogComponent,
+        EditarTasaDialogComponent,
+        AgregarPaisDialogComponent,
+        AsignarDialogComponent,
+        FinalizarDialogComponent,
 
     ],
     entryComponents : [
@@ -173,9 +255,19 @@ import { VacanteDialogComponent } from './vacantes/dialog.component';
         ContratoRegistroNuevoDialogComponent,
         FiniquitoNuevoDialogComponent,
         ContratoGrupoDialogComponent,
-        ClienteNuevoDialogComponent,
-        ClienteEditarDialogComponent,
-        VacanteDialogComponent,
+        CuentasNuevoDialogComponent,
+        AgregarMonedaDialogComponent,
+        AgregarBancoDialogComponent,
+        AsociarOperadorDialogComponent,
+        AgregarFondosDialogComponent,
+        AgregarReceptorDialogComponent,
+        AgregarCuentaReceptorDialogComponent,
+        ContactsClientesDialogComponent,
+        AgregarTasaDialogComponent,
+        EditarTasaDialogComponent,
+        AgregarPaisDialogComponent,
+        AsignarDialogComponent,
+        FinalizarDialogComponent,
     ],
 })
 export class LayoutModule

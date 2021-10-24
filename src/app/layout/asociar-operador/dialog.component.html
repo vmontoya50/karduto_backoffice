@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Asociar Operador</h2>
+<mat-dialog-content class="p-0 m-0 mt-24 py-8">
+    <form name="dialogForm" [formGroup]="dialogForm" (ngSubmit)="_setDialog()"
+          (keydown.enter)="_setDialog()">
+
+        <mat-form-field class="w-100-p px-12" appearance="outline">
+            <input matInput placeholder="Buscar Operador" [matAutocomplete]="auto" formControlName='usuario'>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="_displayFn">
+                <mat-option *ngIf="carga" class="is-loading">
+                   cargando
+                </mat-option>
+                <ng-container *ngIf="!carga">
+                    <mat-option *ngFor="let user of filteredOptions" [value]="user">
+                        <span>{{ user.name }} {{ user.lastName }}</span>
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()">
+       Guardar
+    </button>
+</div>

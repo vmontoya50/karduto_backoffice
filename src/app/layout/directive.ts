@@ -32,9 +32,19 @@ import {ContratoTurnoListDialogComponent} from './contrato-turno-list/dialog.com
 import {ContratoRegistroNuevoDialogComponent} from './contrato-registro-nuevo/dialog.component';
 import {FiniquitoNuevoDialogComponent} from './finiquito-nuevo/dialog.component';
 import {ContratoGrupoDialogComponent} from './contrato-grupo/dialog.component';
-import {ClienteNuevoDialogComponent} from './cliente-nuevo/dialog.component';
-import {ClienteEditarDialogComponent} from './cliente-editar/dialog.component';
-import { VacanteDialogComponent } from './vacantes/dialog.component';
+import { CuentasNuevoDialogComponent } from './cuentas-nuevo/dialog.component';
+import {AgregarMonedaDialogComponent} from './agregar-moneda/dialog.component';
+import {AgregarBancoDialogComponent} from './agregar-banco/dialog.component';
+import {AsociarOperadorDialogComponent} from './asociar-operador/dialog.component';
+import {AgregarFondosDialogComponent} from './agregar-fondos/dialog.component';
+import {AgregarReceptorDialogComponent} from './agregar-receptor/dialog.component';
+import {AgregarCuentaReceptorDialogComponent} from './agregar-cuenta-receptor/dialog.component';
+import {ContactsClientesDialogComponent} from './clientes/clientes.component';
+import {AgregarTasaDialogComponent} from './agregar-tasa/dialog.component';
+import {EditarTasaDialogComponent} from './editar-tasa/dialog.component';
+import {AgregarPaisDialogComponent} from './agregar-pais/dialog.component';
+import { AsignarDialogComponent } from './asignar/dialog.component';
+import { FinalizarDialogComponent } from './finalizar/dialog.component';
 
 
 // -----------------------------------------------------------------------------------------------------
@@ -341,6 +351,621 @@ export class ContratoNuevoDialogComponentDirective {
         this.dialog
             .open(ContratoNuevoDialogComponent, {
                 panelClass: this.panelClass || 'contrato-nuevo-dialog',
+                disableClose: this.disableClose,
+                width: this.width,
+                data: this.data || {}
+            })
+            .afterClosed().subscribe(result => this.afterClosed.emit(result));
+    }
+
+}
+
+// -----------------------------------------------------------------------------------------------------
+// @ EditPostualanteDialogDirective
+// -----------------------------------------------------------------------------------------------------
+
+@Directive({
+    selector: '[cuentas-nuevo]',
+    exportAs: 'CuentasNuevoDialogComponentDirective'
+})
+export class CuentasNuevoDialogComponentDirective {
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Decorators
+    // -----------------------------------------------------------------------------------------------------
+
+    // @ Input ---------------------------------------------------------------------------------------------
+    @Input() data;
+    @Input() disableClose;
+    @Input() panelClass: string;
+    @Input() width;
+
+    // @ Output --------------------------------------------------------------------------------------------
+    @Output() afterClosed = new EventEmitter<any>();
+
+    // @ HostListener --------------------------------------------------------------------------------------
+    @HostListener('click', ['$event']) onClick($event): void {
+        console.log('Directiva corriendo');
+        this._dlgOpen();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialog} dialog
+     *
+     */
+    constructor(
+        public dialog: MatDialog
+    ) {
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Private Methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     *  Private _dlgOpen
+     */
+    _dlgOpen(): void {
+        console.log('Directiva Funcion');
+        this.dialog
+            .open(CuentasNuevoDialogComponent, {
+                panelClass: this.panelClass || 'cuentas-nuevo-dialog',
+                disableClose: this.disableClose,
+                width: this.width,
+                data: this.data || {}
+            })
+            .afterClosed().subscribe(result => this.afterClosed.emit(result));
+    }
+
+}
+
+
+// -----------------------------------------------------------------------------------------------------
+// @ AgregarReceptorDialogComponentDirective
+// -----------------------------------------------------------------------------------------------------
+
+@Directive({
+    selector: '[agregar-receptor]',
+    exportAs: 'AgregarReceptorDialogComponentDirective'
+})
+export class AgregarReceptorDialogComponentDirective {
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Decorators
+    // -----------------------------------------------------------------------------------------------------
+
+    // @ Input ---------------------------------------------------------------------------------------------
+    @Input() data;
+    @Input() disableClose;
+    @Input() panelClass: string;
+    @Input() width;
+
+    // @ Output --------------------------------------------------------------------------------------------
+    @Output() afterClosed = new EventEmitter<any>();
+
+    // @ HostListener --------------------------------------------------------------------------------------
+    @HostListener('click', ['$event']) onClick($event): void {
+        console.log('Directiva corriendo');
+        this._dlgOpen();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialog} dialog
+     *
+     */
+    constructor(
+        public dialog: MatDialog
+    ) {
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Private Methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     *  Private _dlgOpen
+     */
+    _dlgOpen(): void {
+        console.log('Directiva Funcion');
+        this.dialog
+            .open(AgregarReceptorDialogComponent, {
+                panelClass: this.panelClass || 'agregar-receptor-dialog',
+                disableClose: this.disableClose,
+                width: this.width,
+                data: this.data || {}
+            })
+            .afterClosed().subscribe(result => this.afterClosed.emit(result));
+    }
+
+}
+
+
+// -----------------------------------------------------------------------------------------------------
+// @ AgregarCuentaReceptorDialogComponentDirective
+// -----------------------------------------------------------------------------------------------------
+
+@Directive({
+    selector: '[agregarCuentaReceptor]',
+    exportAs: 'AgregarCuentaReceptorDialogComponentDirective'
+})
+export class AgregarCuentaReceptorDialogComponentDirective {
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Decorators
+    // -----------------------------------------------------------------------------------------------------
+
+    // @ Input ---------------------------------------------------------------------------------------------
+    @Input() data;
+    @Input() disableClose;
+    @Input() panelClass: string;
+    @Input() width;
+
+    // @ Output --------------------------------------------------------------------------------------------
+    @Output() afterClosed = new EventEmitter<any>();
+
+    // @ HostListener --------------------------------------------------------------------------------------
+    @HostListener('click', ['$event']) onClick($event): void {
+        console.log('Directiva corriendo');
+        this._dlgOpen();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialog} dialog
+     *
+     */
+    constructor(
+        public dialog: MatDialog
+    ) {
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Private Methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     *  Private _dlgOpen
+     */
+    _dlgOpen(): void {
+        console.log('Directiva Funcion');
+        this.dialog
+            .open(AgregarCuentaReceptorDialogComponent, {
+                panelClass: this.panelClass || 'agregar-cuenta-receptor-dialog',
+                disableClose: this.disableClose,
+                width: this.width,
+                data: this.data || {}
+            })
+            .afterClosed().subscribe(result => this.afterClosed.emit(result));
+    }
+
+}
+
+// -----------------------------------------------------------------------------------------------------
+// @ AgregarTasaDialogComponentDirective AgregarTasaDialogComponent
+// -----------------------------------------------------------------------------------------------------
+
+@Directive({
+    selector: '[agregarTasa]',
+    exportAs: 'AgregarTasaDialogComponentDirective'
+})
+export class AgregarTasaDialogComponentDirective {
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Decorators
+    // -----------------------------------------------------------------------------------------------------
+
+    // @ Input ---------------------------------------------------------------------------------------------
+    @Input() data;
+    @Input() disableClose;
+    @Input() panelClass: string;
+    @Input() width;
+
+    // @ Output --------------------------------------------------------------------------------------------
+    @Output() afterClosed = new EventEmitter<any>();
+
+    // @ HostListener --------------------------------------------------------------------------------------
+    @HostListener('click', ['$event']) onClick($event): void {
+        console.log('Directiva corriendo');
+        this._dlgOpen();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialog} dialog
+     *
+     */
+    constructor(
+        public dialog: MatDialog
+    ) {
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Private Methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     *  Private _dlgOpen
+     */
+    _dlgOpen(): void {
+        console.log('Directiva Funcion');
+        this.dialog
+            .open(AgregarTasaDialogComponent, {
+                panelClass: this.panelClass || 'agregar-tasa-dialog',
+                disableClose: this.disableClose,
+                width: this.width,
+                data: this.data || {}
+            })
+            .afterClosed().subscribe(result => this.afterClosed.emit(result));
+    }
+
+}
+
+
+// -----------------------------------------------------------------------------------------------------
+// @ AgregarTasaDialogComponentDirective AgregarTasaDialogComponent
+// -----------------------------------------------------------------------------------------------------
+
+@Directive({
+    selector: '[editarTasa]',
+    exportAs: 'EditarTasaDialogComponentDirective'
+})
+export class EditarTasaDialogComponentDirective {
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Decorators
+    // -----------------------------------------------------------------------------------------------------
+
+    // @ Input ---------------------------------------------------------------------------------------------
+    @Input() data;
+    @Input() disableClose;
+    @Input() panelClass: string;
+    @Input() width;
+
+    // @ Output --------------------------------------------------------------------------------------------
+    @Output() afterClosed = new EventEmitter<any>();
+
+    // @ HostListener --------------------------------------------------------------------------------------
+    @HostListener('click', ['$event']) onClick($event): void {
+        console.log('Directiva corriendo');
+        this._dlgOpen();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialog} dialog
+     *
+     */
+    constructor(
+        public dialog: MatDialog
+    ) {
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Private Methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     *  Private _dlgOpen
+     */
+    _dlgOpen(): void {
+        console.log('Directiva Funcion');
+        this.dialog
+            .open(EditarTasaDialogComponent, {
+                panelClass: this.panelClass || 'editar-tasa-dialog',
+                disableClose: this.disableClose,
+                width: this.width,
+                data: this.data || {}
+            })
+            .afterClosed().subscribe(result => this.afterClosed.emit(result));
+    }
+
+}
+
+// -----------------------------------------------------------------------------------------------------
+// @ EditPostualanteDialogDirective
+// -----------------------------------------------------------------------------------------------------
+
+@Directive({
+    selector: '[monedas-nuevo]',
+    exportAs: 'AgregarMonedaDialogComponentDirective'
+})
+export class AgregarMonedaDialogComponentDirective {
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Decorators
+    // -----------------------------------------------------------------------------------------------------
+
+    // @ Input ---------------------------------------------------------------------------------------------
+    @Input() data;
+    @Input() disableClose;
+    @Input() panelClass: string;
+    @Input() width;
+
+    // @ Output --------------------------------------------------------------------------------------------
+    @Output() afterClosed = new EventEmitter<any>();
+
+    // @ HostListener --------------------------------------------------------------------------------------
+    @HostListener('click', ['$event']) onClick($event): void {
+        console.log('Directiva corriendo');
+        this._dlgOpen();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialog} dialog
+     *
+     */
+    constructor(
+        public dialog: MatDialog
+    ) {
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Private Methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     *  Private _dlgOpen
+     */
+    _dlgOpen(): void {
+        console.log('Directiva Funcion');
+        this.dialog
+            .open(AgregarMonedaDialogComponent, {
+                panelClass: this.panelClass || 'agregar-monedas-dialog',
+                disableClose: this.disableClose,
+                width: this.width,
+                data: this.data || {}
+            })
+            .afterClosed().subscribe(result => this.afterClosed.emit(result));
+    }
+
+}
+
+// -----------------------------------------------------------------------------------------------------
+// @ AgregarBancoDialogComponentDirective
+// -----------------------------------------------------------------------------------------------------
+
+@Directive({
+    selector: '[agregar-banco]',
+    exportAs: 'AgregarBancoDialogComponentDirective'
+})
+export class AgregarBancoDialogComponentDirective {
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Decorators
+    // -----------------------------------------------------------------------------------------------------
+
+    // @ Input ---------------------------------------------------------------------------------------------
+    @Input() data;
+    @Input() disableClose;
+    @Input() panelClass: string;
+    @Input() width;
+
+    // @ Output --------------------------------------------------------------------------------------------
+    @Output() afterClosed = new EventEmitter<any>();
+
+    // @ HostListener --------------------------------------------------------------------------------------
+    @HostListener('click', ['$event']) onClick($event): void {
+        console.log('Directiva corriendo');
+        this._dlgOpen();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialog} dialog
+     *
+     */
+    constructor(
+        public dialog: MatDialog
+    ) {
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Private Methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     *  Private _dlgOpen
+     */
+    _dlgOpen(): void {
+        console.log('Directiva Funcion');
+        this.dialog
+            .open(AgregarBancoDialogComponent, {
+                panelClass: this.panelClass || 'agregar-banco-dialog',
+                disableClose: this.disableClose,
+                width: this.width,
+                data: this.data || {}
+            })
+            .afterClosed().subscribe(result => this.afterClosed.emit(result));
+    }
+
+}
+
+// -----------------------------------------------------------------------------------------------------
+// @ AgregarPaisDialogComponentDirective
+// -----------------------------------------------------------------------------------------------------
+
+@Directive({
+    selector: '[agregar-pais]',
+    exportAs: 'AgregarPaisDialogComponentDirective'
+})
+export class AgregarPaisDialogComponentDirective {
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Decorators
+    // -----------------------------------------------------------------------------------------------------
+
+    // @ Input ---------------------------------------------------------------------------------------------
+    @Input() data;
+    @Input() disableClose;
+    @Input() panelClass: string;
+    @Input() width;
+
+    // @ Output --------------------------------------------------------------------------------------------
+    @Output() afterClosed = new EventEmitter<any>();
+
+    // @ HostListener --------------------------------------------------------------------------------------
+    @HostListener('click', ['$event']) onClick($event): void {
+        console.log('Directiva corriendo');
+        this._dlgOpen();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialog} dialog
+     *
+     */
+    constructor(
+        public dialog: MatDialog
+    ) {
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Private Methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     *  Private _dlgOpen
+     */
+    _dlgOpen(): void {
+        console.log('Directiva Funcion');
+        this.dialog
+            .open(AgregarPaisDialogComponent, {
+                panelClass: this.panelClass || 'agregar-pais-dialog',
+                disableClose: this.disableClose,
+                width: this.width,
+                data: this.data || {}
+            })
+            .afterClosed().subscribe(result => this.afterClosed.emit(result));
+    }
+
+}
+
+// -----------------------------------------------------------------------------------------------------
+// @ AsociarOperadorDialogComponent
+// -----------------------------------------------------------------------------------------------------
+
+@Directive({
+    selector: '[asociar-operador]',
+    exportAs: 'AsociarOperadorDialogComponentDirective'
+})
+export class AsociarOperadorDialogComponentDirective {
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Decorators
+    // -----------------------------------------------------------------------------------------------------
+
+    // @ Input ---------------------------------------------------------------------------------------------
+    @Input() data;
+    @Input() disableClose;
+    @Input() panelClass: string;
+    @Input() width;
+
+    // @ Output --------------------------------------------------------------------------------------------
+    @Output() afterClosed = new EventEmitter<any>();
+
+    // @ HostListener --------------------------------------------------------------------------------------
+    @HostListener('click', ['$event']) onClick($event): void {
+        console.log('Directiva corriendo');
+        this._dlgOpen();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialog} dialog
+     *
+     */
+    constructor(
+        public dialog: MatDialog
+    ) {
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Private Methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     *  Private _dlgOpen
+     */
+    _dlgOpen(): void {
+        console.log('Directiva Funcion');
+        this.dialog
+            .open(AsociarOperadorDialogComponent, {
+                panelClass: this.panelClass || 'asociar-operador-dialog',
+                disableClose: this.disableClose,
+                width: this.width,
+                data: this.data || {}
+            })
+            .afterClosed().subscribe(result => this.afterClosed.emit(result));
+    }
+
+}
+
+
+
+// -----------------------------------------------------------------------------------------------------
+// @ AsociarOperadorDialogComponent
+// -----------------------------------------------------------------------------------------------------
+
+@Directive({
+    selector: '[agregar-fondos]',
+    exportAs: 'AgregarFondosDialogComponentDirective'
+})
+export class AgregarFondosDialogComponentDirective {
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Decorators
+    // -----------------------------------------------------------------------------------------------------
+
+    // @ Input ---------------------------------------------------------------------------------------------
+    @Input() data;
+    @Input() disableClose;
+    @Input() panelClass: string;
+    @Input() width;
+
+    // @ Output --------------------------------------------------------------------------------------------
+    @Output() afterClosed = new EventEmitter<any>();
+
+    // @ HostListener --------------------------------------------------------------------------------------
+    @HostListener('click', ['$event']) onClick($event): void {
+        console.log('Directiva corriendo');
+        this._dlgOpen();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialog} dialog
+     *
+     */
+    constructor(
+        public dialog: MatDialog
+    ) {
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Private Methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     *  Private _dlgOpen
+     */
+    _dlgOpen(): void {
+        console.log('Directiva Funcion');
+        this.dialog
+            .open(AgregarFondosDialogComponent, {
+                panelClass: this.panelClass || 'agregar-fondos-dialog',
                 disableClose: this.disableClose,
                 width: this.width,
                 data: this.data || {}
@@ -728,16 +1353,15 @@ export class ContratoRegistroNuevoDialogComponentDirective {
 }
 
 
-
 // -----------------------------------------------------------------------------------------------------
-// @ ClienteNuevoDialogComponent
+// @ DialogContratoParrafoComponentDirective
 // -----------------------------------------------------------------------------------------------------
 
 @Directive({
-    selector: '[cliente-nuevo-dialog]',
+    selector: '[asignar-dialog]',
     exportAs: 'ContratoTurnoListDialogComponentDirective'
 })
-export class ClienteNuevoDialogComponentDirective {
+export class AsignarDialogComponentDirective {
 
     // -----------------------------------------------------------------------------------------------------
     // @ Decorators
@@ -779,8 +1403,8 @@ export class ClienteNuevoDialogComponentDirective {
     _dlgOpen(): void {
         console.log('Directiva Funcion');
         this.dialog
-            .open(ClienteNuevoDialogComponent, {
-                panelClass: this.panelClass || 'cliente-nuevo-dialog',
+            .open(AsignarDialogComponent, {
+                panelClass: this.panelClass || 'asignar-dialog',
                 disableClose: this.disableClose,
                 width: this.width,
                 data: this.data || {}
@@ -791,15 +1415,18 @@ export class ClienteNuevoDialogComponentDirective {
 }
 
 
+
+
+
 // -----------------------------------------------------------------------------------------------------
-// @ ClienteNuevoDialogComponent
+// @ DialogContratoParrafoComponentDirective
 // -----------------------------------------------------------------------------------------------------
 
 @Directive({
-    selector: '[clienteNuevoDialog]',
-    exportAs: 'ClienteEditarDialogComponentDirective'
+    selector: '[clientes-nuevo]',
+    exportAs: 'ContratoTurnoListDialogComponentDirective'
 })
-export class ClienteEditarDialogComponentDirective {
+export class ContactsClientesComponentDirective {
 
     // -----------------------------------------------------------------------------------------------------
     // @ Decorators
@@ -839,29 +1466,28 @@ export class ClienteEditarDialogComponentDirective {
      *  Private _dlgOpen
      */
     _dlgOpen(): void {
-        console.log('cliente-editar-dialog');
+        console.log('Directiva Funcion');
         this.dialog
-            .open(ClienteEditarDialogComponent, {
-                panelClass: this.panelClass || 'cliente-editar-dialog',
+            .open(ContactsClientesDialogComponent, {
+                panelClass: this.panelClass || 'contacts-clientes-dialog',
                 disableClose: this.disableClose,
                 width: this.width,
                 data: this.data || {}
             })
             .afterClosed().subscribe(result => this.afterClosed.emit(result));
     }
+
 }
 
-
-
 // -----------------------------------------------------------------------------------------------------
-// @ VacanteDialogComponent
+// @ DialogContratoParrafoComponentDirective
 // -----------------------------------------------------------------------------------------------------
 
 @Directive({
-    selector: '[VacanteDialog]',
-    exportAs: 'VacanteDialogComponentDirective'
+    selector: '[finalizar-dialog]',
+    exportAs: 'FinalizarDialogComponentDirective'
 })
-export class VacanteDialogComponentDirective {
+export class FinalizarDialogComponentDirective {
 
     // -----------------------------------------------------------------------------------------------------
     // @ Decorators
@@ -901,16 +1527,18 @@ export class VacanteDialogComponentDirective {
      *  Private _dlgOpen
      */
     _dlgOpen(): void {
-        console.log('vacante-dialog');
+        console.log('Directiva Funcion');
         this.dialog
-            .open(VacanteDialogComponent, {
-                panelClass: this.panelClass || 'vacante-dialog',
+            .open(FinalizarDialogComponent, {
+                panelClass: this.panelClass || 'finalizar-dialog',
                 disableClose: this.disableClose,
-                width: this.width || 400,
+                width: this.width,
                 data: this.data || {}
             })
             .afterClosed().subscribe(result => this.afterClosed.emit(result));
     }
+
 }
+
 
 

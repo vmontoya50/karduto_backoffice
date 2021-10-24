@@ -38,17 +38,12 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
         private _fuseNavigationService: FuseNavigationService,
         private _fuseSidebarService: FuseSidebarService,
         private _router: Router,
-        private api: ApiService,
+        public api: ApiService,
 
     )
     {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
-
-        this.api.onUserChanged.subscribe(usuario  => {
-            this.usuarioData = usuario;
-            console.log('Usuario',  this.usuarioData );
-        });
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -99,7 +94,6 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-
         this._router.events
             .pipe(
                 filter((event) => event instanceof NavigationEnd),
@@ -130,7 +124,17 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
                 this.navigation = this._fuseNavigationService.getCurrentNavigation();
             });
 
+        this.api.onUserChanged.subscribe(usuario  => {
+            this.usuarioData = usuario;
 
+            console.log('Usuario',  this.usuarioData );
+
+
+
+
+        });
+
+        this.usuarioData = JSON.parse(localStorage.getItem('user' ));
     }
 
     /**

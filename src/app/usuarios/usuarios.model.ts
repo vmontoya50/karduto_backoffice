@@ -14,9 +14,14 @@ export class Contact
     address: string;
     birthday: string;
     notes: string;
+    tipo_identificacion: string;
+    identificacion: string;
+    telefono: string;
+    direccion: string;
+    pais: string;
 
     /**
-     * Constructor
+     * Constructor 
      *
      * @param contact
      */
@@ -33,6 +38,11 @@ export class Contact
             this.address = contact.address || '';
             this.birthday = contact.birthday || '';
             this.notes = contact.notes || '';
+            this.tipo_identificacion = contact.tipo_identificacion || '';
+            this.identificacion = contact.identificacion || '';
+            this.telefono = contact.telefono || '';
+            this.direccion = contact.direccion || '';
+            this.pais = contact.pais || '';
         }
     }
 }

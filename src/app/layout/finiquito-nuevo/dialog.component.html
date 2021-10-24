@@ -1,117 +1,15 @@
 <h2 mat-dialog-title>Nuevo finiquito</h2>
 <mat-dialog-content class="px-2 border-vertical">
-    <form [formGroup]="dialogForm">
+<div mat-dialog-content class="p-24 pb-0 m-0">
+<form [formGroup]="dialogForm">
+    <div fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
-            <input type="text"
-                   placeholder="Empleado"
-                   aria-label="Number"
-                   matInput
-                   formControlName="empleado_id"
-                   [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of options" [value]="option.id" (click)="copyText(option.id)" (onSelectionChange)="this.dataContrato(option)"
-                            [disabled]="option.afp === '0'" [ngClass]="option.afp === '0' ? 'bg-warning' : 'bg-success'">
-                    {{option.nombres}} {{ option.rut !== '0' ? option.rut : option.pasaporte}}
-                </mat-option>
-            </mat-autocomplete>
+            <mat-label>Nombre del finiquito</mat-label>
+            <input matInput class="mat-caption" name="name" formControlName="name">
         </mat-form-field>
-
-        <mat-form-field *ngIf="dataContrato" appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
-            <mat-label>Contrato</mat-label>
-            <mat-select name="id" formControlName="id">
-                <mat-option *ngFor="let food of dataContratos" [value]="food.id">
-                    {{ food.fecha_inicio }} {{ food.fecha_fin }} | {{ food.turno }} {{ food.cargo }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <mat-form-field *ngIf="dataTurnos" appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
-            <mat-label>Cargo</mat-label>
-            <mat-select name="cargo" formControlName="cargo">
-                <mat-option *ngFor="let food of dataTurnos" [value]="food.c_descripcion">
-                    {{ food.cargo }} | {{ food.c_descripcion }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <mat-form-field  appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
-            <mat-label>Causal</mat-label>
-            <mat-select name="causal" formControlName="causal">
-                <mat-option value="Art. 159, N° 1 - Mutuo acuerdo de las partes">Art. 159, N° 1 - Mutuo acuerdo de las partes.</mat-option>
-                <mat-option value="Art. 159, N° 2 - Renuncia del trabajador">Art. 159, N° 2 - Renuncia del trabajador.</mat-option>
-                <mat-option value="Art. 159, N° 3 - Muerte del trabajador">Art. 159, N° 3 - Muerte del trabajador.</mat-option>
-                <mat-option value="Art. 159, N° 4 - Vencimiento del plazo convenido en el contrato">Art. 159, N° 4 - Vencimiento del plazo convenido en el contrato.</mat-option>
-                <mat-option value="Art. 159, N° 5 - Conclusión del trabajo o servicio que dio origen al contrato">Art. 159, N° 5 - Conclusión del trabajo o servicio que dio origen al contrato.</mat-option>
-                <mat-option value="Art. 159, N° 6 - Caso fortuito o fuerza mayor">Art. 159, N° 6 - Caso fortuito o fuerza mayor.</mat-option>
-                <mat-option value="Art. 160, N° 1, Letra a - Falta de probidad del trabajador en el desempeño de sus funciones">Art. 160, N° 1, Letra a - Falta de probidad del trabajador en el desempeño de sus funciones.</mat-option>
-                <mat-option value="Art. 160, N° 1, Letra b - Conductas de acoso sexual">Art. 160, N° 1, Letra b - Conductas de acoso sexual.</mat-option>
-                <mat-option value="Art. 160, N° 1, Letra c - Vías de hecho ejercidas por el trabajador en contra del empleador o de cualquier trabajador">Art. 160, N° 1, Letra c - Vías de hecho ejercidas por el trabajador en contra del empleador o de cualquier trabajador.</mat-option>
-                <mat-option value="Art. 160, N° 1, Letra d - Injurias proferidas por el trabajador al empleador">Art. 160, N° 1, Letra d - Injurias proferidas por el trabajador al empleador.</mat-option>
-                <mat-option value="Art. 160, N° 1, Letra e - Conducta inmoral del trabajador que afecte a la empresa donde se desempeña">Art. 160, N° 1, Letra e - Conducta inmoral del trabajador que afecte a la empresa donde se desempeña.</mat-option>
-                <mat-option value="Art. 160, N° 1, Letra f - Conductas de acoso laboral">Art. 160, N° 1, Letra f - Conductas de acoso laboral.</mat-option>
-                <mat-option value="Art. 160, N° 2 - Negociaciones que ejecute el trabajador dentro del giro del negocio prohibidas en el contrato">Art. 160, N° 2 - Negociaciones que ejecute el trabajador dentro del giro del negocio prohibidas en el contrato.</mat-option>
-                <mat-option value="Art. 160, N° 3 - No concurrencia del trabajador a sus labores sin causa justificada">Art. 160, N° 3 - No concurrencia del trabajador a sus labores sin causa justificada.</mat-option>
-                <mat-option value="Art. 160, N° 4, Letra a - Abandono del trabajo por parte del trabajador. Salida intempestiva e injustificada">Art. 160, N° 4, Letra a - Abandono del trabajo por parte del trabajador. Salida intempestiva e injustificada.</mat-option>
-                <mat-option value="Art. 160, N° 4, Letra b - Abandono del trabajo por parte del trabajador. Negativa a trabajar">Art. 160, N° 4, Letra b - Abandono del trabajo por parte del trabajador. Negativa a trabajar.</mat-option>
-                <mat-option value="Art. 160, N° 5 - Actos, omisiones o imprudencias temerarias">Art. 160, N° 5 - Actos, omisiones o imprudencias temerarias.</mat-option>
-                <mat-option value="Art. 160, N° 6 - El perjuicio material causado intencionalmente en las instalaciones">Art. 160, N° 6 - El perjuicio material causado intencionalmente en las instalaciones.</mat-option>
-                <mat-option value="Art. 160, N° 7 - Incumplimiento grave de las obligaciones que impone el contrato">Art. 160, N° 7 - Incumplimiento grave de las obligaciones que impone el contrato.</mat-option>
-                <mat-option value="Art. 161, Inciso 1 - Necesidades de la empresa">Art. 161, Inciso 1 - Necesidades de la empresa.</mat-option>
-                <mat-option value="Art. 161, Inciso 2 - Necesidades de la empresa, gerentes y cargos de confianza">Art. 161, Inciso 2 - Necesidades de la empresa, gerentes y cargos de confianza.</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
-            <mat-label>Fecha de inicio</mat-label>
-            <input matInput [matDatepicker]="dp" name="fecha_inicio" formControlName="fecha_inicio"  required>
-            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-            <mat-datepicker #dp></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
-            <mat-label>Fecha de finalizacion</mat-label>
-            <input matInput [matDatepicker]="dpp" name="fecha_finalizacion" formControlName="fecha_finalizacion"  required>
-            <mat-datepicker-toggle matSuffix [for]="dpp"></mat-datepicker-toggle>
-            <mat-datepicker #dpp></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
-            <mat-label>Sueldo diario</mat-label>
-            <input matInput class="mat-caption" name="sueldo_diario" formControlName="sueldo_diario">
-        </mat-form-field>
-
-        <div *ngFor="let control of linea.controls; index as i">
-            <ng-container [formGroup]="linea.controls[i]">
-
-            <mat-form-field appearance="outline" class="w-55-p mat-caption m-2">
-                <mat-label>Descripción</mat-label>
-                <input matInput class="mat-caption" name="descripcion" formControlName="descripcion">
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="w-25-p mat-caption m-2">
-                <mat-label>Monto</mat-label>
-                <input matInput class="mat-caption" name="monto" formControlName="monto">
-            </mat-form-field>
-
-            <!-- mat-radio-group class="w-10-p mat-caption m-2">
-                <mat-radio-button name="tipo" formControlName="tipo" class="mat-caption" value="s">S</mat-radio-button>
-                <mat-radio-button name="tipo" formControlName="tipo" class="mat-caption" value="r">R</mat-radio-button>
-            </mat-radio-group -->
-
-            <mat-radio-group aria-label="Select an option" name="tipo" formControlName="tipo">
-                <mat-radio-button class="mat-caption" value="s">s </mat-radio-button>
-                <mat-radio-button class="mat-caption" value="r">r </mat-radio-button>
-            </mat-radio-group>
-
-            </ng-container>
-        </div>
-        <!-- ADD CONTACT BUTTON -->
-        <button style="align: right;" mat-fab (click)="addLinea()" class="accent mdc-fab--mini mat-caption" id="add-contact-button"  aria-label="Agregar fila"
-                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
-            <mat-icon>add</mat-icon>
-        </button>
-    </form>
-
+    </div>
+</form>
+</div>
 </mat-dialog-content>
 <div fxLayout="row" fxLayoutAlign="end center">
     <button mat-button (click)="_setDialog()">

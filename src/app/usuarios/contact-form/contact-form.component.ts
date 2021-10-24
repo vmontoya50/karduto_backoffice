@@ -1,8 +1,9 @@
-import { Component, Inject, ViewEncapsulation } from '@angular/core';
+import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Contact } from '../usuarios.model';
+import { ApiService } from '../../api.service';
 
 interface Food {
     value: string;
@@ -16,7 +17,7 @@ interface Food {
     encapsulation: ViewEncapsulation.None
 })
 
-export class ContactsContactFormDialogComponent
+export class ContactsContactFormDialogComponent implements OnInit
 {
     action: string;
     contact: Contact;
@@ -25,7 +26,9 @@ export class ContactsContactFormDialogComponent
 
     perfil: Food[] = [
         {value: 'admin', viewValue: 'Admin'},
-        {value: 'usuario', viewValue: 'Usuario'}
+        {value: 'usuario', viewValue: 'Usuario'},
+        {value: 'operavene', viewValue: 'Operador Venezuela'},
+        {value: 'operaextra', viewValue: 'Operador Exranjero'}
     ];
 
     /**
@@ -38,7 +41,8 @@ export class ContactsContactFormDialogComponent
     constructor(
         public matDialogRef: MatDialogRef<ContactsContactFormDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        public api: ApiService,
     )
     {
         // Set the defaults
@@ -77,7 +81,26 @@ export class ContactsContactFormDialogComponent
             c_password: [this.contact.c_password],
             avatar  : [this.contact.avatar],
             profile  : [this.contact.profile],
-            email   : [this.contact.email]
+            email   : [this.contact.email],
+            tipo_identificacion : [this.contact.tipo_identificacion],
+            identificacion : [this.contact.identificacion], 
+            telefono: [this.contact.telefono], 
+            direccion: [this.contact.direccion],
+            pais: [this.contact.pais],
         });
     }
+
+    ngOnInit() {
+        // Busco los paises
+        this.api.dataPais();
+
+    }
+
+
 }
+
+/*
+
+'name', 'email', 'password','lastName','profile','tipo_identificacion','identificacion','telefono','direccion','pais',
+
+*/

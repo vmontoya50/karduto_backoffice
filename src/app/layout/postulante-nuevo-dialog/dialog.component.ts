@@ -12,9 +12,6 @@ import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
-import clRut from '@validatecl/rut';
-
 @Component({
   selector: 'dialog-postulante-nuevo',
   templateUrl: './dialog.component.html',
@@ -124,16 +121,18 @@ export class DialogPostulanteNuevoComponent implements OnInit {
     }
 
     if (form.rut){
-          let val = form.rut.replace('.', '');
-          // Despejar Guión
-          val = val.replace('-', '');
-
-          const isValid =  clRut.validate(val);
-          console.log('El valor es ', isValid);
-          console.log('Tiene rut. :: ', isValid);
-          if (!isValid) {
-              console.log('El rut es incorrecto.', validRut);
+          console.log('Tiene rut.');
+          if (!validRut) {
+              console.log('El rut es incorrecto.');
               this.api.toast('open', 'El rut no es correcto!', 5000, 'warning');
+              return;
+          }
+          let msj = '';
+          msj = this.api.checkRut(form.rut);
+          console.log('valido', msj);
+          if ( msj){
+              console.log(msj);
+              this.api.toast('open', msj, 5000, 'warning');
               return;
           }
 
@@ -143,14 +142,12 @@ export class DialogPostulanteNuevoComponent implements OnInit {
     form.codigo_banco = this.codigoBanco;
     // Convierto la fecha de nacimiento
     // form.fecha_nacimiento = this.api.convertDateFormat(form.fecha_nacimiento);
-    const cadena = '^(((0[1-9]|[12]\\d|3[01])-(0[13578]|1[02])-((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)-(0[13456789]|1[012])-((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])-02-((19|[2-9]\\d)\\d{2}))|(29-02-((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$';
+    const cadena = '(?:3[01]|[12][0-9]|0?[1-9])([\\-/.])(0?[1-9]|1[1-2])\\1\\d{4}$';
 
     if ( !form.fecha_nacimiento.match(cadena) ){
-          this.api.toast('open', 'La fecha debe ir en un formato DD-MM-AAAA.', 5000, 'warning');
+          this.api.toast('open', 'La fecha debe ir en un formato DD/MM/AAAA.', 5000, 'warning');
           return;
     }
-
-    form.fecha_nacimiento  = form.fecha_nacimiento.replace(/\//g, '-');
 
     this.api.post('postulante', form)
           .pipe( catchError(_ => of(this.api.toast('open', 'No se guardo el cambio!', 5000, 'warning' ))))
@@ -231,10 +228,6 @@ export class DialogPostulanteNuevoComponent implements OnInit {
       console.log('CAMBIO::', rut);
       return rut.slice(0, -1).replace((/[0-9](?=(?:[0-9]{3})+(?![0-9]))/g), '$&.') + '-' + rut.slice(-1).toLowerCase();
 
-  }
-
-  close(): void{
-      this.matDialogRef.close();
   }
 
   setComuna(Reg): void{

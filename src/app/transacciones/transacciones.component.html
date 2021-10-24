@@ -1,0 +1,167 @@
+<div id="contacts" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
+         fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16"
+                          [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">list
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Mis Transacciones
+                </span>
+            </div>
+
+        </div>
+        <!-- / APP TITLE -->
+
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content w-100-p">
+
+        <!-- CENTER -->
+        <div class="center w-100-p p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="content" *ngIf="dataTrans">
+                <mat-toolbar >
+                    <mat-toolbar-row class="bg-white" >
+                        <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" filter-dialog [data]="{CLA: 'transacciones', filter: displayFilter}" (afterClosed)="_setSearch($event)" [width]="450">search</mat-icon>
+                        <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" (click)="dataTable()">autorenew</mat-icon>
+                        <span class="example-spacer"></span>
+                        <mat-paginator
+                                [length]="dataSource?.total"
+                                [pageSize]="dataSource?.per_page"
+                                [pageIndex]="0" (page)="next($event)">
+                        </mat-paginator>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+
+                <table mat-table [dataSource]="dataSource?.data" class="content w-100-p mat-elevation-z8 mat-caption">
+
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="direccion">
+                        <th mat-header-cell class="mat-title" *matHeaderCellDef style="font-weight: bold; color: #1E2129"> Dirección </th>
+                        <td mat-cell class="mat-caption" style="font-size: 10px"  *matCellDef="let element">
+                            {{element?.moneda_ent_pais}}  <br> ->
+                            {{element?.moneda_sal_pais}}
+                        </td>
+                    </ng-container>
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="tipo_identificacion_emisor">
+                        <th mat-header-cell class="mat-title" *matHeaderCellDef style="font-weight: bold; color: #1E2129"> Identificacion </th>
+                        <td mat-cell class="mat-caption" style="font-size: 10px"  *matCellDef="let element">
+                            {{element?.tipo_identificacion_emisor}}  <br>
+                            {{element?.identificacion_emisor}}
+                        </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="emisor_name">
+                        <th mat-header-cell class="mat-title" *matHeaderCellDef style="font-weight: bold; color: #1E2129"> Cliente </th>
+                        <td mat-cell class="mat-caption" style="font-size: 10px" *matCellDef="let element">
+                            {{element?.emisor_name}}  <br>
+                            {{element?.emisor_lastName}}
+                        </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="owner_name">
+                        <th mat-header-cell class="mat-title" *matHeaderCellDef style="font-weight: bold; color: #1E2129">Oper. Origen</th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element">
+                            {{element?.owner_name}}  <br>
+                            {{element?.owner_lastName}}
+                        </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="asignado_name">
+                        <th mat-header-cell class="mat-title" *matHeaderCellDef style="font-weight: bold; color: #1E2129">Oper. Destino</th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element">
+                            {{element?.asignado_name}}  <br>
+                            {{element?.asignado_lastName}}
+                        </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="cuenta_saliente">
+                        <th mat-header-cell class="mat-title" *matHeaderCellDef style="font-weight: bold; color: #1E2129">
+                            Banco oper. <br>
+                            Destino
+                        </th>
+
+                        <td mat-cell style="font-size: 10px" *matCellDef="let element"> {{element?.cuenta_saliente}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="cuenta_entrante">
+                        <th mat-header-cell class="mat-title" *matHeaderCellDef style="font-weight: bold; color: #1E2129"> Banco / cuenta </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{element?.cuenta_entrante}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="tasa">
+                        <th mat-header-cell class="mat-title" *matHeaderCellDef style="font-weight: bold; color: #1E2129"> Tasa sugerida </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{element?.tasa | currency: ''}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="monto_entrante">
+                        <th mat-header-cell class="mat-title" *matHeaderCellDef style="font-weight: bold; color: #1E2129"> Monto </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{element?.monto_entrante | currency}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container class="mat-title" matColumnDef="calculado">
+                        <th mat-header-cell *matHeaderCellDef style="font-weight: bold; color: #1E2129"> Calculado </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{(element?.monto_entrante * element?.tasa) | currency}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container class="mat-title" matColumnDef="fecha">
+                        <th mat-header-cell *matHeaderCellDef style="font-weight: bold; color: #1E2129"> Fecha </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element"> {{element?.created_at | date:'d/M/y h:mm a'}} </td>
+                    </ng-container>
+
+                    <!-- Nombre Column -->
+                    <ng-container class="mat-title" matColumnDef="accion">
+                        <th mat-header-cell *matHeaderCellDef  style="font-weight: bold; color: #1E2129"> Accion </th>
+                        <td mat-cell class="" style="font-size: 10px" *matCellDef="let element">
+                            <mat-icon style="margin-right: 2px;" [style.color]="estadoColor(element.estado)">{{estadoIcon(element.estado)}}</mat-icon>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row (click)="go(row)"  *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT-->
+
+</div>
+
+<!-- ADD CONTACT BUTTON -->
+<button mat-fab class="accent" id="add-contact-button" [data]="{titulo:'empleado'}" postulante-new-dialog aria-label="Nuevo empleado"
+        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <mat-icon>person_add</mat-icon>
+</button>
+<!-- / ADD CONTACT BUTTON -->
+

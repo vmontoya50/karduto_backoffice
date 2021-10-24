@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Agregar Pais</h2>
+<mat-dialog-content class="px-4 border-vertical">
+<div mat-dialog-content class="p-24 pb-0 m-0">
+<form [formGroup]="dialogForm">
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <mat-label>Nombre</mat-label>
+            <input matInput class="mat-caption" name="nombre" formControlName="nombre">
+        </mat-form-field>
+    </div>
+</form>
+</div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()">
+        Agregar
+    </button>
+</div>

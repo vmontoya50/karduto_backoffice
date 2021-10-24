@@ -136,10 +136,19 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
             type    : 'group',
             icon    : 'settings',
             children: [
+                {
+                    id      : 'customize',
+                    title   : 'Customize',
+                    type    : 'item',
+                    icon    : 'settings',
+                    function: () => {
+                        this.toggleSidebarOpen('themeOptionsPanel');
+                    }
+                }
             ]
         };
 
-        this._fuseNavigationService.addNavigationItem(customFunctionNavItem, 'end');
+       // this._fuseNavigationService.addNavigationItem(customFunctionNavItem, 'end');
     }
 
     /**

@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Nuevo banco</h2>
+<mat-dialog-content class="px-4 border-vertical">
+<div mat-dialog-content class="p-24 pb-0 m-0">
+<form [formGroup]="dialogForm">
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <mat-label>Nombre</mat-label>
+            <input matInput class="mat-caption" name="nombre" formControlName="nombre">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
+            <mat-label>Pais</mat-label>
+            <mat-select name="pais" formControlName="pais">
+                <mat-option *ngFor="let food of this.api.displayPais" [value]="food.value" >
+                    {{ food.viewValue }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-form-field *ngIf="dataMoneda" appearance="outline" class="w-90-p mat-caption m-2" fxFlex="100">
+        <mat-label>Moneda</mat-label>
+        <mat-select name="moneda" formControlName="moneda">
+            <mat-option *ngFor="let food of dataMoneda" [value]="food.id">
+                {{ food.nombre }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-90-p mat-caption m-2">
+            <mat-label>Cantidad de caracteres</mat-label>
+            <input matInput class="mat-caption" name="cant_caracteres" formControlName="cant_caracteres">
+        </mat-form-field>
+    </div>
+</form>
+</div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()">
+        Agregar banco
+    </button>
+</div>

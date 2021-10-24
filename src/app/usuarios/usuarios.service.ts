@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FuseUtils } from '@fuse/utils';
-
 import { Contact } from './usuarios.model';
 
 @Injectable()
@@ -79,12 +77,6 @@ export class UsuariosService implements Resolve<any>
         });
     }
 
-    /**
-     * Get contacts
-     *
-     * @returns {Promise<any>}
-     */
-
     headers(): any{
         const _token = localStorage.getItem('token' );
         let headers = new HttpHeaders();
@@ -92,10 +84,15 @@ export class UsuariosService implements Resolve<any>
         return headers;
     }
 
+    /**
+     * Get contacts
+     *
+     * @returns {Promise<any>}
+     */
     getContacts(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-                this._httpClient.get('https://api.gruponewen.cl/api/usuarios', {headers: this.headers()})
+                this._httpClient.get('https://api.superenviostoday.com/api/usuarios', {headers: this.headers()})
                     .subscribe((response: any) => {
 
                         this.contacts = response;
@@ -138,7 +135,7 @@ export class UsuariosService implements Resolve<any>
     getUserData(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-                this._httpClient.get('https://api.gruponewen.cl/api/usuarios/1', {headers: this.headers()})
+                this._httpClient.get('https://api.superenviostoday.com/api/usuarios/1', {headers: this.headers()})
                     .subscribe((response: any) => {
                         this.user = response[0];
                         this.onUserDataChanged.next(this.user);
@@ -234,7 +231,7 @@ export class UsuariosService implements Resolve<any>
                     delete contact.password;
 
                 }
-            this._httpClient.put('https://api.gruponewen.cl/api/usuarios/' + contact.id, {...contact }, {headers: this.headers()})
+            this._httpClient.put('https://api.superenviostoday.com/api/usuarios/' + contact.id, {...contact}, {headers: this.headers()})
                 .subscribe(response => {
                     this.getContacts();
                     resolve(response);
@@ -251,7 +248,7 @@ export class UsuariosService implements Resolve<any>
     updateUserData(userData): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this._httpClient.post('https://api.gruponewen.cl/api/v1/register', {headers: this.headers()}, {...userData})
+            this._httpClient.post('https://api.superenviostoday.com/api/v1/register', {headers: this.headers()}, {...userData})
                 .subscribe(response => {
                     this.getUserData();
                     this.getContacts();
@@ -278,9 +275,12 @@ export class UsuariosService implements Resolve<any>
      */
     deleteContact(contact): void
     {
-        this._httpClient.delete('https://api.gruponewen.cl/api/usuarios/' + contact.id, contact)
+
+        this._httpClient.delete('https://api.superenviostoday.com/api/usuarios/' + contact.id, {headers: this.headers()})
             .subscribe(response => {
-            });
+
+        });
+
         const contactIndex = this.contacts.indexOf(contact);
         this.contacts.splice(contactIndex, 1);
         this.onContactsChanged.next(this.contacts);

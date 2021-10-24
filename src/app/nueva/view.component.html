@@ -1,0 +1,218 @@
+<div class="page-layout simple right-sidebar inner-sidebar">
+
+    <!-- HEADER -->
+    <div class="header accent p-4" fxLayout="row" fxLayoutAlign="start center">
+
+        <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
+                (click)="toggleSidebar('view-component')">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content ">
+
+        <!-- CENTER -->
+        <div class="center p-24" fusePerfectScrollbar>
+            <!-- CONTENT -->
+            <div class="content p-24">
+
+                <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+                    <form name="composeForm" [formGroup]="composeForm" class="compose-form" fxLayout="column" fxFlex>
+
+                        <div fxLayout="row" fxLayoutAlign="start center" class="pt-4 pb-4">
+                            <button mat-raised-button style="width: 25%; display: block"
+                                    color="accent"
+                                    clientes-nuevo [width]="500"  *ngIf="!cliente"
+                                    class="save-button"
+                                    aria-label="Agregar receptor">
+                                <mat-icon>add</mat-icon> Agregar Cliente
+                            </button>
+                        </div>
+
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Tipo identificación</mat-label>
+                            <mat-icon matSuffix class="secondary-text">supervised_user_circle</mat-icon>
+                            <!-- input name="profile" fcuentaReceptoraormControlName="profile" matInput -->
+                            <mat-select name="tipo_identificacion_emisor" formControlName="tipo_identificacion_emisor">
+                                <mat-option *ngFor="let food of api.displayDtipo" [value]="food.value">
+                                    {{food.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-chip-list aria-label="Fish selection" *ngIf="cliente" class="m-2">
+                            <mat-chip> <mat-icon matSuffix class="secondary-text p-02">account_circle</mat-icon> {{cliente?.name}} {{cliente?.lastName}} </mat-chip>
+                            <mat-chip> <mat-icon matSuffix class="secondary-text p-02">phone</mat-icon> {{cliente?.telefono}}</mat-chip>
+                            <mat-chip> <mat-icon matSuffix class="secondary-text p-02">mail</mat-icon> {{cliente?.email}}</mat-chip>
+                        </mat-chip-list>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Numero de identificacion</mat-label>
+                            <input matInput name="identificacion_emisor" formControlName="identificacion_emisor" (change)="_dataCliente()" [(ngModel)]="iden" type="email" required>
+                        </mat-form-field>
+
+                        <mat-form-field *ngIf="dataMoneda" appearance="outline" fxFlex>
+                            <mat-label>Moneda recibida</mat-label>
+                            <mat-select name="moneda_entrate" formControlName="moneda_entrate" >
+                                <mat-option *ngFor="let food of dataMoneda" [value]="food.id">
+                                    {{ food.nombre }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field *ngIf="dataMoneda" appearance="outline" fxFlex>
+                            <mat-label>Moneda de cambio</mat-label>
+                            <mat-select name="moneda_saliente" formControlName="moneda_saliente" >
+                                <mat-option *ngFor="let food of dataMoneda" [value]="food.id" (onSelectionChange)="this._dataCuentas(food.id)">
+                                    {{ food.nombre }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field *ngIf="dataMoneda" appearance="outline" fxFlex>
+                            <mat-label>Seleccione cuenta donde se recibio el dinero:</mat-label>
+                            <mat-select name="id_cuenta_entrante" formControlName="id_cuenta_entrante">
+                                <mat-option *ngFor="let food of cuentas" [value]="food.id_cuenta" (onSelectionChange)="this._setCentranteVar(food.id_cuenta)">
+                                    {{ food.banco }} -  {{ food.numero }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" *ngIf="tasaLock">
+                            <mat-label>Tasa sugerida</mat-label>
+                            <input matInput name="tasa" formControlName="tasa" [value]="tasa" [(ngModel)]="tasa">
+                        </mat-form-field>
+
+                        <div class="show-hide-extra-fields">
+                            <span [fxShow]="tasa">Tasa: {{tasa}} | {{ (monto * tasa) | currency: 'Bs ' }}</span>
+                            <mat-icon (click)="tasaLock=true" *ngIf="!tasaLock">edit</mat-icon>
+                        </div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ingrese monto</mat-label>
+                            <input matInput name="monto_entrante" [(ngModel)]="monto" formControlName="monto_entrante">
+                        </mat-form-field>
+
+                        <mat-chip-list *ngIf="valiRef" aria-label="Fish selection"  class="m-2">
+                            <mat-chip *ngFor="let trans of valiRef" class="red secondary-text" (click)="goToLink(api.ur +'transacciones/ver/' + trans?.id)">
+                                <mat-icon matSuffix class=" p-02">announcement</mat-icon>  {{trans?.id}} {{trans?.created_at | date: 'short'}}
+                            </mat-chip>
+                        </mat-chip-list>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ingrese numero de referencia</mat-label>
+                            <input matInput name="referencia_entrante" formControlName="referencia_entrante" (ngModelChange)="_validaReferencia($event)">
+                        </mat-form-field>
+                        <div fxLayout="row" fxLayoutAlign="start center" class="pt-2 pb-2">
+                        <button mat-raised-button style="width: 20%; display: block"
+                                color="accent"
+                                agregar-receptor (afterClosed)="_dataReceptor()" [data]="cliente" [width]="500"
+                                class="save-button"
+                                aria-label="Agregar receptor">
+                            <mat-icon>add</mat-icon> Agregar receptor
+                        </button>
+                        <button mat-raised-button style="width: 20%; display: block; margin-left: 2px;"
+                                *ngIf="this.ReceptorSelected"
+                                color=""
+                                (click)="_deleteReceptor(this.ReceptorSelected)"
+                                class="save-button red-900 ml-2"
+                                aria-label="SAVE">
+                            <mat-icon>delete_forever</mat-icon> Eliminar receptor
+                        </button>
+                        </div>
+
+                        <mat-form-field *ngIf="receptor" appearance="outline" fxFlex>
+                            <mat-label>Seleccione receptor:</mat-label>
+                            <mat-select name="id_receptor" formControlName="id_receptor">
+                                <mat-option *ngFor="let food of receptor" [value]="food.id" (onSelectionChange)="this._setReceptorVar(food)">
+                                    {{ food.tipo_identificacion }} {{ food.identificacion }} {{ food.nombre }} {{ food.apellido }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <div fxLayout="row" fxLayoutAlign="start center" class="pt-2 pb-2">
+                            <button mat-raised-button style="width: 25%; display: block"
+                                    color="accent"
+                                    *ngIf="receptor" agregarCuentaReceptor (afterClosed)="this._dataCuentaReceptor(_id_receptor)" [data]="composeForm.value" [width]="400"
+                                    class="save-button"
+                                    aria-label="Agregar receptor">
+                                <mat-icon>add</mat-icon> Agregar cuenta a receptor
+                            </button>
+                            <button mat-raised-button style="width: 20%; display: block; margin-left: 2px;"
+                                    *ngIf="this.cuentaRece"
+                                    color=""
+                                    (click)="_deleteCuentaReceptor(this.cuentaRece)"
+                                    class="save-button red-900 ml-2"
+                                    aria-label="SAVE">
+                                <mat-icon>delete_forever</mat-icon> Eliminar receptor
+                            </button>
+                        </div>
+
+                        <mat-form-field *ngIf="cuentareceptor" appearance="outline" fxFlex>
+                            <mat-label>Seleccione cuenta del receptor:</mat-label>
+                            <mat-select name="id_cuenta_receptor" formControlName="id_cuenta_receptor">
+                                <mat-option *ngFor="let food of cuentareceptor" [value]="food.id" (onSelectionChange)="this._setCuentaRecepVar(food)">
+                                    <b>{{ food.moneda }}</b> - {{ food.nombre }} - {{ food.numero }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field *ngIf="operadoresActvos" appearance="outline" fxFlex>
+                            <mat-label>Opadores Destino disponibles:</mat-label>
+                            <mat-select name="id_asignado" formControlName="id_asignado">
+                                <mat-option *ngFor="let food of operadoresActvos" [value]="food.user_id" (onSelectionChange)="this._setAsignadoVar(food)">
+                                    <b>{{ food.name }} {{ food.lastName }}</b> - {{ food.banco_pais }} {{ food.nom_banco }} - {{ food.numero }} - {{ food.identificador }} {{ food.saldo }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <div class="attachment-list">
+
+                            <div *ngIf="filesEvenb" class="attachment" fxLayout="row" fxLayoutAlign="space-between center">
+                                <div>
+                                    <span class="filename">{{this.filesEvenb}}</span>
+                                    <img src="{{this.filesEvenb}}" alt="">
+                                </div>
+                                <button mat-icon-button aria-label="Delete attachment">
+                                    <mat-icon class="s-16">close</mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div>
+                        <button mat-raised-button *ngIf="!loading"
+                                color="accent"
+                                (click)="_setDialog()"
+                                class="save-button"
+                                [disabled]="composeForm.invalid"
+                                aria-label="SAVE">
+                            Enviar
+                        </button>
+                        <label form="filecvs" mat-raised-button color="accent" class="labelInput">
+                            <input hidden type="file" formControlName="archivo_entrante" name="archivo_entrante" #filecvs accept=".png,.jpg,.jprg,.pdf" (change)="saveFile($event)">
+                        </label>
+
+                        <button mat-icon-button matTooltip="Attach a file" (click)="filecvs.click()">
+                            <mat-icon>attach_file</mat-icon>
+                        </button>
+                        <img *ngIf="loading" src="assets/images/backgrounds/spinner.webp" width="65" height="90" alt="">
+                    </div>
+                </div>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+
+

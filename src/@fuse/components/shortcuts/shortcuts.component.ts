@@ -88,7 +88,7 @@ export class FuseShortcutsComponent implements OnInit, AfterViewInit, OnDestroy
                     title: 'Mail',
                     type : 'item',
                     icon : 'email',
-                    url  : '/apps/mail'
+                    url  : '/mail'
                 },
                 {
                     title: 'Contacts',

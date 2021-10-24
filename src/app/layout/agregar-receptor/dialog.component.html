@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Agregar receptor</h2>
+<mat-dialog-content class="px-4 border-vertical">
+<form [formGroup]="dialogForm">
+    <div fxLayout="row" fxLayoutAlign="start start"  class="w-100-p mat-caption m-2">
+        <mat-form-field appearance="outline"  class="w-100-p mat-caption m-2">
+            <mat-label>Tipo identificación</mat-label>
+            <mat-icon matSuffix class="secondary-text">supervised_user_circle</mat-icon>
+            <!-- input name="profile" formControlName="profile" matInput -->
+            <mat-select name="tipo_identificacion" formControlName="tipo_identificacion">
+                <mat-option *ngFor="let food of api.displayDtipo" [value]="food.value">
+                    {{food.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline"  class="w-100-p mat-caption m-2">
+            <mat-label>Numero de identificación</mat-label>
+            <mat-icon matSuffix class="secondary-text">rate_review</mat-icon>
+            <input name="identificacion" formControlName="identificacion" matInput>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-100-p mat-caption m-2">
+            <mat-label>Nombre</mat-label>
+            <input matInput class="mat-caption" name="nombre" formControlName="nombre">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-100-p mat-caption m-2">
+            <mat-label>Apellidos</mat-label>
+            <input matInput class="mat-caption" name="apellido" formControlName="apellido">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" class="w-100-p mat-caption m-2">
+            <mat-label>Correo</mat-label>
+            <input matInput class="mat-caption" name="email" formControlName="email">
+        </mat-form-field>
+    </div>
+</form>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="_setDialog()">
+        Agregar receptor
+    </button>
+</div>

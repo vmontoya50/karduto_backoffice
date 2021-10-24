@@ -9,7 +9,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { UsuariosService } from './usuarios.service';
 import { ContactsContactFormDialogComponent } from './contact-form/contact-form.component';
-
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -37,7 +37,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   constructor(
       private _contactsService: UsuariosService,
       private _fuseSidebarService: FuseSidebarService,
-      private _matDialog: MatDialog
+      private _matDialog: MatDialog,
+      public api: ApiService,
     ) {
         // Set the defaults
         this.searchInput = new FormControl('');
@@ -87,7 +88,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             panelClass: 'contact-form-dialog',
             data      : {
                 action: 'new'
-            }
+            },
+            width: '600px',
         });
 
         this.dialogRef.afterClosed()

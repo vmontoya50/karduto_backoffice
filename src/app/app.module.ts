@@ -22,7 +22,7 @@ import { SampleModule } from 'app/main/sample/sample.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeComponent } from './home/home.component';
 import { SalirComponent } from './salir/salir.component';
-import {MatCardModule} from '@angular/material/card';
+
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -38,7 +38,8 @@ import {
 } from '@angular/material';
 import {CommonModule} from '@angular/common';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {UsuariosModule} from './usuarios/usuarios.module';
+import {PasoComponent} from './paso/paso.component';
 
 
 const appRoutes: Routes = [
@@ -55,48 +56,56 @@ const appRoutes: Routes = [
         loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)
     },
     {
-        path: 'postulante',
-        loadChildren: () => import('./postulante/postulante.module').then(m => m.PostulanteModule)
+        path: 'pendientes',
+        loadChildren: () => import('./pendientes/pendientes.module').then(m => m.PendientesModule)
     },
     {
-        path: 'empleado',
-        loadChildren: () => import('./empleado/empleado.module').then(m => m.EmpleadoModule)
+        path: 'cuentas',
+        loadChildren: () => import('./cuentas/cuentas.module').then(m => m.CuentasModule)
     },
     {
-        path: 'contrato',
-        loadChildren: () => import('./contrato/contrato.module').then(m => m.ContratoModule)
+        path: 'users',
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
     },
     {
-        path: 'finiquito',
-        loadChildren: () => import('./finiquito/finiquito.module').then(m => m.FiniquitoModule)
+        path: 'transacciones',
+        loadChildren: () => import('./transacciones/transacciones.module').then(m => m.TransaccionesModule)
     },
     {
-        path: 'registro-contrato',
-        loadChildren: () => import('./resgistro-contrato/registro-contrato.module').then(m => m.RegistroContratoModule)
+        path: 'agregar_moneda',
+        loadChildren: () => import('./agregar_moneda/index.module').then(m => m.AgregarMonedaModule)
     },
     {
-        path: 'clientes',
-        loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule)
+        path: 'agregar_banco',
+        loadChildren: () => import('./agregar_banco/index.module').then(m => m.AgregarBancoModule)
     },
     {
-        path: 'carga',
-        loadChildren: () => import('./carga/carga.module').then(m => m.CargaModule)
+        path: 'mail',
+        loadChildren: () => import('./mail/mail.module').then(m => m.MailModule)
     },
     {
-        path: 'firmas',
-        loadChildren: () => import('./firmas/firmas.module').then(m => m.FirmasModule)
+        path: 'nueva',
+        loadChildren: () => import('./nueva/nueva.module').then(m => m.NuevaModule)
     },
     {
-        path: 'firmas-externa',
-        loadChildren: () => import('./firma-externa/firma-externa.module').then(m => m.FirmaExternaModule)
+        path: 'tasa',
+        loadChildren: () => import('./tasa/index.module').then(m => m.TasaModule)
     },
-    /*{
-        path: 'registro-contrato-dispo',
-        loadChildren: () => import('./resgistro-contrato-dispo/registro-contrato-dispo.module').then(m => m.RegistroContratoDispoModule)
-    },*/
+    {
+        path: 'agregar_pais',
+        loadChildren: () => import('./agregar_pais/index.module').then(m => m.AgregarPaisModule)
+    },
+    {
+        path: 'movimientos',
+        loadChildren: () => import('./movimientos/index.module').then(m => m.MovimientosModule)
+    },
     {
         path      : 'home',
         component: HomeComponent
+    },
+    {
+        path      : 'paso',
+        component: PasoComponent
     },
     {
         path      : 'salir',
@@ -112,6 +121,7 @@ const appRoutes: Routes = [
     declarations: [
         AppComponent,
         HomeComponent,
+        PasoComponent,
         SalirComponent
     ],
     imports     : [
@@ -141,8 +151,6 @@ const appRoutes: Routes = [
         MatToolbarModule,
         MatExpansionModule,
         MatAutocompleteModule,
-        MatCardModule,
-        MatSlideToggleModule,
 
         // Charts
         NgxChartsModule,
@@ -163,6 +171,7 @@ const appRoutes: Routes = [
         // SnackBar
         MatSnackBarModule
     ],
+    exports: [RouterModule],
     bootstrap   : [
         AppComponent
     ]
