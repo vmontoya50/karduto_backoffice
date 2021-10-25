@@ -187,7 +187,7 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
                         width    : 'fullwidth',
                         navbar   : {
                             primaryBackground  : 'fuse-navy-700',
-                            secondaryBackground: 'fuse-navy-900',
+                            secondaryBackground: 'gray-dark',
                             folded             : false,
                             hidden             : false,
                             position           : 'left',
@@ -200,7 +200,7 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
                             position             : 'below-static'
                         },
                         footer   : {
-                            background           : 'fuse-navy-900',
+                            background           : 'gray-dark',
                             customBackgroundColor: true,
                             hidden               : false,
                             position             : 'below-static'

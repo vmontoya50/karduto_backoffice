@@ -10,14 +10,15 @@ import { FuseConfig } from '@fuse/types';
 
 export const fuseConfig: FuseConfig = {
     // Color themes can be defined in src/app/app.theme.scss
-    colorTheme      : 'theme-newen-green',
+   // colorTheme      : 'theme-newen-green',
+    colorTheme      : 'theme-blue-gray-dark',
     customScrollbars: true,
     layout          : {
         style    : 'vertical-layout-1',
         width    : 'fullwidth',
         navbar   : {
             primaryBackground  : 'green-50',
-            secondaryBackground: 'green-500',
+            secondaryBackground: 'blue-gray-dark',
             folded             : false,
             hidden             : false,
             position           : 'left',

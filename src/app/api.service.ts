@@ -48,10 +48,10 @@ export class ApiService {
     cargando: any;
     dataSource: any;
 
-    url = 'https://api.superenviostoday.com/api/';
-    basepdf = 'https://admin.superenviostoday.com/pdf/';
-    base = 'https://api.superenviostoday.com/';
-    ur = 'https://admin.superenviostoday.com/';
+    url = 'https://api.karduto.com/api/';
+    basepdf = 'https://admin.karduto.com/pdf/';
+    base = 'https://api.karduto.com/';
+    ur = 'https://admin.karduto.com/';
 
     displaySalud: Food[] = [
         {value: 'FONASA', viewValue: 'FONASA'},

@@ -31,7 +31,7 @@
             <!-- CONTENT -->
             <div class="content" *ngIf="dataMonedas">
                 <mat-toolbar >
-                    <mat-toolbar-row class="bg-white" >
+                    <mat-toolbar-row>
                         <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" agregar-pais [data]="{CLA: 'monedas', filter: displayFilter}" (afterClosed)="this.dataTable()" [width]="400">add_circle</mat-icon>
                         <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" filter-dialog [data]="{CLA: 'monedas', filter: displayFilter}" (afterClosed)="_setSearch($event)" [width]="250">search</mat-icon>
                         <mat-icon style="cursor: pointer; margin-right: 2px;" class="cpointer" (click)="dataTable()">autorenew</mat-icon>
