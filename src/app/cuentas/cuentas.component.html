@@ -75,8 +75,15 @@
                         <td mat-cell class="" *matCellDef="let element"> {{element?.pais}} </td>
                     </ng-container>
 
+                    <!-- Nombre Column -->
+                    <ng-container matColumnDef="accion">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell class="" *matCellDef="let element">  <mat-icon class="m-0 secondary-text alert-50-fg text-center" style="float: right; color:tomato; cursor: pointer;"(click)="deleteOn(element?.id)">delete</mat-icon> </td>
+                    </ng-container>
+
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row (click)="go(row)"  *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-row (dblclick)="go(row)"  *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
 
             </div>

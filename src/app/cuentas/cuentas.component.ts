@@ -37,7 +37,8 @@ export class CuentasComponent implements OnInit {
         'banco',
         'tipo',
         'numero',
-        'pais'
+        'pais',
+        'accion'
       ];
 
 
@@ -67,6 +68,17 @@ export class CuentasComponent implements OnInit {
 
         });
   }
+
+  deleteOn(cuentaId): any{
+    console.log('DELETEON::', [cuentaId]);
+    this._fuseProgressBarService.show();
+    this.api.delete('cuentas/'+cuentaId)
+        .subscribe( result => {
+          this._fuseProgressBarService.hide();
+            console.log('ELIMINAR::', result);
+            this.api.toast('open', result.success, 5000, 'success');
+        });
+}
 
   next($event): void {
       if ($event.pageIndex != null) {

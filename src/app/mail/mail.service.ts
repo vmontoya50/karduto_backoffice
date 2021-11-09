@@ -21,7 +21,7 @@ export class MailService implements Resolve<any>
     labels: any[];
     routeParams: any;
 
-    url = 'https://api.superenviostoday.com/api/';
+    url = 'https://api.karduto.com/api/';
 
     onTransaccionChanged: BehaviorSubject<any>;
     onMailsChanged: BehaviorSubject<any>;

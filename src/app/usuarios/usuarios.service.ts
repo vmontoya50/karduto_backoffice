@@ -92,7 +92,7 @@ export class UsuariosService implements Resolve<any>
     getContacts(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-                this._httpClient.get('https://api.superenviostoday.com/api/usuarios', {headers: this.headers()})
+                this._httpClient.get('https://api.karduto.com/api/usuarios', {headers: this.headers()})
                     .subscribe((response: any) => {
 
                         this.contacts = response;
@@ -135,7 +135,7 @@ export class UsuariosService implements Resolve<any>
     getUserData(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-                this._httpClient.get('https://api.superenviostoday.com/api/usuarios/1', {headers: this.headers()})
+                this._httpClient.get('https://api.karduto.com/api/usuarios/1', {headers: this.headers()})
                     .subscribe((response: any) => {
                         this.user = response[0];
                         this.onUserDataChanged.next(this.user);
@@ -231,7 +231,7 @@ export class UsuariosService implements Resolve<any>
                     delete contact.password;
 
                 }
-            this._httpClient.put('https://api.superenviostoday.com/api/usuarios/' + contact.id, {...contact}, {headers: this.headers()})
+            this._httpClient.put('https://api.karduto.com/api/usuarios/' + contact.id, {...contact}, {headers: this.headers()})
                 .subscribe(response => {
                     this.getContacts();
                     resolve(response);
@@ -248,7 +248,7 @@ export class UsuariosService implements Resolve<any>
     updateUserData(userData): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this._httpClient.post('https://api.superenviostoday.com/api/v1/register', {headers: this.headers()}, {...userData})
+            this._httpClient.post('https://api.karduto.com/api/v1/register', {headers: this.headers()}, {...userData})
                 .subscribe(response => {
                     this.getUserData();
                     this.getContacts();
@@ -276,7 +276,7 @@ export class UsuariosService implements Resolve<any>
     deleteContact(contact): void
     {
 
-        this._httpClient.delete('https://api.superenviostoday.com/api/usuarios/' + contact.id, {headers: this.headers()})
+        this._httpClient.delete('https://api.karduto.com/api/usuarios/' + contact.id, {headers: this.headers()})
             .subscribe(response => {
 
         });
