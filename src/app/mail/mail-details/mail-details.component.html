@@ -44,6 +44,7 @@
                         <span class="title">Pago movil:</span>
                         <span class="title">Zelle:</span>
                         <span class="title">Referencia:</span>
+                        <span class="title">Numero interbancario:</span>
                     </div>
 
                     <div fxLayout="column">
@@ -61,7 +62,8 @@
                         </span>
                         <span class="detail"*ngIf="mail.id_asignado !== user.id">
                             {{mail.referencia_saliente}}
-                        </span>
+                        </span>       
+                        <span class="detail">{{mail.numero_interbancario}}.</span>
                     </div>
                 </div>
             </div>

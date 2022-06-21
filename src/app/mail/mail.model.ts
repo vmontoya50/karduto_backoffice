@@ -60,6 +60,7 @@ export class Mail
     zelle;
     pago_movil;
     correo_cuenta;
+    numero_interbancario;
 
     /**
      * Constructor
@@ -115,6 +116,7 @@ export class Mail
         this.zelle = mail.zelle;
         this.pago_movil = mail.pago_movil;
         this.correo_cuenta = mail.correo_cuenta;
+        this.numero_interbancario = mail.numero_interbancario;
     }
 
     /**

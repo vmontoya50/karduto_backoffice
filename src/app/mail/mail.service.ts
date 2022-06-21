@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { FuseUtils } from '@fuse/utils';
 
 import { Mail } from './mail.model';
-import {ApiService} from '../api.service';
+import { ApiService } from '../api.service';
 
 @Injectable()
 export class MailService implements Resolve<any>
@@ -21,7 +21,7 @@ export class MailService implements Resolve<any>
     labels: any[];
     routeParams: any;
 
-    url = 'https://api.karduto.com/api/';
+    url = this.api.url;
 
     onTransaccionChanged: BehaviorSubject<any>;
     onMailsChanged: BehaviorSubject<any>;
