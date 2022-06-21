@@ -48,15 +48,15 @@ export class ApiService {
     cargando: any;
     dataSource: any;
 
-   // url = 'https://api.karduto.com/api/';
-   // basepdf = 'https://admin.karduto.com/pdf/';
-   // base = 'https://api.karduto.com/';
-   // ur = 'https://admin.karduto.com/';
-
-    url = 'http://127.0.0.1:8000/api/';
+    url = 'https://api.karduto.com/api/';
     basepdf = 'https://admin.karduto.com/pdf/';
-    base = 'http://127.0.0.1:8000/';
+    base = 'https://api.karduto.com/';
     ur = 'https://admin.karduto.com/';
+
+   // url = 'http://127.0.0.1:8000/api/';
+   // basepdf = 'https://admin.karduto.com/pdf/';
+   // base = 'http://127.0.0.1:8000/';
+   // ur = 'https://admin.karduto.com/';
 
     displaySalud: Food[] = [
         {value: 'FONASA', viewValue: 'FONASA'},
